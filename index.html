@@ -15,83 +15,292 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --azul-noite: #123b70;
+            --azul-profundo: #0c2b52;
+            --azul-vivo: #0876df;
+            --azul-suave: #eaf4ff;
+            --texto: #183454;
+            --texto-suave: #5f7188;
+            --amarelo: #ffc400;
+            --vermelho: #e52b32;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
-            color: #1e293b;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+            background: #f7fbff;
+            color: var(--texto);
         }
 
-        header {
-            background: #123b70;
+        .topo {
+            background: var(--azul-noite);
             color: white;
-            padding: 28px 20px;
-            text-align: center;
+            padding: 0 7%;
+            box-shadow: 0 3px 14px rgba(12, 43, 82, 0.15);
         }
 
-        header h1 {
-            font-size: 28px;
-            margin-bottom: 10px;
+        .topo-conteudo {
+            width: min(1200px, 100%);
+            min-height: 92px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 28px;
         }
 
-        header p {
+        .marca {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .marca-simbolo {
+            width: 54px;
+            height: 60px;
+            display: grid;
+            place-items: center;
+            flex: 0 0 auto;
+            color: white;
+            font-size: 34px;
+            filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
+        }
+
+        .marca-texto strong {
+            display: block;
+            font-size: 27px;
+            line-height: 1.1;
+        }
+
+        .marca-texto span {
+            display: block;
+            margin-top: 5px;
+            color: #d5e6fa;
+            font-size: 14px;
+        }
+
+        .navegacao {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-link {
+            border: 0;
+            padding: 10px 0;
+            background: transparent;
+            color: #eef6ff;
+            font: inherit;
             font-size: 15px;
+            cursor: pointer;
+            transition: color 160ms ease;
+        }
+
+        .nav-link:hover,
+        .nav-link:focus-visible {
+            color: var(--amarelo);
         }
 
         .principal {
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 38px 7% 28px;
+            background: #f7fbff;
+        }
+
+        .hero-layout,
+        .beneficios {
+            width: min(1200px, 100%);
+            margin: 0 auto;
+        }
+
+        .hero-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            align-items: center;
+            gap: 0;
+        }
+
+        .hero-copy {
+            width: min(820px, 100%);
+            margin: 0 auto;
+            padding: 14px 0 24px;
             text-align: center;
-            padding: 50px 20px;
+        }
+
+        .hero-etiqueta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            color: #627995;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .hero-etiqueta::before {
+            width: 42px;
+            height: 4px;
+            content: "";
+            border-radius: 4px;
+            background: var(--azul-vivo);
         }
 
         .principal h2 {
-            color: #123b70;
-            font-size: 25px;
-            margin-bottom: 15px;
+            max-width: 760px;
+            margin-right: auto;
+            margin-left: auto;
+            color: var(--azul-profundo);
+            font-size: 58px;
+            line-height: 1.02;
+            margin-bottom: 20px;
         }
 
-        .principal p {
-            font-size: 16px;
-            line-height: 1.6;
-            margin-bottom: 30px;
+        .principal h2 span {
+            display: block;
+            color: var(--azul-vivo);
         }
 
-        /* BOTÕES PRINCIPAIS */
+        .hero-descricao {
+            max-width: 680px;
+            margin-right: auto;
+            margin-left: auto;
+            margin-bottom: 28px;
+            color: var(--texto-suave);
+            font-size: 20px;
+            line-height: 1.5;
+        }
 
         .botoes-principais {
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
             align-items: center;
+            justify-content: center;
             gap: 14px;
         }
 
         .botao-informar,
         .botao-ajuda {
-            width: 100%;
-            max-width: 320px;
+            min-height: 64px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
             border: none;
             border-radius: 10px;
-            padding: 17px 22px;
-            font-size: 16px;
-            font-weight: bold;
+            padding: 16px 23px;
+            font: inherit;
+            font-size: 15px;
+            font-weight: 800;
             cursor: pointer;
-            transition: 0.2s;
+            transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+        }
+
+        .botao-informar:hover,
+        .botao-ajuda:hover {
+            transform: translateY(-2px);
         }
 
         .botao-informar {
-            background: #f5c400;
-            color: #172554;
+            background: var(--amarelo);
+            color: #142e4a;
+            box-shadow: 0 8px 18px rgba(224, 166, 0, 0.2);
         }
 
         .botao-informar:hover {
-            background: #eab308;
+            background: #f2b900;
         }
 
         .botao-ajuda {
-            background: #dc2626;
+            background: var(--vermelho);
             color: white;
+            box-shadow: 0 8px 18px rgba(197, 34, 43, 0.2);
         }
 
         .botao-ajuda:hover {
-            background: #b91c1c;
+            background: #cc2029;
+        }
+
+        .botao-icone {
+            font-size: 22px;
+            line-height: 1;
+        }
+
+        .botao-seta {
+            margin-left: 5px;
+            font-size: 23px;
+            line-height: 1;
+        }
+
+        .beneficios {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            margin-top: 32px;
+        }
+
+        .beneficio {
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 8px 20px;
+            border-right: 1px solid #dbe6f1;
+        }
+
+        .beneficio:first-child {
+            padding-left: 0;
+        }
+
+        .beneficio:last-child {
+            padding-right: 0;
+            border-right: 0;
+        }
+
+        .beneficio-icone {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            flex: 0 0 auto;
+            border-radius: 50%;
+            background: #deefff;
+            color: var(--azul-vivo);
+            font-size: 23px;
+        }
+
+        .beneficio:nth-child(2) .beneficio-icone {
+            background: #dff7ed;
+            color: #168d61;
+        }
+
+        .beneficio:nth-child(3) .beneficio-icone {
+            background: #eee8ff;
+            color: #7953c9;
+        }
+
+        .beneficio strong {
+            display: block;
+            margin-bottom: 3px;
+            color: #203d5d;
+            font-size: 13px;
+        }
+
+        .beneficio span:last-child {
+            display: block;
+            color: var(--texto-suave);
+            font-size: 12px;
+            line-height: 1.4;
         }
 
         /* FUNDO DAS JANELINHAS */
@@ -266,44 +475,227 @@
             font-weight: bold;
         }
 
-        footer {
-            background: #123b70;
+        .rodape {
+            background: var(--azul-noite);
             color: white;
             text-align: center;
-            padding: 22px;
+            padding: 18px 20px;
             font-size: 13px;
-       }
+        }
+
+        .rodape p + p {
+            margin-top: 4px;
+            color: #c9d9eb;
+            font-size: 12px;
+        }
+
+        @media (max-width: 920px) {
+            .topo {
+                padding: 0 5%;
+            }
+
+            .topo-conteudo {
+                gap: 18px;
+            }
+
+            .navegacao {
+                gap: 16px;
+            }
+
+            .principal {
+                padding-right: 5%;
+                padding-left: 5%;
+            }
+
+            .principal h2 {
+                font-size: 48px;
+            }
+
+            .beneficio {
+                padding-right: 12px;
+                padding-left: 12px;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .topo {
+                padding: 10px 5% 0;
+            }
+
+            .topo-conteudo {
+                min-height: 0;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+            }
+
+            .marca {
+                width: 100%;
+                justify-content: center;
+                padding: 4px 0;
+            }
+
+            .marca-simbolo {
+                width: 42px;
+                height: 46px;
+                font-size: 28px;
+            }
+
+            .marca-texto strong {
+                font-size: 21px;
+            }
+
+            .marca-texto span {
+                font-size: 12px;
+            }
+
+            .navegacao {
+                width: 100%;
+                justify-content: center;
+                gap: 22px;
+                overflow-x: auto;
+            }
+
+            .nav-link {
+                flex: 0 0 auto;
+                padding: 12px 0 14px;
+                font-size: 13px;
+            }
+
+            .principal {
+                padding: 32px 6% 24px;
+            }
+
+            .hero-layout {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 20px;
+            }
+
+            .hero-copy {
+                padding: 0;
+            }
+
+            .hero-etiqueta {
+                gap: 10px;
+                margin-bottom: 18px;
+                font-size: 10px;
+                letter-spacing: 1.3px;
+            }
+
+            .hero-etiqueta::before {
+                width: 30px;
+            }
+
+            .principal h2 {
+                margin-bottom: 14px;
+                font-size: 42px;
+            }
+
+            .hero-descricao {
+                margin-bottom: 22px;
+                font-size: 17px;
+            }
+
+            .botoes-principais {
+                align-items: stretch;
+            }
+
+            .botao-informar,
+            .botao-ajuda {
+                width: 100%;
+                min-height: 58px;
+            }
+
+            .beneficios {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 8px;
+                margin-top: 22px;
+            }
+
+            .beneficio,
+            .beneficio:first-child,
+            .beneficio:last-child {
+                padding: 8px 0;
+                border-right: 0;
+            }
+
+            .beneficio-icone {
+                width: 42px;
+                height: 42px;
+                font-size: 20px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
+            }
+        }
     </style>
 </head>
 
 <body>
 
-    <header>
-        <h1>🧪 TESTE NOVO</h1>
-        <p>Proteção e orientação no ambiente digital</p>
+    <header class="topo">
+        <div class="topo-conteudo">
+            <a class="marca" href="#inicio" aria-label="Conecta Proteção, início">
+                <span class="marca-simbolo" aria-hidden="true">🛡️</span>
+                <span class="marca-texto">
+                    <strong>TESTE NOVO</strong>
+                    <span>Proteção e orientação no ambiente digital</span>
+                </span>
+            </a>
+            <nav class="navegacao" aria-label="Navegação principal">
+                <button class="nav-link" type="button" data-atalho="informacao">Informação</button>
+                <button class="nav-link" type="button" data-atalho="seguranca">Segurança</button>
+                <button class="nav-link" type="button" data-atalho="apoio">Apoio</button>
+                <button class="nav-link" type="button" data-atalho="conscientizacao">Conscientização</button>
+            </nav>
+        </div>
     </header>
 
-    <main class="principal">
-
-        <h2>Você não está sozinho!</h2>
-
-        <p>
-            Encontre informações e orientações para
-            navegar no ambiente digital com mais segurança.
-        </p>
-
-        <div class="botoes-principais">
-
-            <button class="botao-informar" id="abrirModalInformar">
-                QUERO ME INFORMAR
-            </button>
-
-            <button class="botao-ajuda" id="abrirModalAjuda">
-                🚨 PRECISO DE AJUDA
-            </button>
+    <main class="principal" id="inicio">
+        <div class="hero-layout">
+            <section class="hero-copy" aria-labelledby="titulo-principal">
+                <p class="hero-etiqueta">Informação <span>•</span> orientação <span>•</span> mais segurança</p>
+                <h2 id="titulo-principal">Você não está <span>sozinho!</span></h2>
+                <p class="hero-descricao">
+                    Encontre informações e orientações para navegar no ambiente digital com mais segurança.
+                </p>
+                <div class="botoes-principais">
+                    <button class="botao-informar" id="abrirModalInformar">
+                        <span class="botao-icone" aria-hidden="true">📖</span>
+                        QUERO ME INFORMAR
+                        <span class="botao-seta" aria-hidden="true">›</span>
+                    </button>
+                    <button class="botao-ajuda" id="abrirModalAjuda">
+                        <span class="botao-icone" aria-hidden="true">🚨</span>
+                        PRECISO DE AJUDA
+                        <span class="botao-seta" aria-hidden="true">›</span>
+                    </button>
+                </div>
+            </section>
 
         </div>
 
+        <section class="beneficios" aria-label="Apoio oferecido">
+            <div class="beneficio">
+                <span class="beneficio-icone" aria-hidden="true">🛡️</span>
+                <span><strong>Conteúdo confiável</strong><span>Informações seguras e atualizadas.</span></span>
+            </div>
+            <div class="beneficio">
+                <span class="beneficio-icone" aria-hidden="true">👥</span>
+                <span><strong>Orientação prática</strong><span>Dicas para o seu dia a dia digital.</span></span>
+            </div>
+            <div class="beneficio">
+                <span class="beneficio-icone" aria-hidden="true">♡</span>
+                <span><strong>Apoio quando precisar</strong><span>Você não está sozinho nessa jornada.</span></span>
+            </div>
+        </section>
     </main>
 
     <!-- JANELA QUERO ME INFORMAR -->
@@ -1326,7 +1718,7 @@
     </button>
 
 </div>
-  <footer>
+    <footer class="rodape">
 
         <p>Conecta Proteção © 2026</p>
         <p>Projeto Integrador - 3º Ano</p>
@@ -1420,6 +1812,37 @@
 
         modalAjuda.classList.add("ativo");
 
+    });
+
+    document.querySelectorAll("[data-atalho]").forEach(function (atalho) {
+        atalho.addEventListener("click", function () {
+            const destino = atalho.dataset.atalho;
+
+            if (destino === "informacao") {
+                modalInformar.classList.add("ativo");
+                fecharTudo(modalInformar);
+                return;
+            }
+
+            if (destino === "apoio") {
+                modalAjuda.classList.add("ativo");
+                fecharTudo(modalAjuda);
+                return;
+            }
+
+            const painelPorAtalho = {
+                seguranca: "info-seguranca",
+                conscientizacao: "info-direitos"
+            };
+            const painel = document.getElementById(painelPorAtalho[destino]);
+
+            if (painel) {
+                modalInformar.classList.add("ativo");
+                fecharTudo(modalInformar);
+                painel.classList.add("ativo");
+                esconderOpcoes(modalInformar);
+            }
+        });
     });
 
 
