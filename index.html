@@ -1,0 +1,1906 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TESTE NOVO CONECTA</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1e293b;
+        }
+
+        header {
+            background: #123b70;
+            color: white;
+            padding: 28px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 15px;
+        }
+
+        .principal {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .principal h2 {
+            color: #123b70;
+            font-size: 25px;
+            margin-bottom: 15px;
+        }
+
+        .principal p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* BOTÕES PRINCIPAIS */
+
+        .botoes-principais {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .botao-informar,
+        .botao-ajuda {
+            width: 100%;
+            max-width: 320px;
+            border: none;
+            border-radius: 10px;
+            padding: 17px 22px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .botao-informar {
+            background: #f5c400;
+            color: #172554;
+        }
+
+        .botao-informar:hover {
+            background: #eab308;
+        }
+
+        .botao-ajuda {
+            background: #dc2626;
+            color: white;
+        }
+
+        .botao-ajuda:hover {
+            background: #b91c1c;
+        }
+
+        /* FUNDO DAS JANELINHAS */
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: 1000;
+            padding: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.ativo {
+            display: flex;
+        }
+
+        /* JANELINHA */
+
+        .modal-conteudo {
+            background: white;
+            width: 100%;
+            max-width: 450px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 18px;
+            padding: 25px;
+            position: relative;
+            animation: aparecer 0.2s ease;
+        }
+
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-cabecalho {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .modal-cabecalho h2 {
+            color: #123b70;
+            font-size: 22px;
+        }
+
+        .fechar {
+            border: none;
+            background: #eef2f7;
+            color: #334155;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            font-size: 20px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .modal-descricao {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        /* OPÇÕES DOS MENUS */
+
+        .opcao {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #eef4fc;
+            color: #123b70;
+            border: 1px solid #dbe5f3;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .opcao:hover {
+            background: #dceafa;
+        }
+
+        .opcao .icone {
+            font-size: 22px;
+        }
+
+        .opcao .seta {
+            margin-left: auto;
+            font-size: 20px;
+        }
+
+        /* OPÇÃO DE VIOLÊNCIA EM DESTAQUE */
+
+        .opcao-violencia {
+            background: #fef2f2;
+            color: #991b1b;
+            border-color: #fecaca;
+        }
+
+        .opcao-violencia:hover {
+            background: #fee2e2;
+        }
+
+        /* ÁREAS DE INFORMAÇÃO */
+
+        .informacao {
+            display: none;
+            margin-top: 20px;
+            background: #f4f7fb;
+            border-radius: 12px;
+            padding: 18px;
+            line-height: 1.6;
+            color: #334155;
+            font-size: 14px;
+        }
+
+        .informacao.ativo {
+            display: block;
+        }
+
+        .informacao h3 {
+            color: #123b70;
+            margin-bottom: 10px;
+        }
+
+        .informacao p {
+            margin-bottom: 10px;
+        }
+
+        .informacao ul {
+            margin: 10px 0 10px 20px;
+        }
+
+        .informacao li {
+            margin-bottom: 8px;
+        }
+
+        .acolhimento {
+            background: #eff6ff;
+            border-left: 4px solid #2563eb;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 15px;
+        }
+
+        .voltar {
+            background: #123b70;
+            color: white;
+            border: none;
+            padding: 11px 18px;
+            border-radius: 8px;
+            margin-top: 15px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #123b70;
+            color: white;
+            text-align: center;
+            padding: 22px;
+            font-size: 13px;
+       }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>🧪 TESTE NOVO</h1>
+        <p>Proteção e orientação no ambiente digital</p>
+    </header>
+
+    <main class="principal">
+
+        <h2>Você não está sozinho!</h2>
+
+        <p>
+            Encontre informações e orientações para
+            navegar no ambiente digital com mais segurança.
+        </p>
+
+        <div class="botoes-principais">
+
+            <button class="botao-informar" id="abrirModalInformar">
+                QUERO ME INFORMAR
+            </button>
+
+            <button class="botao-ajuda" id="abrirModalAjuda">
+                🚨 PRECISO DE AJUDA
+            </button>
+
+        </div>
+
+    </main>
+
+    <!-- JANELA QUERO ME INFORMAR -->
+
+    <div class="modal" id="modalInformar">
+
+        <div class="modal-conteudo">
+
+            <div class="modal-cabecalho">
+
+                <h2>Quero Me Informar</h2>
+
+                <button class="fechar" id="fecharModalInformar">
+                    &times;
+                </button>
+
+            </div>
+
+            <p class="modal-descricao">
+                Escolha uma opção para conhecer mais
+                sobre proteção no ambiente digital.
+            </p>
+
+            <div class="menu-informar">
+
+                <button class="opcao" data-info="seguranca">
+
+                    <span class="icone">🛡️</span>
+                    <span>Segurança digital</span>
+                    <span class="seta">›</span>
+
+                </button>
+
+                <button class="opcao" data-info="direitos">
+
+                    <span class="icone">📚</span>
+                    <span>Conheça seus direitos</span>
+                    <span class="seta">›</span>
+
+                </button>
+
+                <button class="opcao" data-info="riscos">
+
+                    <span class="icone">⚠️</span>
+                    <span>Identifique situações de risco</span>
+                    <span class="seta">›</span>
+
+                </button>
+
+                <button class="opcao" data-info="ajuda">
+
+                    <span class="icone">🤝</span>
+                    <span>Onde buscar ajuda</span>
+                    <span class="seta">›</span>
+
+                </button>
+
+            </div>
+
+            <div class="informacao" id="info-seguranca">
+
+                <h3>🛡️ Segurança digital</h3>
+
+                <p>
+                    Aprenda sobre atitudes que ajudam
+                    a proteger crianças e adolescentes
+                    durante o uso da internet.
+                </p>
+
+                <ul>
+                    <li>Proteja suas informações pessoais.</li>
+                    <li>Use senhas seguras.</li>
+                    <li>Tenha cuidado com pessoas desconhecidas.</li>
+                    <li>Procure ajuda quando algo causar desconforto.</li>
+                </ul>
+
+                <button class="voltar">Voltar às opções</button>
+
+            </div>
+
+            <div class="informacao" id="info-direitos">
+
+                <h3>📚 Conheça seus direitos</h3>
+
+                <p>
+                    Crianças e adolescentes têm direito
+                    à proteção, ao respeito e à segurança,
+                    inclusive no ambiente digital.
+                </p>
+
+                <p>
+                    Nenhuma pessoa deve ser ameaçada,
+                    constrangida ou responsabilizada
+                    pela violência que sofreu.
+                </p>
+
+                <button class="voltar">Voltar às opções</button>
+
+            </div>
+
+            <div class="informacao" id="info-riscos">
+
+                <h3>⚠️ Situações de risco</h3>
+
+                <p>
+                    Conheça sinais de alerta e saiba
+                    como buscar orientação de um adulto
+                    de confiança diante de situações
+                    preocupantes na internet.
+                </p>
+
+                <ul>
+                    <li>Ameaças ou chantagens.</li>
+                    <li>Pedidos de informações pessoais.</li>
+                    <li>Pressão para manter segredos.</li>
+                    <li>Mensagens que provocam medo ou desconforto.</li>
+                </ul>
+
+                <button class="voltar">Voltar às opções</button>
+
+            </div>
+
+            <div class="informacao" id="info-ajuda">
+
+                <h3>🤝 Onde buscar ajuda</h3>
+
+                <p>
+                    Procure um adulto de confiança
+                    e conheça os serviços da rede de
+                    proteção que podem orientar
+                    crianças e adolescentes.
+                </p>
+
+                <button class="voltar">Voltar às opções</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- JANELA PRECISO DE AJUDA -->
+
+    <div class="modal" id="modalAjuda">
+
+        <div class="modal-conteudo">
+
+            <div class="modal-cabecalho">
+
+                <h2>🚨 Preciso de ajuda</h2>
+
+                <button class="fechar" id="fecharModalAjuda">
+                    &times;
+                </button>
+
+            </div>
+
+            <p class="modal-descricao">
+                Escolha uma opção para encontrar
+                informações e orientações.
+            </p>
+
+            <div class="menu-ajuda">
+
+                <!-- PRIMEIRA OPÇÃO -->
+
+                <button class="opcao opcao-violencia"
+                    data-ajuda="violencia">
+
+                    <span class="icone">🚨</span>
+                    <span>Sofri uma situação de violência</span>
+                    <span class="seta">›</span>
+
+                </button>
+
+                <button class="opcao"
+                    data-ajuda="orientacao">
+
+                    <span class="icone">💙</span>
+                    <span>Preciso de orientação</span>
+                    <span class="seta">›</span>
+
+                </button>
+
+                <button class="opcao"
+                    data-ajuda="ajudar">
+
+                    <span class="icone">👥</span>
+                    <span>Quero ajudar alguém</span>
+                    <span class="seta">›</span>
+
+                </button>
+
+                <button class="opcao"
+                    data-ajuda="rede">
+
+                    <span class="icone">📍</span>
+                    <span>Onde buscar ajuda?</span>
+                    <span class="seta">›</span>
+
+                </button>
+
+            </div>
+
+            
+<!-- SOFRI UMA SITUAÇÃO DE VIOLÊNCIA -->
+
+<div class="informacao" id="ajuda-violencia">
+<button class="voltar voltar-menu-ajuda">
+    ← Voltar às opções de ajuda
+</button>
+    <h3>🚨 Sofri uma situação de violência</h3>
+
+    <div class="acolhimento">
+        Você não tem culpa pelo que aconteceu.
+        Você merece ser ouvida, respeitada
+        e protegida.
+    </div>
+
+    <p>
+        Escolha o tipo de situação para conhecer
+        informações e orientações.
+    </p>
+
+    <!-- TIPOS DE VIOLÊNCIA -->
+
+    <button class="opcao"
+        data-tipo-violencia="verbal">
+
+        <span class="icone">🗣️</span>
+        <span>Violência verbal e psicológica</span>
+        <span class="seta">›</span>
+
+    </button>
+
+    <button class="opcao"
+        data-tipo-violencia="digital">
+
+        <span class="icone">📱</span>
+        <span>Violência digital</span>
+        <span class="seta">›</span>
+
+    </button>
+
+    <button class="opcao"
+        data-tipo-violencia="privacidade">
+
+        <span class="icone">🔒</span>
+        <span>Violação de privacidade</span>
+        <span class="seta">›</span>
+
+    </button>
+
+    <button class="opcao"
+        data-tipo-violencia="aliciamento">
+
+        <span class="icone">🎭</span>
+        <span>Manipulação e aliciamento</span>
+        <span class="seta">›</span>
+
+ </button>
+
+    <button class="opcao"
+        data-tipo-violencia="sexual">
+
+       <span class="icone">🛡️</span>
+       <span>Violência sexual</span>
+       <span class="seta">›</span>
+
+</button>
+    <button class="opcao"
+        data-tipo-violencia="chantagem">
+
+        <span class="icone">⚠️</span>
+        <span>Ameaças e chantagem</span>
+        <span class="seta">›</span>
+
+    </button>
+
+    <button class="opcao"
+        data-tipo-violencia="nao-sei">
+
+        <span class="icone">❓</span>
+        <span>Não sei identificar o que aconteceu</span>
+        <span class="seta">›</span>
+
+    </button>
+<!-- OPÇÕES DO TIPO DE VIOLÊNCIA -->
+
+<div id="opcoes-tipo-violencia" style="display: none;">
+
+    <h3>Como podemos ajudar?</h3>
+
+    <button class="opcao" data-subopcao="o-que-e">
+
+        <span class="icone">📚</span>
+        <span>O que é essa violência?</span>
+        <span class="seta">›</span>
+
+    </button>
+
+    <button class="opcao" data-subopcao="cuidados">
+
+        <span class="icone">🛡️</span>
+        <span>Como posso me cuidar?</span>
+        <span class="seta">›</span>
+
+    </button>
+
+    <button class="opcao" data-subopcao="canais">
+
+        <span class="icone">📍</span>
+        <span>Canais de denúncia e proteção</span>
+        <span class="seta">›</span>
+
+    </button>
+
+</div>
+    <button class="voltar voltar-tipos-violencia">
+    ← Voltar aos tipos de violência
+</button>
+    
+
+</div>
+
+
+            
+
+            <!-- ORIENTAÇÃO GERAL -->
+
+            <div class="informacao" id="ajuda-orientacao">
+
+                <h3>💙 Preciso de orientação</h3>
+
+                <p>
+                    Se você está enfrentando uma situação
+                    preocupante na internet, não precisa
+                    lidar com tudo sozinha.
+                </p>
+
+                <ul>
+                    <li>Converse com alguém de confiança.</li>
+                    <li>Procure informações seguras.</li>
+                    <li>Peça ajuda quando sentir medo ou desconforto.</li>
+                </ul>
+
+                <button class="voltar">Voltar às opções</button>
+
+            </div>
+
+            <!-- QUERO AJUDAR ALGUÉM -->
+
+            <div class="informacao" id="ajuda-ajudar">
+
+                <h3>👥 Quero ajudar alguém</h3>
+
+                <p>
+                    Escute a pessoa com respeito e sem
+                    julgamentos. Evite culpá-la pelo
+                    que aconteceu.
+                </p>
+
+                <ul>
+                    <li>Leve o relato a sério.</li>
+                    <li>Incentive a busca por um adulto de confiança.</li>
+                    <li>Procure apoio da rede de proteção.</li>
+                </ul>
+
+                <button class="voltar">Voltar às opções</button>
+
+            </div>
+
+            <!-- ONDE BUSCAR AJUDA -->
+
+            <div class="informacao" id="ajuda-rede">
+
+                <h3>📍 Onde buscar ajuda?</h3>
+
+                <p>
+                    Você pode procurar um adulto de confiança,
+                    a escola ou os serviços da rede de proteção.
+                </p>
+
+                <p>
+                    Em uma situação de perigo imediato,
+                    procure ajuda presencial de um adulto
+                    responsável ou dos serviços de emergência.
+                </p>
+
+                <button class="voltar">Voltar às opções</button>
+
+            </div>
+ <!-- VIOLAÇÃO DE PRIVACIDADE -->
+
+<div class="informacao" id="privacidade-o-que-e" style="display: none;">
+
+    <h3>🔐 O que é violação de privacidade?</h3>
+
+    <p>
+        A violação de privacidade acontece quando alguém
+        acessa, usa ou compartilha informações pessoais,
+        imagens ou conversas de outra pessoa sem autorização,
+        desrespeitando sua intimidade e seus direitos.
+    </p>
+
+    <p>
+        No ambiente digital, isso pode acontecer por meio de
+        redes sociais, aplicativos de mensagens, jogos ou
+        outros espaços online.
+    </p>
+
+    <h4>⚠️ Exemplos de situações</h4>
+
+    <ul>
+        <li>
+            Compartilhar fotos ou vídeos sem autorização.
+        </li>
+
+        <li>
+            Divulgar conversas privadas.
+        </li>
+
+        <li>
+            Acessar uma conta ou dispositivo sem permissão.
+        </li>
+
+        <li>
+            Expor informações pessoais de uma criança ou adolescente.
+        </li>
+    </ul>
+
+    <div class="acolhimento">
+        🔒 Ninguém tem o direito de invadir ou expor a privacidade
+        de outra pessoa. Pedir ajuda quando isso acontece é importante. 🤝
+    </div>
+
+    <button class="voltar voltar-tipos-violencia">
+        ← Voltar aos tipos de violência
+    </button>
+
+</div>
+          <!-- COMO POSSO ME CUIDAR: VIOLAÇÃO DE PRIVACIDADE -->
+
+<div class="informacao" id="privacidade-como-se-cuidar" style="display: none;">
+
+    <h3>🛡️ Como posso me cuidar?</h3>
+
+    <p>
+        Algumas atitudes podem ajudar você a proteger
+        sua privacidade no ambiente digital:
+    </p>
+
+    <ul>
+
+        <li>
+            Proteja suas contas com senhas fortes e,
+            quando disponível, ative a verificação em duas etapas.
+        </li>
+
+        <li>
+            Evite compartilhar endereço, telefone, senhas,
+            documentos ou outros dados pessoais com desconhecidos.
+        </li>
+
+        <li>
+            Revise as configurações de privacidade das suas
+            redes sociais e aplicativos.
+        </li>
+
+        <li>
+            Pense antes de compartilhar informações,
+            fotos ou outros conteúdos pessoais.
+        </li>
+
+        <li>
+            Se algo acontecer, guarde informações que possam
+            ajudar a registrar o ocorrido e procure orientação.
+        </li>
+
+        <li>
+            Converse com alguém de confiança ou procure apoio
+            da rede de proteção quando precisar.
+        </li>
+
+    </ul>
+
+    <button class="voltar voltar-tipos-violencia">
+
+        ← Voltar aos tipos de violência
+
+    </button>
+
+</div>
+          <!-- CONTEÚDO: MANIPULAÇÃO E ALICIAMENTO -->
+
+<div class="informacao" id="aliciamento-o-que-e" style="display: none;">
+
+    <h3>🔐 O que é manipulação e aliciamento?</h3>
+
+    <p>
+        Manipulação e aliciamento acontecem quando alguém
+        ganha a confiança de uma criança ou adolescente
+        por meio de elogios, promessas ou mentiras com a
+        intenção de influenciar e colocá-lo em uma situação
+        de risco.
+    </p>
+
+    <p>
+        No ambiente digital, isso pode acontecer por meio
+        de redes sociais, jogos, aplicativos de mensagens
+        ou outros espaços online.
+    </p>
+
+    <h4>⚠️ Exemplos de situações</h4>
+
+    <ul>
+        <li>Fingir ser outra pessoa para ganhar confiança.</li>
+
+        <li>Oferecer presentes ou benefícios em troca de
+        fotos ou informações.</li>
+
+        <li>Pedir para manter as conversas em segredo.</li>
+
+        <li>Pressionar ou ameaçar para conseguir algo.</li>
+    </ul>
+
+    <div class="acolhimento">
+        Nem toda conversa é inocente. Quando alguém tenta
+        ganhar sua confiança para te colocar em uma situação
+        de risco, isso também é violência. Você tem o direito
+        de desconfiar, se proteger e pedir ajuda.
+    </div>
+
+    <button class="voltar voltar-tipos-violencia">
+        ← Voltar aos tipos de violência
+    </button>
+
+</div>
+            <!-- CONTEÚDO: VIOLÊNCIA SEXUAL -->
+
+<div class="informacao" id="sexual-o-que-e" style="display: none;">
+
+    <h3>🔐 O que é violência sexual?</h3>
+
+    <p>
+        A violência sexual pode acontecer com pessoas de diferentes
+        idades e ocorre quando alguém é envolvido em uma situação
+        de natureza sexual por meio de pressão, manipulação,
+        exploração, ameaça ou outras formas de violência.
+    </p>
+
+    <p>
+        No ambiente digital, também pode acontecer por meio de
+        mensagens, imagens, vídeos, chamadas ou pedidos de
+        conteúdo íntimo.
+    </p>
+
+    <h4>⚠️ Exemplos de situações</h4>
+
+    <ul>
+        <li>Pedir ou pressionar alguém a enviar imagens íntimas.</li>
+
+        <li>Enviar mensagens ou imagens de conteúdo sexual
+        sem consentimento.</li>
+
+        <li>Fazer comentários ou propostas de natureza sexual
+        de forma inadequada.</li>
+
+        <li>Ameaçar divulgar imagens ou conversas íntimas.</li>
+
+        <li>Manipular ou pressionar alguém para participar de
+        uma situação sexual.</li>
+    </ul>
+
+    <div class="acolhimento">
+        Seu corpo, seus limites e sua privacidade merecem respeito.
+        Se alguém tentar pressionar, manipular ou explorar você
+        em uma situação sexual, você não precisa enfrentar isso
+        sozinho. Pedir ajuda é um direito, e você merece ser protegido.
+    </div>
+
+    <button class="voltar voltar-tipos-violencia">
+        ← Voltar aos tipos de violência
+    </button>
+
+</div>
+          <!-- CONTEÚDO: AMEAÇAS E CHANTAGEM -->
+
+<div class="informacao" id="chantagem-o-que-e" style="display: none;">
+
+    <h3>⚠️ O que são ameaças e chantagem?</h3>
+
+    <p>
+        Ameaças e chantagem acontecem quando alguém usa
+        medo, pressão ou ameaças para tentar obrigar outra
+        pessoa a fazer algo contra a própria vontade ou a
+        manter uma situação em segredo.
+    </p>
+
+    <p>
+        No ambiente digital, isso pode acontecer por meio de
+        mensagens, redes sociais, jogos ou aplicativos de conversa.
+    </p>
+
+    <h4>⚠️ Exemplos de situações</h4>
+
+    <ul>
+        <li>Ameaçar divulgar informações, fotos ou conversas privadas.</li>
+
+        <li>Exigir algo para não revelar um segredo.</li>
+
+        <li>Pressionar alguém a enviar fotos ou informações.</li>
+
+        <li>Ameaçar causar problemas caso a pessoa peça ajuda.</li>
+
+        <li>Usar mensagens para assustar ou controlar alguém.</li>
+    </ul>
+
+    <div class="acolhimento">
+        Ninguém deve ser obrigado a fazer algo por medo ou ameaça.
+        Se alguém estiver tentando assustar, pressionar ou controlar
+        você, pedir ajuda é um direito. Você merece segurança e proteção.
+    </div>
+
+    <button class="voltar voltar-tipos-violencia">
+        ← Voltar aos tipos de violência
+    </button>
+
+</div>
+         <!-- CONTEÚDO: NÃO SEI QUAL SITUAÇÃO ESTOU ENFRENTANDO -->
+
+<div class="informacao" id="nao-sei-o-que-e" style="display: none;">
+
+    <h3>🔎 Não sei qual situação estou enfrentando</h3>
+
+    <p>
+        Nem sempre é fácil identificar o que está acontecendo,
+        principalmente quando existe pressão, medo, manipulação
+        ou quando a situação parece confusa.
+    </p>
+
+    <p>
+        Se alguma interação na internet está fazendo você se sentir
+        inseguro, desconfortável, pressionado ou ameaçado, isso merece
+        atenção, mesmo que você ainda não saiba como definir a situação.
+    </p>
+
+    <h4>⚠️ Alguns sinais de alerta</h4>
+
+    <ul>
+        <li>Alguém está pressionando você a fazer algo que não quer.</li>
+        <li>Alguém está pedindo para esconder uma conversa ou situação.</li>
+        <li>Você está recebendo ameaças ou mensagens que causam medo.</li>
+        <li>Alguém está tentando controlar suas decisões ou contatos.</li>
+        <li>Você sente que alguma situação online ultrapassou seus limites.</li>
+    </ul>
+
+    <div class="acolhimento">
+        Você não precisa saber exatamente o que está acontecendo
+        para pedir ajuda. Se algo parece errado ou faz você se sentir
+        inseguro, procure orientação e conte o que aconteceu para
+        alguém ou serviço que possa ajudar.
+    </div>
+
+    <button class="voltar voltar-tipos-violencia">
+        ← Voltar aos tipos de violência
+    </button>
+
+</div>
+          <!-- ORIENTAÇÃO: O QUE FAZER AGORA -->
+
+            <div class="informacao" id="orientacao-agora">
+
+                <h3>💙 O que fazer agora?</h3>
+
+                <p>
+                    Se você passou por uma situação de violência:
+                </p>
+
+                <ul>
+                    <li>Procure um lugar seguro.</li>
+                    <li>Converse com um adulto de confiança.</li>
+                    <li>Não se culpe pelo que aconteceu.</li>
+                    <li>Peça ajuda à rede de proteção.</li>
+                </ul>
+
+                <button class="voltar">Voltar às opções</button>
+
+            </div>
+
+            <!-- ORIENTAÇÃO: COM QUEM CONVERSAR -->
+
+            <div class="informacao" id="orientacao-conversar">
+
+                <h3>👥 Com quem posso conversar?</h3>
+
+                <p>
+                    Você pode procurar alguém que faça
+                    você se sentir segura, como:
+                </p>
+
+                <ul>
+                    <li>Responsável ou familiar de confiança.</li>
+                    <li>Professor ou profissional da escola.</li>
+                    <li>Conselheiro tutelar ou outro profissional da rede de proteção.</li>
+                </ul>
+
+                <button class="voltar">Voltar às opções</button>
+
+            </div>
+
+            <!-- ORIENTAÇÃO: REDE DE PROTEÇÃO -->
+
+            <div class="informacao" id="orientacao-protecao">
+
+                <h3>📍 Onde buscar ajuda e proteção?</h3>
+
+                <p>
+                    Procure um adulto de confiança e
+                    peça orientação sobre os serviços
+                    da rede de proteção disponíveis
+                    na sua região.
+                </p>
+
+                <p>
+                    A Conecta Proteção apresenta
+                    informações educativas e não realiza
+                    atendimento ou recebimento de denúncias
+                    nesta versão do protótipo.
+                </p>
+
+                <button class="voltar">Voltar às opções</button>
+
+            </div>
+
+            <!-- ORIENTAÇÃO: SEGURANÇA DIGITAL -->
+
+            <div class="informacao" id="orientacao-seguranca">
+
+                <h3>🔒 Como preservar minha segurança digital?</h3>
+
+                <ul>
+                    <li>Evite compartilhar informações pessoais.</li>
+                    <li>Procure apoio antes de responder a ameaças.</li>
+                    <li>Converse com um adulto de confiança.</li>
+                    <li>Use as ferramentas de bloqueio e denúncia das plataformas quando for seguro.</li>
+                </ul>
+
+                <button class="voltar">Voltar às opções</button>
+
+            </div>
+
+        </div>
+
+    </div>
+<!-- CONTEÚDO: VIOLÊNCIA VERBAL E PSICOLÓGICA -->
+
+<div class="informacao" id="verbal-o-que-e" style="display: none;">
+
+    <h3>📚 O que é violência verbal e psicológica?</h3>
+
+    <p>
+        A violência verbal e psicológica acontece
+        quando alguém usa palavras ou atitudes
+        para humilhar, ameaçar ou causar
+        sofrimento emocional.
+    </p>
+
+    <p>
+        No ambiente digital, pode ocorrer por meio
+        de insultos, cyberbullying, ameaças
+        e mensagens ofensivas.
+    </p>
+
+    <div class="acolhimento">
+
+        Você não tem culpa pelo que aconteceu.
+        Você merece respeito, proteção e ajuda.
+
+    </div>
+
+    <button class="voltar voltar-tipos-violencia">
+
+        ← Voltar aos tipos de violência
+
+    </button>
+
+</div>
+<div class="informacao" id="verbal-como-se-cuidar" style="display: none;">
+    <h3>Como posso me cuidar?</h3>
+
+    <p>
+        Algumas atitudes podem ajudar você a se proteger de situações
+        de violência verbal e psicológica:
+    </p>
+
+    <ul>
+        <li>Reconheça que insultos, humilhações, ameaças e intimidações não são normais nem culpa sua.</li>
+
+        <li>Evite responder a provocações com mais agressividade.</li>
+
+        <li>Afaste-se da situação quando perceber que ela está ficando ameaçadora.</li>
+
+        <li>Converse com alguém de confiança sobre o que está acontecendo.</li>
+
+        <li>Se a situação acontecer pela internet, guarde mensagens ou outros registros que possam ajudar a explicar o que aconteceu.</li>
+
+        <li>Procure ajuda quando sentir que não consegue lidar com a situação sozinho.</li>
+    </ul>
+</div>
+  <!-- CONTEÚDO: VIOLÊNCIA DIGITAL -->
+
+<div class="informacao" id="digital-o-que-e" style="display: none;">
+
+    <h3>📱 O que é violência digital?</h3>
+
+    <p>
+        A violência digital acontece quando alguém
+        utiliza a internet, as redes sociais ou
+        outros meios digitais para prejudicar,
+        ameaçar, humilhar ou expor outra pessoa.
+    </p>
+
+    <p>
+        Ela pode acontecer por meio de:
+    </p>
+
+    <ul>
+
+        <li>
+            <strong>Cyberbullying:</strong>
+            ofensas, humilhações ou perseguições
+            na internet.
+        </li>
+
+        <li>
+            <strong>Ameaças:</strong>
+            mensagens que provocam medo
+            ou insegurança.
+        </li>
+
+        <li>
+            <strong>Exposição indevida:</strong>
+            divulgação de fotos, vídeos ou
+            informações pessoais sem autorização.
+        </li>
+
+        <li>
+            <strong>Perseguição virtual:</strong>
+            quando alguém insiste em incomodar,
+            controlar ou intimidar outra pessoa.
+        </li>
+
+        <li>
+            <strong>Manipulação e chantagem:</strong>
+            uso de pressão ou ameaças para
+            obrigar alguém a fazer algo.
+        </li>
+
+    </ul>
+
+    <div class="acolhimento">
+
+        A violência digital não é culpa da pessoa
+        que sofreu. Se algo na internet causar
+        medo, constrangimento ou desconforto,
+        procure um adulto de confiança
+        e peça orientação.
+
+    </div>
+
+    <button class="voltar voltar-tipos-violencia">
+
+        ← Voltar aos tipos de violência
+
+    </button>
+
+</div>
+ <div class="informacao" id="digital-como-se-cuidar" style="display: none;">
+
+    <h3>🛡️ Como posso me cuidar?</h3>
+
+    <p>
+        Algumas atitudes podem ajudar você a aumentar sua segurança
+        no ambiente digital:
+    </p>
+
+    <ul>
+
+        <li>
+            Evite compartilhar senhas e dados pessoais.
+        </li>
+
+        <li>
+            Revise as configurações de privacidade
+            das suas redes sociais.
+        </li>
+
+        <li>
+            Tenha cuidado ao conversar com pessoas
+            que você não conhece pessoalmente.
+        </li>
+
+        <li>
+            Não compartilhe fotos ou informações íntimas.
+        </li>
+
+        <li>
+            Se algo online deixar você desconfortável
+            ou com medo, guarde os registros da situação
+            e procure ajuda.
+        </li>
+
+        <li>
+            Bloqueie e denuncie contas que estejam
+            ameaçando, perseguindo ou assediando você.
+        </li>
+
+    </ul>
+
+    <button class="voltar voltar-tipos-violencia">
+
+        ← Voltar aos tipos de violência
+
+    </button>
+
+</div>
+  <footer>
+
+        <p>Conecta Proteção © 2026</p>
+        <p>Projeto Integrador - 3º Ano</p>
+
+    </footer>
+
+    
+<script>
+
+    // ELEMENTOS: QUERO ME INFORMAR
+
+    const abrirModalInformar =
+        document.getElementById("abrirModalInformar");
+
+    const fecharModalInformar =
+        document.getElementById("fecharModalInformar");
+
+    const modalInformar =
+        document.getElementById("modalInformar");
+
+
+    // ELEMENTOS: PRECISO DE AJUDA
+
+    const abrirModalAjuda =
+        document.getElementById("abrirModalAjuda");
+
+    const fecharModalAjuda =
+        document.getElementById("fecharModalAjuda");
+
+    const modalAjuda =
+        document.getElementById("modalAjuda");
+
+
+    // FECHAR INFORMAÇÕES E MOSTRAR OPÇÕES
+
+    function fecharTudo(modal) {
+
+        const informacoes =
+            modal.querySelectorAll(".informacao");
+
+        const opcoes =
+    modal.querySelectorAll(
+        ".menu-informar .opcao, .menu-ajuda .opcao"
+    );
+
+        informacoes.forEach(function (info) {
+
+            info.classList.remove("ativo");
+
+        });
+
+        opcoes.forEach(function (opcao) {
+
+            opcao.style.display = "flex";
+
+        });
+
+    }
+
+
+    // ESCONDER OPÇÕES DOS MENUS PRINCIPAIS
+
+    function esconderOpcoes(modal) {
+
+        const opcoes =
+            modal.querySelectorAll(
+                "[data-info], [data-ajuda], [data-orientacao]"
+            );
+
+        opcoes.forEach(function (opcao) {
+
+            opcao.style.display = "none";
+
+        });
+
+    }
+
+
+    // ABRIR QUERO ME INFORMAR
+
+    abrirModalInformar.addEventListener("click", function () {
+
+        modalInformar.classList.add("ativo");
+
+    });
+
+
+    // ABRIR PRECISO DE AJUDA
+
+    abrirModalAjuda.addEventListener("click", function () {
+
+        modalAjuda.classList.add("ativo");
+
+    });
+
+
+    // FECHAR MODAL INFORMAR
+
+    fecharModalInformar.addEventListener("click", function () {
+
+        modalInformar.classList.remove("ativo");
+
+        fecharTudo(modalInformar);
+
+    });
+
+
+    // FECHAR MODAL AJUDA
+
+    fecharModalAjuda.addEventListener("click", function () {
+
+        modalAjuda.classList.remove("ativo");
+
+        fecharTudo(modalAjuda);
+
+    });
+
+
+    // FECHAR AO CLICAR FORA
+
+    modalInformar.addEventListener("click", function (evento) {
+
+        if (evento.target === modalInformar) {
+
+            modalInformar.classList.remove("ativo");
+
+            fecharTudo(modalInformar);
+
+        }
+
+    });
+
+
+    modalAjuda.addEventListener("click", function (evento) {
+
+        if (evento.target === modalAjuda) {
+
+            modalAjuda.classList.remove("ativo");
+
+            fecharTudo(modalAjuda);
+
+        }
+
+    });
+
+
+    // OPÇÕES DO MENU INFORMAR
+
+    const opcoesInformar =
+        document.querySelectorAll("[data-info]");
+
+    opcoesInformar.forEach(function (opcao) {
+
+        opcao.addEventListener("click", function () {
+
+            const nomeInfo =
+                opcao.dataset.info;
+
+            fecharTudo(modalInformar);
+
+            const informacao =
+                document.getElementById("info-" + nomeInfo);
+
+            if (informacao) {
+
+                informacao.classList.add("ativo");
+
+            }
+
+            esconderOpcoes(modalInformar);
+
+        });
+
+    });
+
+
+    // OPÇÕES DO MENU AJUDA
+
+    const opcoesAjuda =
+        document.querySelectorAll("[data-ajuda]");
+
+    opcoesAjuda.forEach(function (opcao) {
+
+        opcao.addEventListener("click", function () {
+
+            const nomeAjuda =
+                opcao.dataset.ajuda;
+if (nomeAjuda === "violencia") {
+
+    const tipos =
+        document.querySelectorAll("[data-tipo-violencia]");
+
+    const opcoesTipo =
+        document.getElementById("opcoes-tipo-violencia");
+
+    tipos.forEach(function (tipo) {
+        tipo.style.display = "flex";
+    });
+
+    opcoesTipo.style.display = "none";
+
+    const ajudaViolencia =
+        document.getElementById("ajuda-violencia");
+
+    fecharTudo(modalAjuda);
+
+    if (ajudaViolencia) {
+        ajudaViolencia.classList.add("ativo");
+    }
+
+    esconderOpcoes(modalAjuda);
+
+    return;
+}
+            fecharTudo(modalAjuda);
+
+            const informacao =
+                document.getElementById("ajuda-" + nomeAjuda);
+
+            if (informacao) {
+
+                informacao.classList.add("ativo");
+
+            }
+
+            esconderOpcoes(modalAjuda);
+
+        });
+
+    });
+
+
+    // CARTÕES DE ORIENTAÇÃO
+
+    const opcoesOrientacao =
+        document.querySelectorAll("[data-orientacao]");
+
+    opcoesOrientacao.forEach(function (opcao) {
+
+        opcao.addEventListener("click", function () {
+
+            const nomeOrientacao =
+                opcao.dataset.orientacao;
+
+            fecharTudo(modalAjuda);
+
+            const informacao =
+                document.getElementById(
+                    "orientacao-" + nomeOrientacao
+                );
+
+            if (informacao) {
+
+                informacao.classList.add("ativo");
+
+            }
+
+            esconderOpcoes(modalAjuda);
+
+        });
+
+    });
+
+// ==========================================
+// BOTÕES VOLTAR
+// ==========================================
+
+const botoesVoltar =
+    document.querySelectorAll(".voltar");
+
+botoesVoltar.forEach(function (botao) {
+
+    botao.addEventListener("click", function () {
+
+        // Voltar para os tipos de violência
+        if (
+            botao.classList.contains("voltar-tipos-violencia")
+        ) {
+
+            // Esconder todos os conteúdos das violências
+            const conteudosViolencia = [
+    document.getElementById("verbal-o-que-e"),
+    document.getElementById("verbal-como-se-cuidar"),
+    document.getElementById("digital-como-se-cuidar"),
+    document.getElementById("digital-o-que-e"),
+    document.getElementById("privacidade-o-que-e"),
+    document.getElementById("privacidade-como-se-cuidar"),
+    document.getElementById("aliciamento-o-que-e"),
+    document.getElementById("sexual-o-que-e"),
+    document.getElementById("chantagem-o-que-e"),          
+    document.getElementById("nao-sei-o-que-e")
+ ];
+            conteudosViolencia.forEach(function (conteudo) {
+
+                if (conteudo) {
+                    conteudo.style.display = "none";
+                    conteudo.classList.remove("ativo");
+                }
+
+            });
+
+            // Mostrar novamente os tipos de violência
+            const tiposViolencia =
+                document.querySelectorAll(
+                    "[data-tipo-violencia]"
+                );
+
+            tiposViolencia.forEach(function (tipo) {
+                tipo.style.display = "flex";
+            });
+
+            // Esconder as opções "O que é...",
+            // "Como posso me cuidar..." etc.
+            const opcoesTipo =
+                document.getElementById(
+                    "opcoes-tipo-violencia"
+                );
+
+            if (opcoesTipo) {
+                opcoesTipo.style.display = "none";
+            }
+
+            return;
+        }
+
+        // Outros botões voltar
+        fecharTudo(modalInformar);
+        fecharTudo(modalAjuda);
+
+    });
+
+});
+
+// TIPOS DE VIOLÊNCIA
+// VOLTAR PARA O MENU PRINCIPAL DE AJUDA
+
+const botaoMenuAjuda =
+    document.querySelector(".voltar-menu-ajuda");
+
+if (botaoMenuAjuda) {
+
+    botaoMenuAjuda.addEventListener("click", function () {
+
+        const tiposViolencia =
+            document.querySelectorAll("[data-tipo-violencia]");
+
+        const opcoesTipo =
+            document.getElementById("opcoes-tipo-violencia");
+
+        const conteudoDigital =
+            document.getElementById("conteudo-violencia-digital");
+
+        // Esconder os conteúdos específicos
+        if (conteudoDigital) {
+
+            conteudoDigital.style.display = "none";
+
+            const informacoes =
+                conteudoDigital.querySelectorAll(".informacao");
+
+            informacoes.forEach(function (informacao) {
+
+                informacao.style.display = "none";
+                informacao.classList.remove("ativo");
+
+            });
+
+        }
+
+        // Esconder os tipos de violência
+        tiposViolencia.forEach(function (tipo) {
+
+            tipo.style.display = "none";
+
+        });
+
+        // Esconder as três opções
+        if (opcoesTipo) {
+
+            opcoesTipo.style.display = "none";
+
+        }
+
+        // Fechar a tela de violência
+        fecharTudo(modalAjuda);
+
+        // Mostrar novamente as opções principais de ajuda
+        const opcoesPrincipais =
+            document.querySelectorAll("[data-ajuda]");
+
+        opcoesPrincipais.forEach(function (opcao) {
+
+            opcao.style.display = "flex";
+
+        });
+
+      
+
+    });
+
+}
+const tiposViolencia =
+    document.querySelectorAll("[data-tipo-violencia]");
+
+const opcoesTipoViolencia =
+    document.getElementById("opcoes-tipo-violencia");
+let tipoSelecionado = "";
+tiposViolencia.forEach(function (tipo) {
+
+    tipo.addEventListener("click", function () {
+tipoSelecionado = tipo.dataset.tipoViolencia;
+ verbalOQueE.style.display = "none";
+verbalComoSeCuidar.style.display = "none";
+
+digitalOQueE.style.display = "none";
+digitalComoSeCuidar.style.display = "none";
+
+privacidadeOQueE.style.display = "none";
+aliciamentoOQueE.style.display = "none";
+sexualOQueE.style.display = "none";
+chantagemOQueE.style.display = "none";
+naoSeiOQueE.style.display = "none";              
+        
+      // Esconder os cartões de tipos de violência
+
+        tiposViolencia.forEach(function (cartao) {
+    cartao.style.display = "none";
+});
+        // Mostrar as três opções
+
+        opcoesTipoViolencia.style.display = "block";
+
+    });
+
+});
+    // TECLA ESC
+
+    document.addEventListener("keydown", function (evento) {
+
+        if (evento.key === "Escape") {
+
+            modalInformar.classList.remove("ativo");
+
+            modalAjuda.classList.remove("ativo");
+
+            fecharTudo(modalInformar);
+
+            fecharTudo(modalAjuda);
+
+        }
+
+    });
+// ==========================================
+// FUNCIONALIDADE DAS OPÇÕES DE VIOLÊNCIA
+// ==========================================
+
+// Selecionar as opções de orientação
+const subopcoes = document.querySelectorAll("[data-subopcao]");
+
+// Conteúdos das violências
+
+const verbalOQueE =
+    document.getElementById("verbal-o-que-e");
+
+const verbalComoSeCuidar =
+    document.getElementById("verbal-como-se-cuidar");
+  
+const digitalOQueE =
+    document.getElementById("digital-o-que-e");
+
+const digitalComoSeCuidar =
+    document.getElementById("digital-como-se-cuidar");
+  
+const privacidadeOQueE =
+    document.getElementById("privacidade-o-que-e");
+
+const privacidadeComoSeCuidar =
+    document.getElementById("privacidade-como-se-cuidar");
+  
+const aliciamentoOQueE =
+    document.getElementById("aliciamento-o-que-e");
+
+const sexualOQueE =
+    document.getElementById("sexual-o-que-e");
+
+const chantagemOQueE =
+    document.getElementById("chantagem-o-que-e");
+
+const naoSeiOQueE =
+    document.getElementById("nao-sei-o-que-e");
+  
+const ajudaViolencia =
+    document.getElementById("ajuda-violencia");
+
+// Colocar os conteúdos dentro da área de violência
+
+if (ajudaViolencia) {
+
+    if (verbalOQueE) {
+        ajudaViolencia.appendChild(verbalOQueE);
+        verbalOQueE.style.display = "none";
+    }
+if (verbalComoSeCuidar) {
+    ajudaViolencia.appendChild(verbalComoSeCuidar);
+    verbalComoSeCuidar.style.display = "none";
+}
+  
+    if (digitalOQueE) {
+        ajudaViolencia.appendChild(digitalOQueE);
+        digitalOQueE.style.display = "none";
+    }
+
+if (digitalComoSeCuidar) {
+    ajudaViolencia.appendChild(digitalComoSeCuidar);
+    digitalComoSeCuidar.style.display = "none";
+}
+  
+  if (privacidadeOQueE) {
+    ajudaViolencia.appendChild(privacidadeOQueE);
+    privacidadeOQueE.style.display = "none";
+}
+if (privacidadeComoSeCuidar) {
+    ajudaViolencia.appendChild(privacidadeComoSeCuidar);
+    privacidadeComoSeCuidar.style.display = "none";
+}
+if (aliciamentoOQueE) {
+    ajudaViolencia.appendChild(aliciamentoOQueE);
+    aliciamentoOQueE.style.display = "none";
+}
+
+if (sexualOQueE) {
+    ajudaViolencia.appendChild(sexualOQueE);
+    sexualOQueE.style.display = "none";
+}
+
+if (chantagemOQueE) {
+    ajudaViolencia.appendChild(chantagemOQueE);
+    chantagemOQueE.style.display = "none";
+}
+if (naoSeiOQueE) {
+    ajudaViolencia.appendChild(naoSeiOQueE);
+    naoSeiOQueE.style.display = "none";
+}
+}
+
+ 
+// ==========================================
+// MOSTRAR O CONTEÚDO DA VIOLÊNCIA SELECIONADA
+// ==========================================
+
+
+
+// Ativar as opções de orientação
+subopcoes.forEach(function (opcao) {
+
+    opcao.addEventListener("click", function () {
+
+        const escolha = opcao.dataset.subopcao;
+
+        if (opcoesTipoViolencia) {
+    opcoesTipoViolencia.style.display = "none";
+}
+
+const conteudos = [
+    verbalOQueE,
+    verbalComoSeCuidar,
+    digitalOQueE,
+    digitalComoSeCuidar,
+    privacidadeOQueE,
+    privacidadeComoSeCuidar,
+    aliciamentoOQueE,
+    sexualOQueE,
+    chantagemOQueE,
+    naoSeiOQueE
+];
+
+conteudos.forEach(function (conteudo) {
+    if (conteudo) {
+        conteudo.style.display = "none";
+    }
+});
+        
+if (
+    (tipoSelecionado === "verbal" ||
+     tipoSelecionado === "digital" ||
+     tipoSelecionado === "privacidade" ||
+     tipoSelecionado === "aliciamento" ||
+     tipoSelecionado === "sexual" ||
+tipoSelecionado === "chantagem" ||
+tipoSelecionado === "nao-sei") &&
+    escolha === "o-que-e"
+) {
+
+    if (tipoSelecionado === "verbal" && verbalOQueE) {
+
+        verbalOQueE.style.display = "block";
+
+    }
+
+    if (tipoSelecionado === "digital" && digitalOQueE) {
+
+        digitalOQueE.style.display = "block";
+
+    }
+    if (
+    tipoSelecionado === "privacidade" &&
+    escolha === "cuidados" &&
+    privacidadeComoSeCuidar
+) {
+    privacidadeComoSeCuidar.style.display = "block";
+}
+  if (tipoSelecionado === "privacidade" && privacidadeOQueE) {
+
+    privacidadeOQueE.style.display = "block";
+
+}
+if (tipoSelecionado === "aliciamento" && aliciamentoOQueE) {
+
+    aliciamentoOQueE.style.display = "block";
+
+}
+if (tipoSelecionado === "sexual" && sexualOQueE) {
+
+    sexualOQueE.style.display = "block";
+
+}
+if (tipoSelecionado === "chantagem" && chantagemOQueE) {
+
+    chantagemOQueE.style.display = "block";
+
+}
+if (tipoSelecionado === "nao-sei" && naoSeiOQueE) {
+    naoSeiOQueE.style.display = "block";
+}
+}
+if (
+    tipoSelecionado === "verbal" &&
+    escolha === "cuidados" &&
+    verbalComoSeCuidar
+) {
+
+    verbalComoSeCuidar.style.display = "block";
+
+}
+   if (
+    tipoSelecionado === "digital" &&
+    escolha === "cuidados" &&
+    digitalComoSeCuidar
+) {
+
+    digitalComoSeCuidar.style.display = "block";
+
+}
+    if (
+    tipoSelecionado === "privacidade" &&
+    escolha === "cuidados" &&
+    privacidadeComoSeCuidar
+) {
+
+    privacidadeComoSeCuidar.style.display = "block";
+
+}
+    });
+
+});
+  
+
+
+  </script>
+
+</body>
+</html>
