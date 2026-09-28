@@ -920,6 +920,39 @@
     </button>
 
 </div>
+<div class="informacao" id="sexual-como-se-cuidar" style="display: none;">
+
+    <h3>🛡️ Como posso me cuidar?</h3>
+
+    <p>
+        Se alguém estiver pressionando você para conversar, enviar imagens
+        ou fazer algo que não quer, procure apoio. Você não tem culpa pelo
+        que aconteceu e não precisa lidar com isso sozinho.
+    </p>
+
+    <ul>
+        <li>Afaste-se da conversa e não aceite encontrar essa pessoa.</li>
+        <li>Não envie imagens íntimas. Se já enviou, não se culpe nem encaminhe para outras pessoas.</li>
+        <li>Conte o que aconteceu a um adulto de confiança o mais rápido possível.</li>
+        <li>Se for seguro, guarde mensagens, o perfil e outras informações para mostrar a um adulto. Peça ajuda antes de denunciar ou bloquear, caso esteja em dúvida.</li>
+        <li>Um adulto de confiança pode ajudar a denunciar o perfil ou conteúdo na plataforma e procurar a rede de proteção.</li>
+    </ul>
+
+    <div class="acolhimento">
+        Você merece ser ouvido, respeitado e protegido. Pedir ajuda é um
+        direito, e a responsabilidade pela violência é de quem a praticou.
+    </div>
+
+    <p>
+        Se houver perigo imediato, procure um adulto responsável ou ligue 190.
+        Para denunciar violações de direitos, ligue Disque 100.
+    </p>
+
+    <button class="voltar voltar-tipos-violencia">
+        ← Voltar aos tipos de violência
+    </button>
+
+</div>
           <!-- CONTEÚDO: AMEAÇAS E CHANTAGEM -->
 
 <div class="informacao" id="chantagem-o-que-e" style="display: none;">
@@ -1552,6 +1585,7 @@ botoesVoltar.forEach(function (botao) {
     document.getElementById("aliciamento-o-que-e"),
     document.getElementById("aliciamento-como-se-cuidar"),
     document.getElementById("sexual-o-que-e"),
+    document.getElementById("sexual-como-se-cuidar"),
     document.getElementById("chantagem-o-que-e"),          
     document.getElementById("nao-sei-o-que-e")
  ];
@@ -1751,6 +1785,9 @@ const aliciamentoComoSeCuidar =
 const sexualOQueE =
     document.getElementById("sexual-o-que-e");
 
+const sexualComoSeCuidar =
+    document.getElementById("sexual-como-se-cuidar");
+
 const chantagemOQueE =
     document.getElementById("chantagem-o-que-e");
 
@@ -1804,6 +1841,10 @@ if (sexualOQueE) {
     ajudaViolencia.appendChild(sexualOQueE);
     sexualOQueE.style.display = "none";
 }
+if (sexualComoSeCuidar) {
+    ajudaViolencia.appendChild(sexualComoSeCuidar);
+    sexualComoSeCuidar.style.display = "none";
+}
 
 if (chantagemOQueE) {
     ajudaViolencia.appendChild(chantagemOQueE);
@@ -1843,6 +1884,7 @@ const conteudos = [
     aliciamentoOQueE,
     aliciamentoComoSeCuidar,
     sexualOQueE,
+    sexualComoSeCuidar,
     chantagemOQueE,
     naoSeiOQueE
 ];
@@ -1939,6 +1981,13 @@ if (
     aliciamentoComoSeCuidar
 ) {
     aliciamentoComoSeCuidar.style.display = "block";
+}
+if (
+    tipoSelecionado === "sexual" &&
+    escolha === "cuidados" &&
+    sexualComoSeCuidar
+) {
+    sexualComoSeCuidar.style.display = "block";
 }
     });
 
