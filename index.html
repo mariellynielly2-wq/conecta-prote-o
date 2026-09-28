@@ -996,6 +996,38 @@
     </button>
 
 </div>
+<div class="informacao" id="chantagem-como-se-cuidar" style="display: none;">
+
+    <h3>🛡️ Como posso me cuidar?</h3>
+
+    <p>
+        Se alguém estiver usando ameaças ou chantagem para pressionar você,
+        procure apoio. Você não tem culpa e não precisa resolver isso sem ajuda.
+    </p>
+
+    <ul>
+        <li>Não envie dinheiro, imagens, senhas ou outros dados por pressão. Isso não garante que as ameaças parem.</li>
+        <li>Evite encontrar ou confrontar essa pessoa.</li>
+        <li>Se for seguro, guarde as mensagens, o perfil e outras informações para mostrar a um adulto de confiança. Não encaminhe imagens íntimas.</li>
+        <li>Conte o que está acontecendo a um adulto de confiança o quanto antes.</li>
+        <li>Peça ajuda para denunciar o perfil ou conteúdo na plataforma e buscar apoio da rede de proteção.</li>
+    </ul>
+
+    <div class="acolhimento">
+        Você não precisa enfrentar esse medo sem apoio. O que aconteceu não é culpa sua.
+        Você merece ser ouvido, acolhido e protegido, e há pessoas de confiança que podem ajudar.
+    </div>
+
+    <p>
+        Se houver perigo imediato, procure um adulto responsável ou ligue 190.
+        Para denunciar violações de direitos, ligue Disque 100.
+    </p>
+
+    <button class="voltar voltar-tipos-violencia">
+        ← Voltar aos tipos de violência
+    </button>
+
+</div>
          <!-- CONTEÚDO: NÃO SEI QUAL SITUAÇÃO ESTOU ENFRENTANDO -->
 
 <div class="informacao" id="nao-sei-o-que-e" style="display: none;">
@@ -1587,6 +1619,7 @@ botoesVoltar.forEach(function (botao) {
     document.getElementById("sexual-o-que-e"),
     document.getElementById("sexual-como-se-cuidar"),
     document.getElementById("chantagem-o-que-e"),          
+    document.getElementById("chantagem-como-se-cuidar"),
     document.getElementById("nao-sei-o-que-e")
  ];
             conteudosViolencia.forEach(function (conteudo) {
@@ -1791,6 +1824,9 @@ const sexualComoSeCuidar =
 const chantagemOQueE =
     document.getElementById("chantagem-o-que-e");
 
+const chantagemComoSeCuidar =
+    document.getElementById("chantagem-como-se-cuidar");
+
 const naoSeiOQueE =
     document.getElementById("nao-sei-o-que-e");
   
@@ -1850,6 +1886,10 @@ if (chantagemOQueE) {
     ajudaViolencia.appendChild(chantagemOQueE);
     chantagemOQueE.style.display = "none";
 }
+if (chantagemComoSeCuidar) {
+    ajudaViolencia.appendChild(chantagemComoSeCuidar);
+    chantagemComoSeCuidar.style.display = "none";
+}
 if (naoSeiOQueE) {
     ajudaViolencia.appendChild(naoSeiOQueE);
     naoSeiOQueE.style.display = "none";
@@ -1886,6 +1926,7 @@ const conteudos = [
     sexualOQueE,
     sexualComoSeCuidar,
     chantagemOQueE,
+    chantagemComoSeCuidar,
     naoSeiOQueE
 ];
 
@@ -1905,6 +1946,13 @@ tipoSelecionado === "chantagem" ||
 tipoSelecionado === "nao-sei") &&
     escolha === "o-que-e"
 ) {
+if (
+    tipoSelecionado === "chantagem" &&
+    escolha === "cuidados" &&
+    chantagemComoSeCuidar
+) {
+    chantagemComoSeCuidar.style.display = "block";
+}
 
     if (tipoSelecionado === "verbal" && verbalOQueE) {
 
