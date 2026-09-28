@@ -1946,14 +1946,6 @@ tipoSelecionado === "chantagem" ||
 tipoSelecionado === "nao-sei") &&
     escolha === "o-que-e"
 ) {
-if (
-    tipoSelecionado === "chantagem" &&
-    escolha === "cuidados" &&
-    chantagemComoSeCuidar
-) {
-    chantagemComoSeCuidar.style.display = "block";
-}
-
     if (tipoSelecionado === "verbal" && verbalOQueE) {
 
         verbalOQueE.style.display = "block";
@@ -2036,6 +2028,13 @@ if (
     sexualComoSeCuidar
 ) {
     sexualComoSeCuidar.style.display = "block";
+}
+if (
+    tipoSelecionado === "chantagem" &&
+    escolha === "cuidados" &&
+    chantagemComoSeCuidar
+) {
+    chantagemComoSeCuidar.style.display = "block";
 }
     });
 
