@@ -842,6 +842,36 @@
     </button>
 
 </div>
+<div class="informacao" id="aliciamento-como-se-cuidar" style="display: none;">
+
+    <h3>🛡️ Como posso me cuidar?</h3>
+
+    <p>
+        Se alguém estiver tentando ganhar sua confiança para pressionar,
+        controlar ou colocar você em uma situação desconfortável, procure
+        apoio. Você não precisa lidar com isso sozinho.
+    </p>
+
+    <ul>
+        <li>Não envie senhas, endereço, telefone ou imagens pessoais.</li>
+        <li>Não aceite convites para encontrar alguém que conheceu na internet.</li>
+        <li>Se não se sentir seguro, pare de responder e bloqueie a pessoa.</li>
+        <li>Conte o que aconteceu a um adulto de confiança, mesmo que a pessoa tenha pedido segredo.</li>
+        <li>Se for seguro, guarde as mensagens e o perfil para mostrar a alguém de confiança. Não encaminhe imagens íntimas.</li>
+        <li>Peça ajuda a um adulto para denunciar o perfil ou conteúdo na plataforma.</li>
+    </ul>
+
+    <div class="acolhimento">
+        Você não tem culpa se alguém tentou manipular ou pressionar você.
+        Pedir ajuda é importante, mesmo que você ainda esteja em dúvida
+        sobre o que aconteceu.
+    </div>
+
+    <button class="voltar voltar-tipos-violencia">
+        ← Voltar aos tipos de violência
+    </button>
+
+</div>
             <!-- CONTEÚDO: VIOLÊNCIA SEXUAL -->
 
 <div class="informacao" id="sexual-o-que-e" style="display: none;">
@@ -1714,6 +1744,9 @@ const privacidadeComoSeCuidar =
 const aliciamentoOQueE =
     document.getElementById("aliciamento-o-que-e");
 
+const aliciamentoComoSeCuidar =
+    document.getElementById("aliciamento-como-se-cuidar");
+
 const sexualOQueE =
     document.getElementById("sexual-o-que-e");
 
@@ -1761,6 +1794,10 @@ if (aliciamentoOQueE) {
     ajudaViolencia.appendChild(aliciamentoOQueE);
     aliciamentoOQueE.style.display = "none";
 }
+if (aliciamentoComoSeCuidar) {
+    ajudaViolencia.appendChild(aliciamentoComoSeCuidar);
+    aliciamentoComoSeCuidar.style.display = "none";
+}
 
 if (sexualOQueE) {
     ajudaViolencia.appendChild(sexualOQueE);
@@ -1803,6 +1840,7 @@ const conteudos = [
     privacidadeOQueE,
     privacidadeComoSeCuidar,
     aliciamentoOQueE,
+    aliciamentoComoSeCuidar,
     sexualOQueE,
     chantagemOQueE,
     naoSeiOQueE
@@ -1893,6 +1931,13 @@ if (
 
     privacidadeComoSeCuidar.style.display = "block";
 
+}
+if (
+    tipoSelecionado === "aliciamento" &&
+    escolha === "cuidados" &&
+    aliciamentoComoSeCuidar
+) {
+    aliciamentoComoSeCuidar.style.display = "block";
 }
     });
 
