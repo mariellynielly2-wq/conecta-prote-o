@@ -340,18 +340,22 @@
             line-height: 1.55;
         }
 
-        .biblioteca-detalhes {
-            width: min(1360px, 100%);
-            margin: 0 auto 18px;
-        }
-
-        .biblioteca-detalhe {
+        .biblioteca-conteudo {
             display: none;
-            padding: 26px 22px;
+            margin-top: 10px;
+            padding: 28px 22px;
             border-radius: 22px;
             background: rgba(255, 255, 255, 0.82);
             border: 1px solid rgba(73, 60, 146, 0.08);
             box-shadow: 0 18px 30px rgba(39, 29, 88, 0.06);
+        }
+
+        .biblioteca-conteudo.ativo {
+            display: block;
+        }
+
+        .biblioteca-detalhe {
+            display: none;
         }
 
         .biblioteca-detalhe.ativo {
@@ -374,6 +378,18 @@
 
         .biblioteca-detalhe ul {
             margin: 14px 0 0 18px;
+        }
+
+        .biblioteca-voltar {
+            margin-top: 16px;
+            border: none;
+            border-radius: 10px;
+            background: #123b70;
+            color: white;
+            padding: 10px 14px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
         }
 
         .botoes-principais {
@@ -1189,7 +1205,7 @@
                 <h3 id="biblioteca-titulo">Informações para orientar e proteger</h3>
             </div>
 
-            <div class="biblioteca-grid">
+            <div class="biblioteca-grid" id="biblioteca-lista">
                 <button class="biblioteca-card" type="button" data-biblioteca="seguranca">
                     <span class="biblioteca-icone" aria-hidden="true">🛡️</span>
                     <h4>Segurança digital</h4>
@@ -1214,46 +1230,50 @@
                     <p>Descubra para quem recorrer e como encontrar apoio seguro quando a situação exigir atenção.</p>
                 </button>
             </div>
-        </section>
 
-        <div class="biblioteca-detalhes" aria-live="polite">
-            <article class="biblioteca-detalhe ativo" id="biblioteca-seguranca">
-                <h4>🛡️ Segurança digital</h4>
-                <p>A segurança digital ajuda a proteger sua vida online, seus dados e o seu bem-estar. Algumas atitudes simples fazem muita diferença no dia a dia.</p>
-                <div class="info-seguranca-card">
-                    <h4>✅ O que pode ajudar</h4>
+            <div class="biblioteca-conteudo" id="biblioteca-conteudo">
+                <article class="biblioteca-detalhe" id="biblioteca-seguranca">
+                    <h4>🛡️ Segurança digital</h4>
+                    <p>A segurança digital ajuda a proteger sua vida online, seus dados e o seu bem-estar. Algumas atitudes simples fazem muita diferença no dia a dia.</p>
+                    <div class="info-seguranca-card">
+                        <h4>✅ O que pode ajudar</h4>
+                        <ul>
+                            <li>Use senhas fortes e diferentes para cada conta.</li>
+                            <li>Não compartilhe dados pessoais com pessoas desconhecidas.</li>
+                            <li>Ative a privacidade das redes sociais e aplicativos.</li>
+                            <li>Desconfie de mensagens que pedem segredo, fotos ou pressão.</li>
+                            <li>Se algo te deixar desconfortável, conte a um adulto de confiança.</li>
+                        </ul>
+                    </div>
+                    <button class="biblioteca-voltar" type="button">Voltar para a Biblioteca</button>
+                </article>
+
+                <article class="biblioteca-detalhe" id="biblioteca-direitos">
+                    <h4>📚 Conheça seus direitos</h4>
+                    <p>Crianças e adolescentes têm direito à proteção, ao respeito e à segurança, inclusive no ambiente digital.</p>
+                    <p>Nenhuma pessoa deve ser ameaçada, constrangida ou responsabilizada pela violência que sofreu.</p>
+                    <button class="biblioteca-voltar" type="button">Voltar para a Biblioteca</button>
+                </article>
+
+                <article class="biblioteca-detalhe" id="biblioteca-riscos">
+                    <h4>⚠️ Identifique situações de risco</h4>
+                    <p>Conheça sinais de alerta e saiba como buscar orientação de um adulto de confiança diante de situações preocupantes na internet.</p>
                     <ul>
-                        <li>Use senhas fortes e diferentes para cada conta.</li>
-                        <li>Não compartilhe dados pessoais com pessoas desconhecidas.</li>
-                        <li>Ative a privacidade das redes sociais e aplicativos.</li>
-                        <li>Desconfie de mensagens que pedem segredo, fotos ou pressão.</li>
-                        <li>Se algo te deixar desconfortável, conte a um adulto de confiança.</li>
+                        <li>Ameaças ou chantagens.</li>
+                        <li>Pedidos de informações pessoais.</li>
+                        <li>Pressão para manter segredos.</li>
+                        <li>Mensagens que provocam medo ou desconforto.</li>
                     </ul>
-                </div>
-            </article>
+                    <button class="biblioteca-voltar" type="button">Voltar para a Biblioteca</button>
+                </article>
 
-            <article class="biblioteca-detalhe" id="biblioteca-direitos">
-                <h4>📚 Conheça seus direitos</h4>
-                <p>Crianças e adolescentes têm direito à proteção, ao respeito e à segurança, inclusive no ambiente digital.</p>
-                <p>Nenhuma pessoa deve ser ameaçada, constrangida ou responsabilizada pela violência que sofreu.</p>
-            </article>
-
-            <article class="biblioteca-detalhe" id="biblioteca-riscos">
-                <h4>⚠️ Identifique situações de risco</h4>
-                <p>Conheça sinais de alerta e saiba como buscar orientação de um adulto de confiança diante de situações preocupantes na internet.</p>
-                <ul>
-                    <li>Ameaças ou chantagens.</li>
-                    <li>Pedidos de informações pessoais.</li>
-                    <li>Pressão para manter segredos.</li>
-                    <li>Mensagens que provocam medo ou desconforto.</li>
-                </ul>
-            </article>
-
-            <article class="biblioteca-detalhe" id="biblioteca-ajuda">
-                <h4>🤝 Onde buscar ajuda</h4>
-                <p>Procure um adulto de confiança e conheça os serviços da rede de proteção que podem orientar crianças e adolescentes.</p>
-            </article>
-        </div>
+                <article class="biblioteca-detalhe" id="biblioteca-ajuda">
+                    <h4>🤝 Onde buscar ajuda</h4>
+                    <p>Procure um adulto de confiança e conheça os serviços da rede de proteção que podem orientar crianças e adolescentes.</p>
+                    <button class="biblioteca-voltar" type="button">Voltar para a Biblioteca</button>
+                </article>
+            </div>
+        </section>
 
         <section class="beneficios" aria-label="Apoio oferecido">
             <div class="beneficio">
@@ -2538,6 +2558,12 @@
     const cardsBiblioteca =
         document.querySelectorAll(".biblioteca-card[data-biblioteca]");
 
+    const listaBiblioteca =
+        document.getElementById("biblioteca-lista");
+
+    const conteudoBiblioteca =
+        document.getElementById("biblioteca-conteudo");
+
     const detalhesBiblioteca =
         document.querySelectorAll(".biblioteca-detalhe");
 
@@ -2547,27 +2573,43 @@
 
             const tema = botao.dataset.biblioteca;
 
+            if (listaBiblioteca) {
+                listaBiblioteca.style.display = "none";
+            }
+
+            if (conteudoBiblioteca) {
+                conteudoBiblioteca.classList.add("ativo");
+            }
+
             detalhesBiblioteca.forEach(function (detalhe) {
-
-                detalhe.classList.toggle(
-                    "ativo",
-                    detalhe.id === "biblioteca-" + tema
-                );
-
+                detalhe.classList.toggle("ativo", detalhe.id === "biblioteca-" + tema);
             });
 
-            const secaoBiblioteca =
-                document.querySelector(".biblioteca");
-
-            if (secaoBiblioteca) {
-                secaoBiblioteca.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
-            }
+            botao.scrollIntoView({
+                behavior: "smooth",
+                block: "nearest"
+            });
 
         });
 
+    });
+
+    document.querySelectorAll(".biblioteca-voltar").forEach(function (botaoVoltar) {
+        botaoVoltar.addEventListener("click", function (evento) {
+            evento.stopPropagation();
+
+            if (listaBiblioteca) {
+                listaBiblioteca.style.display = "grid";
+            }
+
+            if (conteudoBiblioteca) {
+                conteudoBiblioteca.classList.remove("ativo");
+            }
+
+            detalhesBiblioteca.forEach(function (detalhe) {
+                detalhe.classList.remove("ativo");
+            });
+        });
     });
 
     // OPÇÕES DO MENU AJUDA
