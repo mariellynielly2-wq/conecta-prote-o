@@ -760,6 +760,82 @@
             line-height: 1.6;
         }
 
+        .biblioteca-seguranca-intro {
+            max-width: 850px;
+            margin-bottom: 18px;
+        }
+
+        .biblioteca-seguranca-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            margin: 20px 0 8px;
+        }
+
+        .biblioteca-seguranca-grid .biblioteca-card {
+            min-height: 190px;
+            padding: 20px;
+            gap: 12px;
+        }
+
+        .biblioteca-seguranca-grid .biblioteca-icone {
+            width: 56px;
+            height: 56px;
+            border-radius: 17px;
+        }
+
+        .biblioteca-seguranca-tema {
+            display: none;
+            margin-top: 18px;
+            padding: 22px;
+            border: 1px solid rgba(73, 60, 146, 0.1);
+            border-radius: 18px;
+            background: linear-gradient(145deg, #fff 0%, #f8f7ff 100%);
+        }
+
+        .biblioteca-seguranca-tema.ativo {
+            display: block;
+        }
+
+        .biblioteca-seguranca-tema h5 {
+            margin: 0 0 10px;
+            color: #2d2a63;
+            font-size: clamp(1.2rem, 2vw, 1.55rem);
+            line-height: 1.3;
+        }
+
+        .biblioteca-seguranca-tema h5:focus {
+            outline: none;
+        }
+
+        .biblioteca-detalhe.tema-aberto > .biblioteca-voltar {
+            display: none;
+        }
+
+        .biblioteca-seguranca-tema ul {
+            margin: 12px 0 0 20px;
+        }
+
+        .biblioteca-seguranca-voltar {
+            margin-top: 18px;
+            border: 1px solid rgba(18, 59, 112, 0.18);
+            border-radius: 10px;
+            background: #fff;
+            color: #123b70;
+            padding: 10px 14px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .biblioteca-seguranca-voltar:hover,
+        .biblioteca-seguranca-voltar:focus-visible {
+            background: #eef3ff;
+        }
+
+        .biblioteca-seguranca-voltar:focus-visible {
+            outline: 3px solid rgba(8, 118, 223, 0.55);
+            outline-offset: 3px;
+        }
+
         @media (prefers-reduced-motion: reduce) {
             .biblioteca-card,
             .biblioteca-icone {
@@ -1955,17 +2031,162 @@
             <div class="biblioteca-conteudo" id="biblioteca-conteudo">
                 <article class="biblioteca-detalhe" id="biblioteca-seguranca">
                     <h4><svg class="icon-inline" aria-hidden="true"><use href="#icon-shield"></use></svg>Segurança digital</h4>
-                    <p>A segurança digital ajuda a proteger sua vida online, seus dados e o seu bem-estar. Algumas atitudes simples fazem muita diferença no dia a dia.</p>
-                    <div class="info-seguranca-card">
-                        <h4>✅ O que pode ajudar</h4>
-                        <ul>
-                            <li>Use senhas fortes e diferentes para cada conta.</li>
-                            <li>Não compartilhe dados pessoais com pessoas desconhecidas.</li>
-                            <li>Ative a privacidade das redes sociais e aplicativos.</li>
-                            <li>Desconfie de mensagens que pedem segredo, fotos ou pressão.</li>
-                            <li>Se algo te deixar desconfortável, conte a um adulto de confiança.</li>
-                        </ul>
+                    <p class="biblioteca-seguranca-intro">A segurança digital ajuda a proteger seus dados, suas contas e seu bem-estar. Escolha um tema para ver orientações práticas para o dia a dia.</p>
+                    <div class="biblioteca-grid biblioteca-seguranca-grid" id="biblioteca-seguranca-lista" aria-label="Temas de segurança digital">
+                        <button class="biblioteca-card" type="button" data-seguranca-topico="senhas">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-lock"></use></svg></span>
+                            <h4>Senhas seguras</h4>
+                            <p>Proteja suas contas com senhas difíceis de adivinhar.</p>
+                        </button>
+                        <button class="biblioteca-card" type="button" data-seguranca-topico="celular">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-device"></use></svg></span>
+                            <h4>Proteção do celular</h4>
+                            <p>Cuide do aparelho, dos aplicativos e dos seus acessos.</p>
+                        </button>
+                        <button class="biblioteca-card" type="button" data-seguranca-topico="golpes">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-alert"></use></svg></span>
+                            <h4>Golpes e links suspeitos</h4>
+                            <p>Reconheça mensagens e links que podem esconder golpes.</p>
+                        </button>
+                        <button class="biblioteca-card" type="button" data-seguranca-topico="contas">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-users"></use></svg></span>
+                            <h4>Contas e perfis</h4>
+                            <p>Compartilhe menos e mantenha o controle do seu perfil.</p>
+                        </button>
+                        <button class="biblioteca-card" type="button" data-seguranca-topico="localizacao">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-location"></use></svg></span>
+                            <h4>Localização e exposição</h4>
+                            <p>Evite revelar onde você está ou sua rotina.</p>
+                        </button>
+                        <button class="biblioteca-card" type="button" data-seguranca-topico="informacoes">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-eye"></use></svg></span>
+                            <h4>Fotos e informações pessoais</h4>
+                            <p>Pense na sua privacidade antes de enviar ou publicar.</p>
+                        </button>
+                        <button class="biblioteca-card" type="button" data-seguranca-topico="conversas">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-chat"></use></svg></span>
+                            <h4>Conversas online</h4>
+                            <p>Reconheça limites e peça apoio em conversas desconfortáveis.</p>
+                        </button>
+                        <button class="biblioteca-card" type="button" data-seguranca-topico="privacidade">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-settings"></use></svg></span>
+                            <h4>Configurações de privacidade</h4>
+                            <p>Revise quem vê seu conteúdo e pode falar com você.</p>
+                        </button>
+                        <button class="biblioteca-card" type="button" data-seguranca-topico="problemas">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-question"></use></svg></span>
+                            <h4>Quando algo der errado</h4>
+                            <p>Saiba como interromper a situação e buscar ajuda.</p>
+                        </button>
                     </div>
+
+                    <section class="biblioteca-seguranca-tema" data-seguranca-conteudo="senhas" aria-labelledby="seguranca-senhas-titulo">
+                        <h5 id="seguranca-senhas-titulo" tabindex="-1">Senhas seguras</h5>
+                        <p>Uma senha forte é difícil de adivinhar e não é usada em outras contas. Uma frase longa com palavras e caracteres variados pode ser mais fácil de lembrar e mais difícil de descobrir.</p>
+                        <ul>
+                            <li>Crie uma senha diferente para cada conta importante; não use nome, aniversário ou sequência simples.</li>
+                            <li>Não compartilhe senhas nem códigos de confirmação, mesmo com alguém que diga ser do suporte.</li>
+                            <li>Se estiver disponível, ative a verificação em duas etapas e guarde os códigos de recuperação em local seguro.</li>
+                            <li>Se uma senha foi exposta, troque-a pelo aplicativo ou site oficial e peça ajuda a um adulto de confiança.</li>
+                        </ul>
+                        <button class="biblioteca-seguranca-voltar" type="button">Voltar aos temas de segurança digital</button>
+                    </section>
+
+                    <section class="biblioteca-seguranca-tema" data-seguranca-conteudo="celular" aria-labelledby="seguranca-celular-titulo">
+                        <h5 id="seguranca-celular-titulo" tabindex="-1">Proteção do celular</h5>
+                        <p>O bloqueio de tela e as atualizações ajudam a proteger suas informações caso outra pessoa tenha acesso ao aparelho.</p>
+                        <ul>
+                            <li>Use um código de bloqueio que outras pessoas não consigam adivinhar e não o deixe anotado junto ao celular.</li>
+                            <li>Mantenha o sistema e os aplicativos atualizados; instale aplicativos somente de lojas oficiais.</li>
+                            <li>Revise as permissões de câmera, microfone, contatos e localização e permita apenas o necessário.</li>
+                            <li>Se perder o celular ou perceber acesso que não reconhece, avise um adulto de confiança e peça ajuda para proteger as contas.</li>
+                        </ul>
+                        <button class="biblioteca-seguranca-voltar" type="button">Voltar aos temas de segurança digital</button>
+                    </section>
+
+                    <section class="biblioteca-seguranca-tema" data-seguranca-conteudo="golpes" aria-labelledby="seguranca-golpes-titulo">
+                        <h5 id="seguranca-golpes-titulo" tabindex="-1">Golpes e links suspeitos</h5>
+                        <p>Mensagens falsas podem tentar causar pressa, oferecer prêmios ou pedir senhas, códigos e dados pessoais.</p>
+                        <ul>
+                            <li>Desconfie de urgência, ameaças, ofertas boas demais ou pedidos para manter segredo.</li>
+                            <li>Não abra links nem anexos inesperados. Confirme a mensagem por um canal oficial que você já conhece, sem usar o link recebido.</li>
+                            <li>Nunca informe senhas ou códigos de confirmação por mensagem, ligação ou formulário desconhecido.</li>
+                            <li>Se já clicou ou enviou alguma informação, não se culpe: conte a um adulto de confiança e protejam juntos as contas pelo serviço oficial.</li>
+                        </ul>
+                        <button class="biblioteca-seguranca-voltar" type="button">Voltar aos temas de segurança digital</button>
+                    </section>
+
+                    <section class="biblioteca-seguranca-tema" data-seguranca-conteudo="contas" aria-labelledby="seguranca-contas-titulo">
+                        <h5 id="seguranca-contas-titulo" tabindex="-1">Contas e perfis</h5>
+                        <p>O que aparece no perfil pode ser visto, copiado ou compartilhado por outras pessoas. Vale publicar apenas o que você se sente bem em tornar público.</p>
+                        <ul>
+                            <li>Evite colocar nome completo, data de nascimento, escola, telefone ou rotina na descrição do perfil.</li>
+                            <li>Use uma senha exclusiva e a verificação em duas etapas, se estiver disponível.</li>
+                            <li>Revise seguidores e solicitações. Você pode recusar, remover, bloquear ou denunciar perfis que incomodam.</li>
+                            <li>Se perder o acesso, use somente o processo oficial de recuperação e peça apoio a alguém de confiança.</li>
+                        </ul>
+                        <button class="biblioteca-seguranca-voltar" type="button">Voltar aos temas de segurança digital</button>
+                    </section>
+
+                    <section class="biblioteca-seguranca-tema" data-seguranca-conteudo="localizacao" aria-labelledby="seguranca-localizacao-titulo">
+                        <h5 id="seguranca-localizacao-titulo" tabindex="-1">Localização e exposição de informações</h5>
+                        <p>Uma publicação pode revelar onde você está, por onde costuma passar ou quando não está em casa, mesmo sem dizer isso diretamente.</p>
+                        <ul>
+                            <li>Evite publicar localização em tempo real, endereço, nome da escola, trajetos e horários da sua rotina.</li>
+                            <li>Revise se a câmera ou os aplicativos estão adicionando localização às fotos e compartilhe sua localização apenas com pessoas de confiança, quando necessário.</li>
+                            <li>Antes de publicar uma imagem, confira se placas, uniformes, documentos ou o fundo mostram informações que você prefere manter privadas.</li>
+                            <li>Se alguém estiver usando essas informações para seguir, ameaçar ou pressionar você, busque um local seguro e conte a um adulto de confiança.</li>
+                        </ul>
+                        <button class="biblioteca-seguranca-voltar" type="button">Voltar aos temas de segurança digital</button>
+                    </section>
+
+                    <section class="biblioteca-seguranca-tema" data-seguranca-conteudo="informacoes" aria-labelledby="seguranca-informacoes-titulo">
+                        <h5 id="seguranca-informacoes-titulo" tabindex="-1">Fotos e informações pessoais</h5>
+                        <p>Você pode decidir o que compartilhar. Uma imagem ou mensagem enviada pode ser salva e repassada, mesmo quando parece ser privada.</p>
+                        <ul>
+                            <li>Antes de enviar ou publicar, pense se está confortável com outras pessoas podendo ver ou guardar aquele conteúdo.</li>
+                            <li>Não envie documentos, endereço, senhas, códigos ou imagens íntimas. Ninguém deve pressionar ou ameaçar você para obter isso.</li>
+                            <li>Se alguém pedir ou compartilhar uma imagem íntima, não encaminhe nem publique. Procure imediatamente um adulto de confiança ou um serviço da rede de proteção.</li>
+                            <li>Se algo já foi compartilhado, você não tem culpa e não precisa resolver sozinho: peça apoio para denunciar na plataforma e buscar ajuda.</li>
+                        </ul>
+                        <button class="biblioteca-seguranca-voltar" type="button">Voltar aos temas de segurança digital</button>
+                    </section>
+
+                    <section class="biblioteca-seguranca-tema" data-seguranca-conteudo="conversas" aria-labelledby="seguranca-conversas-titulo">
+                        <h5 id="seguranca-conversas-titulo" tabindex="-1">Conversas online</h5>
+                        <p>Você pode encerrar uma conversa ou dizer que não quer falar sobre algo. Uma pessoa respeitosa não exige segredo, fotos ou respostas imediatas.</p>
+                        <ul>
+                            <li>Não compartilhe informações pessoais com alguém que acabou de conhecer e não marque encontros sem conversar antes com um adulto de confiança.</li>
+                            <li>Se uma conversa causar medo ou desconforto, você não precisa responder. Bloqueie ou denuncie o perfil, se isso for seguro.</li>
+                            <li>Em caso de intimidação ou ameaça, guarde mensagens ou capturas de tela somente se puder fazer isso com segurança; não repasse o conteúdo.</li>
+                            <li>Conte o que está acontecendo a uma pessoa adulta de confiança. Você merece ser ouvido sem culpa ou julgamento.</li>
+                        </ul>
+                        <button class="biblioteca-seguranca-voltar" type="button">Voltar aos temas de segurança digital</button>
+                    </section>
+
+                    <section class="biblioteca-seguranca-tema" data-seguranca-conteudo="privacidade" aria-labelledby="seguranca-privacidade-titulo">
+                        <h5 id="seguranca-privacidade-titulo" tabindex="-1">Configurações de privacidade</h5>
+                        <p>As opções mudam em cada aplicativo, mas revisar quem pode ver, encontrar e contatar você ajuda a controlar sua experiência.</p>
+                        <ul>
+                            <li>Confira se o perfil é público ou privado e escolha quem pode ver suas publicações, stories e lista de contatos.</li>
+                            <li>Revise quem pode enviar mensagens, marcar você, comentar ou encontrar seu perfil.</li>
+                            <li>Limite o compartilhamento de localização e confira as permissões de câmera, microfone e contatos.</li>
+                            <li>Revise essas opções de tempos em tempos; atualizações podem mudar as configurações. Peça apoio a alguém de confiança se precisar.</li>
+                        </ul>
+                        <button class="biblioteca-seguranca-voltar" type="button">Voltar aos temas de segurança digital</button>
+                    </section>
+
+                    <section class="biblioteca-seguranca-tema" data-seguranca-conteudo="problemas" aria-labelledby="seguranca-problemas-titulo">
+                        <h5 id="seguranca-problemas-titulo" tabindex="-1">Quando algo der errado</h5>
+                        <p>Se uma situação online causar preocupação, pare e procure apoio. Você não precisa lidar com isso sozinho e não tem culpa por pedir ajuda.</p>
+                        <ul>
+                            <li>Se houver ameaça ou perigo naquele momento, vá para um local seguro e procure um adulto de confiança; em emergência policial ou risco imediato, ligue 190.</li>
+                            <li>Não responda a ameaças, não pague chantagem e não confronte a pessoa sozinho. Peça ajuda para bloquear e denunciar a conta pela plataforma oficial.</li>
+                            <li>Guarde mensagens ou informações importantes apenas se puder fazer isso com segurança. Não encaminhe imagens íntimas nem conteúdo que exponha alguém.</li>
+                            <li>Procure um adulto de confiança, a escola ou o Conselho Tutelar. O Disque 100 recebe denúncias de violações de direitos e pode orientar o encaminhamento.</li>
+                        </ul>
+                        <button class="biblioteca-seguranca-voltar" type="button">Voltar aos temas de segurança digital</button>
+                    </section>
                     <button class="biblioteca-voltar" type="button">Voltar para a Biblioteca</button>
                 </article>
 
@@ -3664,6 +3885,60 @@
             detalhesBiblioteca.forEach(function (detalhe) {
                 detalhe.classList.remove("ativo");
             });
+        });
+    });
+
+    const detalheSegurancaBiblioteca =
+        document.getElementById("biblioteca-seguranca");
+
+    const listaTemasSeguranca =
+        document.getElementById("biblioteca-seguranca-lista");
+
+    const temasSeguranca =
+        document.querySelectorAll("[data-seguranca-conteudo]");
+
+    let ultimoTemaSeguranca = null;
+
+    document.querySelectorAll("[data-seguranca-topico]").forEach(function (botaoTema) {
+        botaoTema.addEventListener("click", function () {
+            const temaSelecionado = botaoTema.dataset.segurancaTopico;
+            const conteudoTema = document.querySelector(
+                '[data-seguranca-conteudo="' + temaSelecionado + '"]'
+            );
+
+            if (!conteudoTema || !listaTemasSeguranca || !detalheSegurancaBiblioteca) {
+                return;
+            }
+
+            ultimoTemaSeguranca = botaoTema;
+            listaTemasSeguranca.style.display = "none";
+            detalheSegurancaBiblioteca.classList.add("tema-aberto");
+            temasSeguranca.forEach(function (tema) {
+                tema.classList.toggle("ativo", tema === conteudoTema);
+            });
+
+            const tituloTema = conteudoTema.querySelector("h5");
+            if (tituloTema) {
+                tituloTema.focus();
+                tituloTema.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }
+        });
+    });
+
+    document.querySelectorAll(".biblioteca-seguranca-voltar").forEach(function (botaoVoltarTema) {
+        botaoVoltarTema.addEventListener("click", function () {
+            if (!listaTemasSeguranca || !detalheSegurancaBiblioteca) {
+                return;
+            }
+
+            temasSeguranca.forEach(function (tema) {
+                tema.classList.remove("ativo");
+            });
+            detalheSegurancaBiblioteca.classList.remove("tema-aberto");
+            listaTemasSeguranca.style.display = "grid";
+            if (ultimoTemaSeguranca) {
+                ultimoTemaSeguranca.focus();
+            }
         });
     });
 
