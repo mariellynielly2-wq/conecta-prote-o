@@ -9,6 +9,13 @@
     <title>Conecta Proteção</title>
 
     <style>
+        .icon-sprite {
+            position: absolute;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -24,6 +31,8 @@
             --texto-suave: #5f7188;
             --amarelo: #ffc400;
             --vermelho: #e52b32;
+            --vlibras-btn-focus-visible-outline: 2px solid #fff;
+            --vlibras-btn-focus-visible-shadow: 0 0 0 3px #123b70;
         }
 
         body {
@@ -73,7 +82,384 @@
             border-radius: 16px;
             background: linear-gradient(135deg, #a48af8 0%, #7b67d9 100%);
             box-shadow: inset 0 0 0 2px rgba(255,255,255,0.25), 0 8px 18px rgba(99, 79, 184, 0.32);
-            font-size: 28px;
+            color: white;
+        }
+
+        .icon-svg {
+            width: 1.45em;
+            height: 1.45em;
+            display: block;
+            flex: 0 0 auto;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .icon-inline {
+            width: 1.15em;
+            height: 1.15em;
+            display: inline-block;
+            vertical-align: -0.18em;
+            margin-right: 0.22em;
+            color: #0876df;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .assistente-flutuante {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            z-index: 900;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 12px;
+            font-family: inherit;
+        }
+
+        .assistente-abrir {
+            min-height: 56px;
+            display: inline-flex;
+            align-items: center;
+            gap: 11px;
+            padding: 10px 18px 10px 12px;
+            border: 1px solid rgba(255,255,255,0.38);
+            border-radius: 999px;
+            background: linear-gradient(135deg, #433a91 0%, #2d2a63 100%);
+            color: white;
+            box-shadow: 0 12px 30px rgba(45,42,99,0.25);
+            font: inherit;
+            font-size: 0.95rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 180ms ease, box-shadow 180ms ease;
+        }
+
+        .assistente-abrir:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 34px rgba(45,42,99,0.3);
+        }
+
+        .assistente-abrir .icono-assistente {
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.16);
+            color: white;
+        }
+
+        .assistente-abrir .icon-svg {
+            width: 21px;
+            height: 21px;
+        }
+
+        .assistente-painel {
+            width: min(390px, calc(100vw - 32px));
+            height: min(590px, calc(100vh - 112px));
+            height: min(590px, calc(100dvh - 112px));
+            min-height: min(390px, calc(100dvh - 112px));
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid rgba(73,60,146,0.14);
+            border-radius: 22px;
+            background: #fff;
+            box-shadow: 0 24px 64px rgba(30,35,76,0.25);
+        }
+
+        .assistente-flutuante.aberto .assistente-painel {
+            display: flex;
+            animation: aparecer 180ms ease;
+        }
+
+        .assistente-cabecalho {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 17px 18px;
+            background: linear-gradient(135deg, #383474 0%, #2d2a63 100%);
+            color: #fff;
+        }
+
+        .assistente-marca {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            flex: 0 0 auto;
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 14px;
+            background: rgba(255,255,255,0.13);
+        }
+
+        .assistente-marca .icon-svg {
+            width: 23px;
+            height: 23px;
+        }
+
+        .assistente-titulo {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .assistente-titulo strong,
+        .assistente-titulo span {
+            display: block;
+        }
+
+        .assistente-titulo strong {
+            font-size: 1rem;
+        }
+
+        .assistente-titulo span {
+            margin-top: 3px;
+            color: rgba(255,255,255,0.78);
+            font-size: 0.76rem;
+        }
+
+        .assistente-fechar {
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            flex: 0 0 auto;
+            border: 1px solid rgba(255,255,255,0.22);
+            border-radius: 11px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .assistente-fechar .icon-svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .assistente-preferencias {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border-bottom: 1px solid #edf0f6;
+            background: #fbfcff;
+        }
+
+        .assistente-preferencias label {
+            color: #5f7188;
+            font-size: 0.78rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .assistente-preferencias select {
+            min-width: 0;
+            flex: 1;
+            padding: 7px 30px 7px 10px;
+            border: 1px solid #dce3ef;
+            border-radius: 9px;
+            background: #fff;
+            color: #183454;
+            font: inherit;
+            font-size: 0.8rem;
+        }
+
+        .assistente-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-bottom: 1px solid #edf0f6;
+            background: #fbfcff;
+            color: #617188;
+            font-size: 0.74rem;
+        }
+
+        .assistente-status::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            flex: 0 0 auto;
+            border-radius: 50%;
+            background: #d89b24;
+        }
+
+        .assistente-status[data-state="ready"]::before {
+            background: #198754;
+        }
+
+        .assistente-status[data-state="unavailable"]::before {
+            background: #d1444b;
+        }
+
+        .assistente-mensagens {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 17px 14px 12px;
+            background: #f7f8fc;
+            overscroll-behavior: contain;
+        }
+
+        .assistente-mensagem {
+            max-width: 90%;
+            padding: 11px 13px;
+            border: 1px solid #e7eaf1;
+            border-radius: 15px 15px 15px 5px;
+            background: #fff;
+            color: #334155;
+            font-size: 0.88rem;
+            line-height: 1.55;
+            overflow-wrap: anywhere;
+            white-space: pre-line;
+        }
+
+        .assistente-mensagem.usuario {
+            align-self: flex-end;
+            border-color: #d9d2fb;
+            border-radius: 15px 15px 5px 15px;
+            background: #eeeaff;
+            color: #30296d;
+        }
+
+        .assistente-mensagem strong {
+            color: #123b70;
+        }
+
+        .assistente-acoes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-top: 10px;
+        }
+
+        .assistente-acao {
+            min-height: 34px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border: 1px solid #d8d2f5;
+            border-radius: 999px;
+            background: #f6f4ff;
+            color: #40378d;
+            font: inherit;
+            font-size: 0.76rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .assistente-acao:hover {
+            background: #ebe7ff;
+        }
+
+        .assistente-sugestoes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            padding: 10px 14px 0;
+            background: #fff;
+        }
+
+        .assistente-sugestao {
+            padding: 7px 10px;
+            border: 1px solid #dce3ef;
+            border-radius: 999px;
+            background: #fff;
+            color: #40536c;
+            font: inherit;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
+        .assistente-sugestao:hover {
+            border-color: #b9afea;
+            color: #40378d;
+        }
+
+        .assistente-formulario {
+            display: flex;
+            align-items: flex-end;
+            gap: 9px;
+            padding: 11px 14px 13px;
+            border-top: 1px solid #edf0f6;
+            background: #fff;
+        }
+
+        .assistente-formulario textarea {
+            min-height: 43px;
+            max-height: 100px;
+            flex: 1;
+            resize: vertical;
+            padding: 11px 12px;
+            border: 1px solid #dce3ef;
+            border-radius: 13px;
+            color: #183454;
+            font: inherit;
+            font-size: 0.88rem;
+            line-height: 1.35;
+        }
+
+        .assistente-formulario textarea:focus,
+        .assistente-preferencias select:focus,
+        .assistente-fechar:focus-visible,
+        .assistente-abrir:focus-visible,
+        .assistente-sugestao:focus-visible,
+        .assistente-acao:focus-visible {
+            outline: 3px solid rgba(125,106,249,0.35);
+            outline-offset: 2px;
+        }
+
+        .assistente-enviar {
+            width: 43px;
+            height: 43px;
+            display: grid;
+            place-items: center;
+            flex: 0 0 auto;
+            border: 0;
+            border-radius: 13px;
+            background: #0876df;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .assistente-enviar:hover {
+            background: #075fb3;
+        }
+
+        .assistente-enviar .icon-svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .assistente-aviso {
+            margin: 0;
+            padding: 0 14px 12px;
+            background: #fff;
+            color: #77859a;
+            font-size: 0.69rem;
+            line-height: 1.4;
+        }
+
+        .marca-simbolo .icon-svg {
+            width: 30px;
+            height: 30px;
         }
 
         .marca-texto {
@@ -290,54 +676,95 @@
         }
 
         .biblioteca-card {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            align-items: flex-start;
+            gap: 14px;
             width: 100%;
-            min-height: 210px;
-            padding: 22px 18px;
-            border-radius: 20px;
-            background: linear-gradient(180deg, #f9f7ff 0%, #ffffff 100%);
+            min-height: 230px;
+            padding: 24px 20px;
+            border-radius: 22px;
+            background: linear-gradient(155deg, #ffffff 0%, #f8f7ff 100%);
             border: 1px solid rgba(120, 104, 205, 0.12);
-            box-shadow: 0 12px 26px rgba(58, 44, 111, 0.05);
+            box-shadow: 0 12px 26px rgba(58, 44, 111, 0.07);
             color: inherit;
             text-align: left;
             cursor: pointer;
-            transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+            transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background 180ms ease;
+        }
+
+        .biblioteca-card::before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            top: -45px;
+            right: -42px;
+            width: 132px;
+            height: 132px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, rgba(125, 106, 249, 0.08), rgba(8, 118, 223, 0.04));
+            pointer-events: none;
         }
 
         .biblioteca-card:hover,
         .biblioteca-card:focus-visible {
-            transform: translateY(-3px);
-            border-color: rgba(120, 104, 205, 0.32);
-            box-shadow: 0 18px 28px rgba(58, 44, 111, 0.08);
-            outline: none;
+            transform: translateY(-4px);
+            border-color: rgba(91, 75, 190, 0.36);
+            background: linear-gradient(155deg, #ffffff 0%, #f3f2ff 100%);
+            box-shadow: 0 20px 34px rgba(58, 44, 111, 0.12);
+        }
+
+        .biblioteca-card:focus-visible {
+            outline: 3px solid rgba(8, 118, 223, 0.55);
+            outline-offset: 3px;
         }
 
         .biblioteca-icone {
-            width: 52px;
-            height: 52px;
+            width: 64px;
+            height: 64px;
             display: grid;
             place-items: center;
-            border-radius: 16px;
-            background: #eaf4ff;
-            font-size: 1.8rem;
+            flex: 0 0 auto;
+            border: 1px solid rgba(255, 255, 255, 0.32);
+            border-radius: 19px;
+            background: linear-gradient(145deg, #5366dc 0%, #3446b1 100%);
+            color: #fff;
+            box-shadow: 0 9px 18px rgba(57, 70, 175, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: transform 180ms ease, box-shadow 180ms ease;
         }
 
-        .biblioteca-card:nth-child(2) .biblioteca-icone { background: #eefbf5; }
-        .biblioteca-card:nth-child(3) .biblioteca-icone { background: #fff0ef; }
-        .biblioteca-card:nth-child(4) .biblioteca-icone { background: #f5efff; }
+        .biblioteca-icone .icon-svg {
+            width: 31px;
+            height: 31px;
+            stroke-width: 2;
+        }
+
+        .biblioteca-card:hover .biblioteca-icone,
+        .biblioteca-card:focus-visible .biblioteca-icone {
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 12px 22px rgba(57, 70, 175, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
 
         .biblioteca-card h4 {
             color: #2d2a63;
-            font-size: 1.15rem;
-            line-height: 1.3;
+            font-size: 1.18rem;
+            line-height: 1.35;
         }
 
         .biblioteca-card p {
             color: rgba(45, 42, 99, 0.78);
-            font-size: 0.96rem;
-            line-height: 1.55;
+            font-size: 0.94rem;
+            line-height: 1.6;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .biblioteca-card,
+            .biblioteca-icone {
+                transition: none;
+            }
         }
 
         .biblioteca-conteudo {
@@ -438,8 +865,23 @@
         }
 
         .botao-icone {
-            font-size: 1.55rem;
-            line-height: 1;
+            display: grid;
+            place-items: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            background: rgba(255, 255, 255, 0.72);
+            color: #2d2a63;
+        }
+
+        .botao-icone .icon-svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .botao-ajuda .botao-icone {
+            background: rgba(255, 255, 255, 0.18);
+            color: white;
         }
 
         .botao-seta {
@@ -536,13 +978,17 @@
         }
 
         .lock::after {
-            content: "🔒";
+            content: "";
             position: absolute;
-            inset: 0;
-            display: grid;
-            place-items: center;
-            font-size: 3.2rem;
-            transform: translateY(12px);
+            left: 50%;
+            top: 50%;
+            width: 18px;
+            height: 25px;
+            border-radius: 10px;
+            background:
+                radial-gradient(circle at 50% 25%, rgba(255,255,255,0.98) 0 2px, transparent 2.5px),
+                #6253bd;
+            transform: translate(-50%, -18%);
         }
 
         .art-spark,
@@ -554,8 +1000,13 @@
             background: rgba(255,255,255,0.6);
             box-shadow: 0 18px 36px rgba(89, 76, 161, 0.12);
             backdrop-filter: blur(2px);
-            font-size: 2.1rem;
             z-index: 2;
+        }
+
+        .art-spark .icon-svg,
+        .art-icon .icon-svg {
+            width: 34px;
+            height: 34px;
         }
 
         .art-spark {
@@ -605,7 +1056,11 @@
             border-radius: 16px;
             background: #eaf4ff;
             color: var(--azul-vivo);
-            font-size: 1.7rem;
+        }
+
+        .beneficio-icone .icon-svg {
+            width: 25px;
+            height: 25px;
         }
 
         .beneficio:nth-child(2) .beneficio-icone { background: #eaefe5; color: #0d8d62; }
@@ -689,14 +1144,48 @@
         }
 
         .rodape .frase {
-            position: absolute;
-            right: 6%;
-            bottom: 18px;
-            font-size: clamp(1.1rem, 1.6vw, 2.1rem);
+            position: static;
+            margin: 10px auto 0;
+            font-size: clamp(0.95rem, 1.6vw, 2.1rem);
             color: rgba(255,255,255,0.9);
             font-style: italic;
             font-weight: 700;
             z-index: 1;
+            line-height: 1.35;
+            text-align: center;
+        }
+
+        @media (max-width: 680px) {
+            .rodape {
+                padding: 24px 16px 20px;
+            }
+
+            .rodape-inner {
+                gap: 6px;
+            }
+
+            .rodape .linha {
+                gap: 10px;
+            }
+
+            .rodape .linha::before,
+            .rodape .linha::after {
+                width: clamp(18px, 9vw, 52px);
+            }
+
+            .rodape p {
+                font-size: clamp(0.9rem, 4.2vw, 1.1rem);
+            }
+
+            .rodape small {
+                font-size: 0.8rem;
+            }
+
+            .rodape .frase {
+                position: static;
+                margin-top: 6px;
+                font-size: clamp(0.95rem, 4.5vw, 1.2rem);
+            }
         }
 
         @keyframes floatShield {
@@ -853,12 +1342,23 @@
         }
 
         .opcao .icone {
-            font-size: 22px;
+            width: 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            flex: 0 0 auto;
+            border-radius: 12px;
+            background: rgba(8, 118, 223, 0.09);
+            color: #0876df;
+        }
+
+        .opcao .icone .icon-svg {
+            width: 21px;
+            height: 21px;
         }
 
         .opcao .seta {
             margin-left: auto;
-            font-size: 20px;
         }
 
         /* OPÇÃO DE VIOLÊNCIA EM DESTAQUE */
@@ -871,6 +1371,11 @@
 
         .opcao-violencia:hover {
             background: #fee2e2;
+        }
+
+        .opcao-violencia .icone {
+            background: rgba(229, 43, 50, 0.1);
+            color: #c5222d;
         }
 
         .opcao-seguranca {
@@ -891,7 +1396,6 @@
             height: 34px;
             border-radius: 12px;
             background: rgba(8, 118, 223, 0.12);
-            font-size: 20px;
         }
 
         .info-seguranca-card {
@@ -985,15 +1489,31 @@
 
         @media (max-width: 920px) {
             .topo {
-                padding: 0 5%;
+                padding: 10px 5% 0;
             }
 
             .topo-conteudo {
-                gap: 18px;
+                min-height: 0;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+            }
+
+            .marca {
+                width: 100%;
+                justify-content: center;
+                padding: 4px 0;
             }
 
             .navegacao {
-                gap: 16px;
+                width: 100%;
+                justify-content: center;
+                gap: clamp(4px, 1.5vw, 16px);
+            }
+
+            .nav-link {
+                padding: 10px 12px;
+                font-size: 0.9rem;
             }
 
             .principal {
@@ -1009,9 +1529,25 @@
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
 
+            .beneficios {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 12px;
+            }
+
             .beneficio {
                 padding-right: 12px;
                 padding-left: 12px;
+            }
+
+            .modal {
+                padding: 12px;
+            }
+
+            .modal-conteudo {
+                width: min(100%, 450px);
+                max-height: 90vh;
+                max-height: 90dvh;
+                padding: clamp(18px, 4vw, 25px);
             }
         }
 
@@ -1050,14 +1586,13 @@
             .navegacao {
                 width: 100%;
                 justify-content: center;
-                gap: 22px;
-                overflow-x: auto;
+                gap: 4px 8px;
+                overflow: visible;
             }
 
             .nav-link {
-                flex: 0 0 auto;
-                padding: 12px 0 14px;
-                font-size: 13px;
+                padding: 10px 8px;
+                font-size: 12px;
             }
 
             .principal {
@@ -1066,7 +1601,22 @@
 
             .hero-layout {
                 grid-template-columns: minmax(0, 1fr);
+                min-height: 0;
                 gap: 20px;
+            }
+
+            .hero-art {
+                min-height: clamp(280px, 82vw, 360px);
+            }
+
+            .shield-scene {
+                width: min(360px, 100%);
+            }
+
+            .shield {
+                width: min(380px, 78vw);
+                height: auto;
+                aspect-ratio: 1;
             }
 
             .hero-copy {
@@ -1078,6 +1628,7 @@
                 margin-bottom: 18px;
                 font-size: 10px;
                 letter-spacing: 1.3px;
+                white-space: normal;
             }
 
             .hero-etiqueta::before {
@@ -1109,6 +1660,7 @@
             .botao-informar,
             .botao-ajuda {
                 width: 100%;
+                min-width: 0;
                 min-height: 58px;
             }
 
@@ -1128,7 +1680,66 @@
             .beneficio-icone {
                 width: 42px;
                 height: 42px;
-                font-size: 20px;
+            }
+
+            .assistente-flutuante {
+                right: 14px;
+                bottom: 14px;
+            }
+
+            .assistente-painel {
+                width: min(390px, calc(100vw - 28px));
+                height: min(590px, calc(100vh - 92px));
+                height: min(590px, calc(100dvh - 92px));
+                min-height: min(430px, calc(100dvh - 92px));
+            }
+
+            .assistente-abrir {
+                width: 52px;
+                height: 52px;
+                min-height: 52px;
+                justify-content: center;
+                padding: 0;
+            }
+
+            .assistente-abrir > span:last-child {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                padding: 0;
+                margin: -1px;
+                overflow: hidden;
+                clip: rect(0, 0, 0, 0);
+                white-space: nowrap;
+                border: 0;
+            }
+
+            .assistente-abrir .icono-assistente {
+                width: 34px;
+                height: 34px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .navegacao {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .nav-link {
+                width: 100%;
+                min-width: 0;
+                text-align: center;
+            }
+
+            .beneficio,
+            .beneficio:first-child,
+            .beneficio:last-child {
+                padding: 10px 12px;
+            }
+
+            .modal-conteudo {
+                border-radius: 14px;
             }
         }
 
@@ -1146,10 +1757,120 @@
 
 <body>
 
+    <svg xmlns="http://www.w3.org/2000/svg" class="icon-sprite" aria-hidden="true">
+        <symbol id="icon-shield" viewBox="0 0 24 24">
+            <path d="M12 3 20 6v5c0 5-3.4 8.3-8 10-4.6-1.7-8-5-8-10V6l8-3Z" />
+            <path d="m8.5 12 2.2 2.2 4.8-5" />
+        </symbol>
+        <symbol id="icon-book" viewBox="0 0 24 24">
+            <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21V5.5Z" />
+            <path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H20M8 7h8M8 10h6" />
+        </symbol>
+        <symbol id="icon-alert" viewBox="0 0 24 24">
+            <path d="M12 3 22 20H2L12 3Z" />
+            <path d="M12 9v5m0 3h.01" />
+        </symbol>
+        <symbol id="icon-heart" viewBox="0 0 24 24">
+            <path d="M20.8 8.8c0 5-8.8 10-8.8 10s-8.8-5-8.8-10A4.8 4.8 0 0 1 12 6.4a4.8 4.8 0 0 1 8.8 2.4Z" />
+            <path d="M8 12h2l1.2-2.2 2 4.4 1.2-2.2H17" />
+        </symbol>
+        <symbol id="icon-users" viewBox="0 0 24 24">
+            <circle cx="9" cy="8" r="3.2" />
+            <path d="M3 20v-1.5A5 5 0 0 1 8 13.5h2a5 5 0 0 1 5 5V20H3Zm13-7a3 3 0 1 0-1.2-5.8M18 14a4 4 0 0 1 3 3.9V20h-3" />
+        </symbol>
+        <symbol id="icon-location" viewBox="0 0 24 24">
+            <path d="M20 10c0 5.2-8 11-8 11S4 15.2 4 10a8 8 0 1 1 16 0Z" />
+            <circle cx="12" cy="10" r="2.5" />
+        </symbol>
+        <symbol id="icon-phone" viewBox="0 0 24 24">
+            <path d="M7.2 3.5h2.9l1.4 4.1-2 1.7a15.8 15.8 0 0 0 5.2 5.2l1.7-2 4.1 1.4v2.9a2 2 0 0 1-2.2 2A16.8 16.8 0 0 1 5.2 5.7a2 2 0 0 1 2-2.2Z" />
+        </symbol>
+        <symbol id="icon-network" viewBox="0 0 24 24">
+            <circle cx="12" cy="5" r="2.5" />
+            <circle cx="5" cy="18" r="2.5" />
+            <circle cx="19" cy="18" r="2.5" />
+            <path d="m10.8 7.2-4.6 8.5m7-8.5 4.6 8.5M7.5 18h9" />
+        </symbol>
+        <symbol id="icon-compass" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9" />
+            <path d="m15.8 8.2-2.3 5.3-5.3 2.3 2.3-5.3 5.3-2.3Z" />
+        </symbol>
+        <symbol id="icon-lock" viewBox="0 0 24 24">
+            <rect x="4" y="10" width="16" height="11" rx="2" />
+            <path d="M8 10V7a4 4 0 0 1 8 0v3m-4 4v3" />
+        </symbol>
+        <symbol id="icon-eye" viewBox="0 0 24 24">
+            <path d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z" />
+            <circle cx="12" cy="12" r="2.5" />
+        </symbol>
+        <symbol id="icon-chat" viewBox="0 0 24 24">
+            <path d="M4 5h16v12H9l-5 4V5Z" />
+            <path d="M8 9h8m-8 4h5" />
+        </symbol>
+        <symbol id="icon-school" viewBox="0 0 24 24">
+            <path d="m3 9 9-5 9 5v2H3V9Zm2 2v8m4-8v8m6-8v8m4-8v8M3 21h18" />
+        </symbol>
+        <symbol id="icon-health" viewBox="0 0 24 24">
+            <path d="M4 4h16v16H4z" />
+            <path d="M12 8v8m-4-4h8" />
+        </symbol>
+        <symbol id="icon-scale" viewBox="0 0 24 24">
+            <path d="M12 3v17m-6 1h12M5 7h14M7 7l-4 7h8L7 7Zm10 0-4 7h8l-4-7Z" />
+        </symbol>
+        <symbol id="icon-handshake" viewBox="0 0 24 24">
+            <path d="m3 12 4-4 4 1 2-1 5 1 3 3-7 7-4-2-3 1-4-6Z" />
+            <path d="m7 8 3-3 4 1 2 2m-7 5 4 3m-1-5 4 3m-1-5 4 3" />
+        </symbol>
+        <symbol id="icon-device" viewBox="0 0 24 24">
+            <rect x="3" y="4" width="18" height="13" rx="2" />
+            <path d="M8 21h8m-4-4v4m-5-9 3-3 2 2 4-4" />
+        </symbol>
+        <symbol id="icon-privacy" viewBox="0 0 24 24">
+            <path d="M12 3 20 6v5c0 5-3.4 8.3-8 10-4.6-1.7-8-5-8-10V6l8-3Z" />
+            <rect x="9" y="10" width="6" height="5" rx="1" />
+            <path d="M10.5 10V8.5a1.5 1.5 0 0 1 3 0V10" />
+        </symbol>
+        <symbol id="icon-question" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M9.5 9a2.6 2.6 0 1 1 4.6 1.7c-1.1 1.2-2.1 1.3-2.1 3m0 3h.01" />
+        </symbol>
+        <symbol id="icon-check" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9" />
+            <path d="m8 12 2.5 2.5L16.5 9" />
+        </symbol>
+        <symbol id="icon-target" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9" />
+            <circle cx="12" cy="12" r="5" />
+            <circle cx="12" cy="12" r="1" />
+        </symbol>
+        <symbol id="icon-settings" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M12 2.8v2m0 14.4v2m9.2-9.2h-2M4.8 12h-2m15.7-6.5-1.4 1.4M6.9 17.1l-1.4 1.4m13 0-1.4-1.4M6.9 6.9 5.5 5.5" />
+            <circle cx="12" cy="12" r="8" />
+        </symbol>
+        <symbol id="icon-family" viewBox="0 0 24 24">
+            <circle cx="8" cy="8" r="2.5" />
+            <circle cx="16" cy="8" r="2.5" />
+            <circle cx="12" cy="15" r="2" />
+            <path d="M3.5 19a4.5 4.5 0 0 1 9 0m-.5 0a4 4 0 0 1 8 0" />
+        </symbol>
+        <symbol id="icon-no" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9" />
+            <path d="m6 6 12 12" />
+        </symbol>
+        <symbol id="icon-send" viewBox="0 0 24 24">
+            <path d="m3 11 18-8-6.5 18-3.3-7.2L3 11Z" />
+            <path d="m11.2 13.8 4.1-4.1" />
+        </symbol>
+        <symbol id="icon-close" viewBox="0 0 24 24">
+            <path d="m6 6 12 12M18 6 6 18" />
+        </symbol>
+    </svg>
+
     <header class="topo">
         <div class="topo-conteudo">
             <a class="marca" href="#inicio" aria-label="Conecta Proteção, início">
-                <span class="marca-simbolo" aria-hidden="true">🛡️</span>
+                <span class="marca-simbolo" aria-hidden="true"><svg class="icon-svg"><use href="#icon-shield"></use></svg></span>
                 <span class="marca-texto">
                     <strong>Conecta Proteção</strong>
                     <span>Proteção e orientação no ambiente digital</span>
@@ -1173,12 +1894,12 @@
                 <p class="hero-introducao">A Conecta Proteção reúne apoio, informação e orientação em um só lugar para ajudar pessoas a agir com mais segurança, clareza e acolhimento.</p>
                 <div class="botoes-principais">
                     <button class="botao-informar" id="abrirModalInformar">
-                        <span class="botao-icone" aria-hidden="true">📖</span>
+                        <span class="botao-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-book"></use></svg></span>
                         QUERO ME INFORMAR
                         <span class="botao-seta" aria-hidden="true">›</span>
                     </button>
                     <button class="botao-ajuda" id="abrirModalAjuda">
-                        <span class="botao-icone" aria-hidden="true">🚨</span>
+                        <span class="botao-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-heart"></use></svg></span>
                         PRECISO DE AJUDA
                         <span class="botao-seta" aria-hidden="true">›</span>
                     </button>
@@ -1186,10 +1907,10 @@
             </section>
 
             <div class="hero-art" aria-hidden="true">
-                <div class="art-spark spark-globe">🌐</div>
-                <div class="art-spark spark-bubble">👥</div>
-                <div class="art-icon spark-cube">💬</div>
-                <div class="art-icon spark-star">💻</div>
+                <div class="art-spark spark-globe"><svg class="icon-svg"><use href="#icon-network"></use></svg></div>
+                <div class="art-spark spark-bubble"><svg class="icon-svg"><use href="#icon-users"></use></svg></div>
+                <div class="art-icon spark-cube"><svg class="icon-svg"><use href="#icon-chat"></use></svg></div>
+                <div class="art-icon spark-star"><svg class="icon-svg"><use href="#icon-device"></use></svg></div>
 
                 <div class="shield-scene" data-float>
                     <div class="shield">
@@ -1207,25 +1928,25 @@
 
             <div class="biblioteca-grid" id="biblioteca-lista">
                 <button class="biblioteca-card" type="button" data-biblioteca="seguranca">
-                    <span class="biblioteca-icone" aria-hidden="true">🛡️</span>
+                    <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-shield"></use></svg></span>
                     <h4>Segurança digital</h4>
                     <p>Orientações práticas para proteger dados, privacidade e bem-estar no ambiente online.</p>
                 </button>
 
                 <button class="biblioteca-card" type="button" data-biblioteca="direitos">
-                    <span class="biblioteca-icone" aria-hidden="true">📚</span>
+                    <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-book"></use></svg></span>
                     <h4>Conheça seus direitos</h4>
                     <p>Entenda os direitos de crianças, adolescentes e famílias no ambiente digital.</p>
                 </button>
 
                 <button class="biblioteca-card" type="button" data-biblioteca="riscos">
-                    <span class="biblioteca-icone" aria-hidden="true">⚠️</span>
+                    <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-alert"></use></svg></span>
                     <h4>Identifique situações de risco</h4>
                     <p>Aprenda a reconhecer sinais de alerta e agir com cuidado diante de ameaças e pressões.</p>
                 </button>
 
                 <button class="biblioteca-card" type="button" data-biblioteca="ajuda">
-                    <span class="biblioteca-icone" aria-hidden="true">🤝</span>
+                    <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-handshake"></use></svg></span>
                     <h4>Onde buscar ajuda</h4>
                     <p>Descubra para quem recorrer e como encontrar apoio seguro quando a situação exigir atenção.</p>
                 </button>
@@ -1233,7 +1954,7 @@
 
             <div class="biblioteca-conteudo" id="biblioteca-conteudo">
                 <article class="biblioteca-detalhe" id="biblioteca-seguranca">
-                    <h4>🛡️ Segurança digital</h4>
+                    <h4><svg class="icon-inline" aria-hidden="true"><use href="#icon-shield"></use></svg>Segurança digital</h4>
                     <p>A segurança digital ajuda a proteger sua vida online, seus dados e o seu bem-estar. Algumas atitudes simples fazem muita diferença no dia a dia.</p>
                     <div class="info-seguranca-card">
                         <h4>✅ O que pode ajudar</h4>
@@ -1249,14 +1970,14 @@
                 </article>
 
                 <article class="biblioteca-detalhe" id="biblioteca-direitos">
-                    <h4>📚 Conheça seus direitos</h4>
+                    <h4><svg class="icon-inline" aria-hidden="true"><use href="#icon-book"></use></svg>Conheça seus direitos</h4>
                     <p>Crianças e adolescentes têm direito à proteção, ao respeito e à segurança, inclusive no ambiente digital.</p>
                     <p>Nenhuma pessoa deve ser ameaçada, constrangida ou responsabilizada pela violência que sofreu.</p>
                     <button class="biblioteca-voltar" type="button">Voltar para a Biblioteca</button>
                 </article>
 
                 <article class="biblioteca-detalhe" id="biblioteca-riscos">
-                    <h4>⚠️ Identifique situações de risco</h4>
+                    <h4><svg class="icon-inline" aria-hidden="true"><use href="#icon-alert"></use></svg>Identifique situações de risco</h4>
                     <p>Conheça sinais de alerta e saiba como buscar orientação de um adulto de confiança diante de situações preocupantes na internet.</p>
                     <ul>
                         <li>Ameaças ou chantagens.</li>
@@ -1268,7 +1989,7 @@
                 </article>
 
                 <article class="biblioteca-detalhe" id="biblioteca-ajuda">
-                    <h4>🤝 Onde buscar ajuda</h4>
+                    <h4><svg class="icon-inline" aria-hidden="true"><use href="#icon-handshake"></use></svg>Onde buscar ajuda</h4>
                     <p>Procure um adulto de confiança e conheça os serviços da rede de proteção que podem orientar crianças e adolescentes.</p>
                     <button class="biblioteca-voltar" type="button">Voltar para a Biblioteca</button>
                 </article>
@@ -1277,27 +1998,78 @@
 
         <section class="beneficios" aria-label="Apoio oferecido">
             <div class="beneficio">
-                <span class="beneficio-icone" aria-hidden="true">✅</span>
+                <span class="beneficio-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-check"></use></svg></span>
                 <span><strong>Conteúdo confiável</strong><span>Informações seguras e atualizadas.</span></span>
             </div>
             <div class="beneficio">
-                <span class="beneficio-icone" aria-hidden="true">👥</span>
+                <span class="beneficio-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-users"></use></svg></span>
                 <span><strong>Orientação prática</strong><span>Dicas para o seu dia a dia digital.</span></span>
             </div>
             <div class="beneficio">
-                <span class="beneficio-icone" aria-hidden="true">♡</span>
+                <span class="beneficio-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-heart"></use></svg></span>
                 <span><strong>Apoio quando precisar</strong><span>Você não está sozinho nessa jornada.</span></span>
             </div>
             <div class="beneficio">
-                <span class="beneficio-icone" aria-hidden="true">🎯</span>
+                <span class="beneficio-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-family"></use></svg></span>
                 <span><strong>Para todas as idades</strong><span>Crianças, adolescentes, pais e responsáveis.</span></span>
             </div>
             <div class="beneficio">
-                <span class="beneficio-icone" aria-hidden="true">★</span>
+                <span class="beneficio-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-shield"></use></svg></span>
                 <span><strong>Juntos por um ambiente digital mais seguro</strong><span>Informar é cuidar!</span></span>
             </div>
         </section>
     </main>
+
+    <div class="assistente-flutuante" id="assistenteConecta">
+        <section class="assistente-painel" id="painelAssistente" role="dialog" aria-label="Chat de orientação Conecta Proteção" aria-modal="false" aria-hidden="true">
+            <header class="assistente-cabecalho">
+                <span class="assistente-marca" aria-hidden="true">
+                    <svg class="icon-svg"><use href="#icon-chat"></use></svg>
+                </span>
+                <span class="assistente-titulo">
+                    <strong>Assistente Conecta</strong>
+                    <span>Orientação inicial e caminhos de apoio</span>
+                </span>
+                <button class="assistente-fechar" id="fecharAssistente" type="button" aria-label="Fechar conversa">
+                    <svg class="icon-svg" aria-hidden="true"><use href="#icon-close"></use></svg>
+                </button>
+            </header>
+
+            <div class="assistente-preferencias">
+                <label for="publicoAssistente">Quero conversar como</label>
+                <select id="publicoAssistente">
+                    <option value="geral">Prefiro não informar</option>
+                    <option value="jovem">Criança ou adolescente</option>
+                    <option value="responsavel">Familiar ou responsável</option>
+                    <option value="profissional">Profissional ou educador</option>
+                </select>
+            </div>
+
+            <p class="assistente-status" id="statusAssistente" role="status" aria-live="polite">Verificando conexão com a IA…</p>
+
+            <div class="assistente-mensagens" id="mensagensAssistente" role="log" aria-live="polite" aria-relevant="additions text"></div>
+
+            <div class="assistente-sugestoes" aria-label="Assuntos para começar (opcional)">
+                <button class="assistente-sugestao" type="button" data-assistente-intencao="emergencia">Estou em perigo</button>
+                <button class="assistente-sugestao" type="button" data-assistente-intencao="canais">Canais de ajuda</button>
+                <button class="assistente-sugestao" type="button" data-assistente-intencao="rede">Onde buscar ajuda?</button>
+            </div>
+
+            <form class="assistente-formulario" id="formularioAssistente">
+                <label class="sr-only" for="entradaAssistente">Escreva sua dúvida</label>
+                <textarea id="entradaAssistente" name="mensagem" rows="1" maxlength="1000" placeholder="Escreva livremente o que você está pensando..." aria-describedby="avisoAssistente"></textarea>
+                <button class="assistente-enviar" type="submit" aria-label="Enviar mensagem">
+                    <svg class="icon-svg" aria-hidden="true"><use href="#icon-send"></use></svg>
+                </button>
+            </form>
+            <p class="assistente-aviso" id="avisoAssistente">Suas mensagens são enviadas à OpenAI para gerar respostas. Evite compartilhar dados pessoais. O assistente não substitui profissionais nem serviços de emergência.</p>
+        </section>
+
+        <button class="assistente-abrir" id="abrirAssistente" type="button" aria-label="Abrir assistente Conecta Proteção" aria-expanded="false" aria-controls="painelAssistente">
+            <span class="icono-assistente" aria-hidden="true"><svg class="icon-svg"><use href="#icon-chat"></use></svg></span>
+            <span>Converse com a gente</span>
+        </button>
+    </div>
 
     <!-- JANELA QUERO ME INFORMAR -->
 
@@ -1324,7 +2096,7 @@
 
                 <button class="opcao opcao-seguranca" data-info="seguranca">
 
-                    <span class="icone">🛡️</span>
+                    <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-shield"></use></svg></span>
                     <span>O que é o Conecta Proteção</span>
                     <span class="seta">›</span>
 
@@ -1332,7 +2104,7 @@
 
                 <button class="opcao" data-info="direitos">
 
-                    <span class="icone">🎯</span>
+                    <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-target"></use></svg></span>
                     <span>Qual é o objetivo</span>
                     <span class="seta">›</span>
 
@@ -1340,7 +2112,7 @@
 
                 <button class="opcao" data-info="riscos">
 
-                    <span class="icone">⚙️</span>
+                    <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-settings"></use></svg></span>
                     <span>Como a plataforma funciona</span>
                     <span class="seta">›</span>
 
@@ -1348,7 +2120,7 @@
 
                 <button class="opcao" data-info="ajuda">
 
-                    <span class="icone">👨‍👩‍👧‍👦</span>
+                    <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-family"></use></svg></span>
                     <span>Como ela ajuda cada público</span>
                     <span class="seta">›</span>
 
@@ -1358,7 +2130,7 @@
 
             <div class="informacao" id="info-seguranca">
 
-                <h3>🛡️ O que é o Conecta Proteção</h3>
+                <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-shield"></use></svg>O que é o Conecta Proteção</h3>
 
                 <p>
                     O Conecta Proteção é um espaço pensado para orientar e acolher pessoas em situações de risco, dúvida ou desconforto no ambiente digital.
@@ -1378,7 +2150,7 @@
 
             <div class="informacao" id="info-direitos">
 
-                <h3>🎯 Qual é o objetivo</h3>
+                <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-target"></use></svg>Qual é o objetivo</h3>
 
                 <p>
                     O objetivo da plataforma é informar de forma acessível e acolhedora, ajudando as pessoas a entender melhor o que acontece, como agir e a quem recorrer.
@@ -1394,7 +2166,7 @@
 
             <div class="informacao" id="info-riscos">
 
-                <h3>⚙️ Como a plataforma funciona</h3>
+                <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-settings"></use></svg>Como a plataforma funciona</h3>
 
                 <p>
                     A plataforma organiza conteúdos em caminhos simples e comprensíveis. A pessoa pode escolher o tema que busca, entender os sinais de alerta e acessar informações que ajudam na orientação.
@@ -1413,7 +2185,7 @@
 
             <div class="informacao" id="info-ajuda">
 
-                <h3>👨‍👩‍👧‍👦 Como ela ajuda cada público</h3>
+                <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-family"></use></svg>Como ela ajuda cada público</h3>
 
                 <p>
                     <strong>Crianças e adolescentes:</strong> recebem informações que ajudam a identificar riscos, reconhecer limites e buscar apoio com mais segurança.
@@ -1443,7 +2215,7 @@
 
             <div class="modal-cabecalho">
 
-                <h2>🚨 Preciso de ajuda</h2>
+                <h2><svg class="icon-inline" aria-hidden="true"><use href="#icon-heart"></use></svg>Preciso de ajuda</h2>
 
                 <button class="fechar" id="fecharModalAjuda">
                     &times;
@@ -1463,7 +2235,7 @@
                 <button class="opcao opcao-violencia"
                     data-ajuda="violencia">
 
-                    <span class="icone">🚨</span>
+                    <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-alert"></use></svg></span>
                     <span>Sofri uma situação de violência</span>
                     <span class="seta">›</span>
 
@@ -1472,7 +2244,7 @@
                 <button class="opcao"
                     data-ajuda="orientacao">
 
-                    <span class="icone">💙</span>
+                    <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-heart"></use></svg></span>
                     <span>Preciso de orientação</span>
                     <span class="seta">›</span>
 
@@ -1481,7 +2253,7 @@
                 <button class="opcao"
                     data-ajuda="ajudar">
 
-                    <span class="icone">👥</span>
+                    <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-users"></use></svg></span>
                     <span>Quero ajudar alguém</span>
                     <span class="seta">›</span>
 
@@ -1490,7 +2262,7 @@
                 <button class="opcao"
                     data-ajuda="rede">
 
-                    <span class="icone">📍</span>
+                    <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-location"></use></svg></span>
                     <span>Onde buscar ajuda?</span>
                     <span class="seta">›</span>
 
@@ -1505,7 +2277,7 @@
 <button class="voltar voltar-menu-ajuda">
     ← Voltar às opções de ajuda
 </button>
-    <h3>🚨 Sofri uma situação de violência</h3>
+    <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-alert"></use></svg>Sofri uma situação de violência</h3>
 
     <div class="acolhimento">
         Você não tem culpa pelo que aconteceu.
@@ -1523,7 +2295,7 @@
     <button class="opcao"
         data-tipo-violencia="verbal">
 
-        <span class="icone">🗣️</span>
+        <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-chat"></use></svg></span>
         <span>Violência verbal e psicológica</span>
         <span class="seta">›</span>
 
@@ -1532,7 +2304,7 @@
     <button class="opcao"
         data-tipo-violencia="digital">
 
-        <span class="icone">📱</span>
+        <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-device"></use></svg></span>
         <span>Violência digital</span>
         <span class="seta">›</span>
 
@@ -1541,7 +2313,7 @@
     <button class="opcao"
         data-tipo-violencia="privacidade">
 
-        <span class="icone">🔒</span>
+        <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-privacy"></use></svg></span>
         <span>Violação de privacidade</span>
         <span class="seta">›</span>
 
@@ -1550,7 +2322,7 @@
     <button class="opcao"
         data-tipo-violencia="aliciamento">
 
-        <span class="icone">🎭</span>
+        <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-eye"></use></svg></span>
         <span>Manipulação e aliciamento</span>
         <span class="seta">›</span>
 
@@ -1559,7 +2331,7 @@
     <button class="opcao"
         data-tipo-violencia="sexual">
 
-       <span class="icone">🛡️</span>
+       <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-shield"></use></svg></span>
        <span>Violência sexual</span>
        <span class="seta">›</span>
 
@@ -1567,7 +2339,7 @@
     <button class="opcao"
         data-tipo-violencia="chantagem">
 
-        <span class="icone">⚠️</span>
+        <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-alert"></use></svg></span>
         <span>Ameaças e chantagem</span>
         <span class="seta">›</span>
 
@@ -1576,7 +2348,7 @@
     <button class="opcao"
         data-tipo-violencia="nao-sei">
 
-        <span class="icone">❓</span>
+        <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-question"></use></svg></span>
         <span>Não sei identificar o que aconteceu</span>
         <span class="seta">›</span>
 
@@ -1589,7 +2361,7 @@
 
     <button class="opcao" data-subopcao="o-que-e">
 
-        <span class="icone">📚</span>
+        <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-book"></use></svg></span>
         <span>O que é essa violência?</span>
         <span class="seta">›</span>
 
@@ -1597,7 +2369,7 @@
 
     <button class="opcao" data-subopcao="cuidados">
 
-        <span class="icone">🛡️</span>
+        <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-shield"></use></svg></span>
         <span>Como posso me cuidar?</span>
         <span class="seta">›</span>
 
@@ -1605,14 +2377,14 @@
 
     <button class="opcao" data-subopcao="canais">
 
-        <span class="icone">📍</span>
+        <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-location"></use></svg></span>
         <span>Canais de denúncia e proteção</span>
         <span class="seta">›</span>
 
     </button>
 
 </div>
-    <button class="voltar voltar-tipos-violencia">
+    <button class="voltar voltar-tipos-violencia" id="voltarTiposViolencia" style="display: none;">
     ← Voltar aos tipos de violência
 </button>
     
@@ -1626,19 +2398,41 @@
 
             <div class="informacao" id="ajuda-orientacao">
 
-                <h3>💙 Preciso de orientação</h3>
+                <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-heart"></use></svg>Preciso de orientação</h3>
 
                 <p>
-                    Se você está enfrentando uma situação
-                    preocupante na internet, não precisa
-                    lidar com tudo sozinha.
+                    Escolha um tema para encontrar informações e caminhos de apoio.
                 </p>
 
-                <ul>
-                    <li>Converse com alguém de confiança.</li>
-                    <li>Procure informações seguras.</li>
-                    <li>Peça ajuda quando sentir medo ou desconforto.</li>
-                </ul>
+                <button class="opcao" data-orientacao="canais">
+                    <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-phone"></use></svg></span>
+                    <span>Canais de denúncia e proteção</span>
+                    <span class="seta">›</span>
+                </button>
+
+                <button class="opcao" data-orientacao="protecao">
+                    <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-network"></use></svg></span>
+                    <span>Rede de proteção</span>
+                    <span class="seta">›</span>
+                </button>
+
+                <button class="opcao" data-orientacao="emergencia">
+                    <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-alert"></use></svg></span>
+                    <span>O que fazer em uma situação de emergência</span>
+                    <span class="seta">›</span>
+                </button>
+
+                <button class="opcao" data-orientacao="nao-sei">
+                    <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-compass"></use></svg></span>
+                    <span>Não sei a quem recorrer</span>
+                    <span class="seta">›</span>
+                </button>
+
+                <button class="opcao" data-orientacao="seguranca">
+                    <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-lock"></use></svg></span>
+                    <span>Como buscar ajuda com segurança</span>
+                    <span class="seta">›</span>
+                </button>
 
                 <button class="voltar">Voltar às opções</button>
 
@@ -1648,7 +2442,7 @@
 
             <div class="informacao" id="ajuda-ajudar">
 
-                <h3>👥 Quero ajudar alguém</h3>
+                <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-users"></use></svg>Quero ajudar alguém</h3>
 
                 <p>
                     Escute a pessoa com respeito e sem
@@ -1662,35 +2456,272 @@
                     <li>Procure apoio da rede de proteção.</li>
                 </ul>
 
+                <p>Escolha um tema para saber como oferecer apoio e buscar ajuda:</p>
+
+                <button class="opcao" data-ajuda-pessoa="percebi">
+                    <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-eye"></use></svg></span>
+                    <span>Percebi que alguém pode estar passando por violência</span>
+                    <span class="seta">›</span>
+                </button>
+
+                <button class="opcao" data-ajuda-pessoa="conversar">
+                    <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-chat"></use></svg></span>
+                    <span>Como conversar com a pessoa</span>
+                    <span class="seta">›</span>
+                </button>
+
+                <button class="opcao" data-ajuda-pessoa="proteger">
+                    <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-shield"></use></svg></span>
+                    <span>Como proteger e buscar ajuda</span>
+                    <span class="seta">›</span>
+                </button>
+
+                <button class="opcao" data-ajuda-pessoa="canais">
+                    <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-phone"></use></svg></span>
+                    <span>Onde denunciar ou pedir orientação</span>
+                    <span class="seta">›</span>
+                </button>
+
+                <button class="opcao" data-ajuda-pessoa="emergencia">
+                    <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-alert"></use></svg></span>
+                    <span>E se houver perigo imediato?</span>
+                    <span class="seta">›</span>
+                </button>
+
+                <button class="opcao" data-ajuda-pessoa="nao-fazer">
+                    <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-no"></use></svg></span>
+                    <span>O que não fazer</span>
+                    <span class="seta">›</span>
+                </button>
+
                 <button class="voltar">Voltar às opções</button>
 
+            </div>
+
+            <div class="informacao" id="ajuda-pessoa-percebi">
+                <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-eye"></use></svg>Percebi que alguém pode estar passando por violência</h3>
+                <p>
+                    Se você percebeu sinais ou recebeu um relato, ofereça apoio com calma e sem pressionar. A pessoa pode precisar de tempo para falar, e você não precisa investigar nem descobrir todos os detalhes.
+                </p>
+                <ul>
+                    <li>Deixe claro que você se importa e está disponível para ajudar.</li>
+                    <li>Acredite no que a pessoa contar e não a culpe pelo que aconteceu.</li>
+                    <li>Pergunte do que ela precisa e ajude a encontrar um adulto ou serviço de confiança.</li>
+                    <li>Se houver risco imediato, priorize a segurança e procure ajuda de emergência.</li>
+                </ul>
+                <button class="voltar" data-voltar-ajuda-pessoa>← Voltar aos temas para ajudar</button>
+            </div>
+
+            <div class="informacao" id="ajuda-pessoa-conversar">
+                <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-chat"></use></svg>Como conversar com a pessoa</h3>
+                <p>
+                    Escolha um momento e um local em que a pessoa se sinta segura. Ouça com atenção, respeito e sem julgamentos.
+                </p>
+                <ul>
+                    <li>Diga que você está ali para ouvir e que leva a situação a sério.</li>
+                    <li>Use perguntas abertas e simples, sem exigir detalhes ou repetir perguntas.</li>
+                    <li>Respeite o ritmo da pessoa e agradeça por ela ter confiado em você.</li>
+                    <li>Não prometa guardar segredo se for necessário buscar ajuda para protegê-la; explique com cuidado os próximos passos.</li>
+                </ul>
+                <button class="voltar" data-voltar-ajuda-pessoa>← Voltar aos temas para ajudar</button>
+            </div>
+
+            <div class="informacao" id="ajuda-pessoa-proteger">
+                <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-shield"></use></svg>Como proteger e buscar ajuda</h3>
+                <p>
+                    Ajude a pessoa a se aproximar de alguém responsável e de confiança. O serviço mais adequado depende da situação e da segurança da criança ou adolescente.
+                </p>
+                <ul>
+                    <li>Procure um adulto responsável e confiável, se isso for seguro para a criança ou adolescente.</li>
+                    <li>A escola pode acolher e ajudar a acionar a rede de proteção.</li>
+                    <li>O Conselho Tutelar pode orientar e atuar na proteção de direitos.</li>
+                    <li>Serviços de assistência social e saúde também podem oferecer atendimento e encaminhamento.</li>
+                    <li>Se houver suspeita de que um responsável esteja envolvido, busque diretamente outro serviço da rede de proteção.</li>
+                </ul>
+                <button class="voltar" data-voltar-ajuda-pessoa>← Voltar aos temas para ajudar</button>
+            </div>
+
+            <div class="informacao" id="ajuda-pessoa-canais">
+                <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-phone"></use></svg>Onde denunciar ou pedir orientação</h3>
+                <p>Estes canais podem ajudar a buscar proteção ou comunicar uma situação:</p>
+                <ul>
+                    <li><strong>Disque 100:</strong> recebe e encaminha denúncias de violações de direitos humanos, inclusive contra crianças e adolescentes.</li>
+                    <li><strong>Conselho Tutelar:</strong> pode receber a comunicação e orientar sobre medidas de proteção.</li>
+                    <li><strong>Delegacia:</strong> pode registrar a ocorrência e encaminhar a investigação; onde houver, procure uma delegacia especializada.</li>
+                    <li><strong>Ministério Público:</strong> pode receber relatos e atuar na defesa de direitos.</li>
+                    <li><strong>Polícia Militar — 190:</strong> para situações de emergência ou risco imediato.</li>
+                </ul>
+                <p>Os serviços disponíveis podem variar conforme a região. Em perigo imediato, ligue 190.</p>
+                <button class="voltar" data-voltar-ajuda-pessoa>← Voltar aos temas para ajudar</button>
+            </div>
+
+            <div class="informacao" id="ajuda-pessoa-emergencia">
+                <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-alert"></use></svg>E se houver perigo imediato?</h3>
+                <p>
+                    Se a criança ou adolescente estiver em perigo agora, aja para buscar ajuda sem se colocar nem colocar a pessoa em mais risco.
+                </p>
+                <ul>
+                    <li>Procure um local seguro, se for possível fazê-lo sem aumentar o perigo.</li>
+                    <li>Acione a Polícia Militar pelo 190 em caso de risco imediato ou emergência.</li>
+                    <li>Peça apoio a um adulto de confiança ou a alguém próximo enquanto a ajuda chega.</li>
+                    <li>Depois que a situação estiver segura, procure o Conselho Tutelar ou outro serviço da rede de proteção.</li>
+                </ul>
+                <button class="voltar" data-voltar-ajuda-pessoa>← Voltar aos temas para ajudar</button>
+            </div>
+
+            <div class="informacao" id="ajuda-pessoa-nao-fazer">
+                <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-no"></use></svg>O que não fazer</h3>
+                <ul>
+                    <li>Não culpe, julgue ou questione por que a pessoa não falou antes.</li>
+                    <li>Não pressione para contar detalhes nem faça a pessoa repetir o relato para várias pessoas.</li>
+                    <li>Não ameace ou confronte o possível agressor; isso pode aumentar o risco.</li>
+                    <li>Não tente resolver sozinho uma situação perigosa: busque apoio de adultos responsáveis e da rede de proteção.</li>
+                    <li>Não divulgue o relato ou informações pessoais da criança ou adolescente.</li>
+                </ul>
+                <button class="voltar" data-voltar-ajuda-pessoa>← Voltar aos temas para ajudar</button>
             </div>
 
             <!-- ONDE BUSCAR AJUDA -->
 
             <div class="informacao" id="ajuda-rede">
 
-                <h3>📍 Onde buscar ajuda?</h3>
+                <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-location"></use></svg>Onde buscar ajuda?</h3>
 
                 <p>
-                    Você pode procurar um adulto de confiança,
-                    a escola ou os serviços da rede de proteção.
+                    Escolha um caminho para conhecer os serviços que podem orientar e apoiar você.
                 </p>
 
-                <p>
-                    Em uma situação de perigo imediato,
-                    procure ajuda presencial de um adulto
-                    responsável ou dos serviços de emergência.
-                </p>
+                <button class="opcao" data-ajuda-rede="canais">
+                    <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-phone"></use></svg></span>
+                    <span>Canais de atendimento e denúncia</span>
+                    <span class="seta">›</span>
+                </button>
+
+                <button class="opcao" data-ajuda-rede="conselho">
+                    <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-shield"></use></svg></span>
+                    <span>Conselho Tutelar</span>
+                    <span class="seta">›</span>
+                </button>
+
+                <button class="opcao" data-ajuda-rede="emergencia">
+                    <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-alert"></use></svg></span>
+                    <span>Emergência</span>
+                    <span class="seta">›</span>
+                </button>
+
+                <button class="opcao" data-ajuda-rede="escola">
+                    <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-school"></use></svg></span>
+                    <span>Escola</span>
+                    <span class="seta">›</span>
+                </button>
+
+                <button class="opcao" data-ajuda-rede="saude">
+                    <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-health"></use></svg></span>
+                    <span>Saúde</span>
+                    <span class="seta">›</span>
+                </button>
+
+                <button class="opcao" data-ajuda-rede="delegacia">
+                    <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-scale"></use></svg></span>
+                    <span>Delegacia e Ministério Público</span>
+                    <span class="seta">›</span>
+                </button>
+
+                <button class="opcao" data-ajuda-rede="nao-sei">
+                    <span class="icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-handshake"></use></svg></span>
+                    <span>Não sei qual serviço procurar</span>
+                    <span class="seta">›</span>
+                </button>
 
                 <button class="voltar">Voltar às opções</button>
 
+            </div>
+
+            <div class="informacao" id="ajuda-rede-canais">
+                <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-phone"></use></svg>Canais de atendimento e denúncia</h3>
+                <p>Estes canais podem ajudar a comunicar uma situação ou encontrar proteção:</p>
+                <ul>
+                    <li><strong>Disque 100:</strong> recebe e encaminha denúncias de violações de direitos humanos, inclusive contra crianças e adolescentes.</li>
+                    <li><strong>Conselho Tutelar:</strong> orienta e atua na proteção dos direitos de crianças e adolescentes.</li>
+                    <li><strong>Polícia Militar — 190:</strong> atende situações de emergência policial e risco imediato.</li>
+                    <li><strong>Delegacia:</strong> pode registrar ocorrências e encaminhar investigações; onde houver, uma delegacia especializada atende situações específicas.</li>
+                    <li><strong>Ministério Público:</strong> recebe relatos e atua na defesa de direitos.</li>
+                </ul>
+                <p>Os serviços disponíveis podem variar conforme a região.</p>
+                <button class="voltar" data-voltar-ajuda-rede>← Voltar às opções de ajuda</button>
+            </div>
+
+            <div class="informacao" id="ajuda-rede-conselho">
+                <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-shield"></use></svg>Conselho Tutelar</h3>
+                <p>
+                    Crianças e adolescentes, familiares ou pessoas que percebam uma ameaça ou violação de direitos podem procurar o Conselho Tutelar para comunicar a situação e pedir orientação.
+                </p>
+                <p>
+                    O Conselho Tutelar faz parte da rede de proteção: atende casos, aplica medidas de proteção dentro de suas atribuições e pode encaminhar a pessoa a outros serviços. Se um responsável puder estar envolvido na violência, procure diretamente outro serviço seguro da rede.
+                </p>
+                <button class="voltar" data-voltar-ajuda-rede>← Voltar às opções de ajuda</button>
+            </div>
+
+            <div class="informacao" id="ajuda-rede-emergencia">
+                <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-alert"></use></svg>Emergência</h3>
+                <p>
+                    Se houver perigo imediato, procure um local seguro se puder fazer isso sem aumentar o risco e peça ajuda a um adulto ou pessoa próxima de confiança.
+                </p>
+                <p>
+                    Em uma emergência policial ou situação de risco imediato, ligue para a Polícia Militar pelo <strong>190</strong>. Não tente enfrentar sozinho uma situação perigosa.
+                </p>
+                <button class="voltar" data-voltar-ajuda-rede>← Voltar às opções de ajuda</button>
+            </div>
+
+            <div class="informacao" id="ajuda-rede-escola">
+                <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-school"></use></svg>Escola</h3>
+                <p>
+                    A escola pode ser um lugar para pedir acolhimento e orientação. Você pode conversar com um professor, a coordenação, a direção ou outro profissional da escola em quem confie.
+                </p>
+                <p>
+                    A equipe pode ajudar a identificar o próximo passo e, quando necessário, acionar os serviços da rede de proteção.
+                </p>
+                <button class="voltar" data-voltar-ajuda-rede>← Voltar às opções de ajuda</button>
+            </div>
+
+            <div class="informacao" id="ajuda-rede-saude">
+                <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-health"></use></svg>Saúde</h3>
+                <p>
+                    Unidades de saúde, hospitais e profissionais de saúde podem acolher, avaliar necessidades de cuidado e ajudar a pessoa a receber atendimento e encaminhamento.
+                </p>
+                <p>
+                    Se houver uma necessidade urgente de saúde, procure um serviço de saúde ou peça ajuda a um adulto de confiança.
+                </p>
+                <button class="voltar" data-voltar-ajuda-rede>← Voltar às opções de ajuda</button>
+            </div>
+
+            <div class="informacao" id="ajuda-rede-delegacia">
+                <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-scale"></use></svg>Delegacia e Ministério Público</h3>
+                <ul>
+                    <li><strong>Delegacia:</strong> pode receber denúncias, registrar ocorrências e encaminhar investigações. Onde houver, uma delegacia especializada pode atender situações específicas.</li>
+                    <li><strong>Ministério Público:</strong> pode receber relatos de violações de direitos e atuar para defender esses direitos e acompanhar providências.</li>
+                </ul>
+                <p>
+                    Se não souber como proceder, um adulto de confiança ou outro serviço da rede de proteção pode ajudar a encontrar o encaminhamento adequado.
+                </p>
+                <button class="voltar" data-voltar-ajuda-rede>← Voltar às opções de ajuda</button>
+            </div>
+
+            <div class="informacao" id="ajuda-rede-nao-sei">
+                <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-handshake"></use></svg>Não sei qual serviço procurar</h3>
+                <p>
+                    Tudo bem não saber por onde começar. Procure um adulto de confiança, a escola, o Conselho Tutelar ou outro serviço da rede de proteção e explique o que está acontecendo.
+                </p>
+                <p>
+                    Esses serviços podem ouvir você, orientar sobre as opções e ajudar a identificar o próximo passo. Se houver perigo imediato, procure um local seguro e ligue 190 em uma emergência policial.
+                </p>
+                <button class="voltar" data-voltar-ajuda-rede>← Voltar às opções de ajuda</button>
             </div>
  <!-- VIOLAÇÃO DE PRIVACIDADE -->
 
 <div class="informacao" id="privacidade-o-que-e" style="display: none;">
 
-    <h3>🔐 O que é violação de privacidade?</h3>
+    <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-privacy"></use></svg>O que é violação de privacidade?</h3>
 
     <p>
         A violação de privacidade acontece quando alguém
@@ -1705,7 +2736,7 @@
         outros espaços online.
     </p>
 
-    <h4>⚠️ Exemplos de situações</h4>
+    <h4><svg class="icon-inline" aria-hidden="true"><use href="#icon-alert"></use></svg>Exemplos de situações</h4>
 
     <ul>
         <li>
@@ -1739,7 +2770,7 @@
 
 <div class="informacao" id="privacidade-como-se-cuidar" style="display: none;">
 
-    <h3>🛡️ Como posso me cuidar?</h3>
+    <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-shield"></use></svg>Como posso me cuidar?</h3>
 
     <p>
         Algumas atitudes podem ajudar você a proteger
@@ -1791,7 +2822,7 @@
 
 <div class="informacao" id="aliciamento-o-que-e" style="display: none;">
 
-    <h3>🔐 O que é manipulação e aliciamento?</h3>
+    <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-privacy"></use></svg>O que é manipulação e aliciamento?</h3>
 
     <p>
         Manipulação e aliciamento acontecem quando alguém
@@ -1807,7 +2838,7 @@
         ou outros espaços online.
     </p>
 
-    <h4>⚠️ Exemplos de situações</h4>
+    <h4><svg class="icon-inline" aria-hidden="true"><use href="#icon-alert"></use></svg>Exemplos de situações</h4>
 
     <ul>
         <li>Fingir ser outra pessoa para ganhar confiança.</li>
@@ -1834,7 +2865,7 @@
 </div>
 <div class="informacao" id="aliciamento-como-se-cuidar" style="display: none;">
 
-    <h3>🛡️ Como posso me cuidar?</h3>
+    <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-shield"></use></svg>Como posso me cuidar?</h3>
 
     <p>
         Se alguém estiver tentando ganhar sua confiança para pressionar,
@@ -1866,7 +2897,7 @@
 
 <div class="informacao" id="sexual-o-que-e" style="display: none;">
 
-    <h3>🔐 O que é violência sexual?</h3>
+    <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-privacy"></use></svg>O que é violência sexual?</h3>
 
     <p>
         A violência sexual pode acontecer com pessoas de diferentes
@@ -1881,7 +2912,7 @@
         conteúdo íntimo.
     </p>
 
-    <h4>⚠️ Exemplos de situações</h4>
+    <h4><svg class="icon-inline" aria-hidden="true"><use href="#icon-alert"></use></svg>Exemplos de situações</h4>
 
     <ul>
         <li>Pedir ou pressionar alguém a enviar imagens íntimas.</li>
@@ -1912,7 +2943,7 @@
 </div>
 <div class="informacao" id="sexual-como-se-cuidar" style="display: none;">
 
-    <h3>🛡️ Como posso me cuidar?</h3>
+    <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-shield"></use></svg>Como posso me cuidar?</h3>
 
     <p>
         Se alguém estiver pressionando você para conversar, enviar imagens
@@ -1947,7 +2978,7 @@
 
 <div class="informacao" id="chantagem-o-que-e" style="display: none;">
 
-    <h3>⚠️ O que são ameaças e chantagem?</h3>
+    <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-alert"></use></svg>O que são ameaças e chantagem?</h3>
 
     <p>
         Ameaças e chantagem acontecem quando alguém usa
@@ -1961,7 +2992,7 @@
         mensagens, redes sociais, jogos ou aplicativos de conversa.
     </p>
 
-    <h4>⚠️ Exemplos de situações</h4>
+    <h4><svg class="icon-inline" aria-hidden="true"><use href="#icon-alert"></use></svg>Exemplos de situações</h4>
 
     <ul>
         <li>Ameaçar divulgar informações, fotos ou conversas privadas.</li>
@@ -1988,7 +3019,7 @@
 </div>
 <div class="informacao" id="chantagem-como-se-cuidar" style="display: none;">
 
-    <h3>🛡️ Como posso me cuidar?</h3>
+    <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-shield"></use></svg>Como posso me cuidar?</h3>
 
     <p>
         Se alguém estiver usando ameaças ou chantagem para pressionar você,
@@ -2022,7 +3053,7 @@
 
 <div class="informacao" id="nao-sei-o-que-e" style="display: none;">
 
-    <h3>🔎 Não sei qual situação estou enfrentando</h3>
+    <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-compass"></use></svg>Não sei qual situação estou enfrentando</h3>
 
     <p>
         Nem sempre é fácil identificar o que está acontecendo,
@@ -2036,7 +3067,7 @@
         atenção, mesmo que você ainda não saiba como definir a situação.
     </p>
 
-    <h4>⚠️ Alguns sinais de alerta</h4>
+    <h4><svg class="icon-inline" aria-hidden="true"><use href="#icon-alert"></use></svg>Alguns sinais de alerta</h4>
 
     <ul>
         <li>Alguém está pressionando você a fazer algo que não quer.</li>
@@ -2060,43 +3091,41 @@
 </div>
           <!-- ORIENTAÇÃO: O QUE FAZER AGORA -->
 
-            <div class="informacao" id="orientacao-agora">
+            <div class="informacao" id="orientacao-emergencia">
 
-                <h3>💙 O que fazer agora?</h3>
+                <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-alert"></use></svg>O que fazer em uma situação de emergência</h3>
 
                 <p>
-                    Se você passou por uma situação de violência:
+                    Se você estiver em perigo neste momento, priorize sua segurança:
                 </p>
 
                 <ul>
-                    <li>Procure um lugar seguro.</li>
-                    <li>Converse com um adulto de confiança.</li>
-                    <li>Não se culpe pelo que aconteceu.</li>
-                    <li>Peça ajuda à rede de proteção.</li>
+                    <li>Afaste-se do perigo e procure um local seguro, se puder fazer isso sem aumentar o risco.</li>
+                    <li>Se houver risco imediato, ligue para a Polícia Militar pelo 190 ou peça a alguém próximo que ligue.</li>
+                    <li>Avise um adulto de confiança e procure os serviços de proteção assim que estiver em segurança.</li>
                 </ul>
 
-                <button class="voltar">Voltar às opções</button>
+                <button class="voltar" data-voltar-orientacao>← Voltar aos temas de orientação</button>
 
             </div>
 
             <!-- ORIENTAÇÃO: COM QUEM CONVERSAR -->
 
-            <div class="informacao" id="orientacao-conversar">
+            <div class="informacao" id="orientacao-nao-sei">
 
-                <h3>👥 Com quem posso conversar?</h3>
+                <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-compass"></use></svg>Não sei a quem recorrer</h3>
 
                 <p>
-                    Você pode procurar alguém que faça
-                    você se sentir segura, como:
+                    Você não precisa saber qual serviço procurar para pedir ajuda. Conte o que está acontecendo a alguém de confiança, que poderá ajudar a encontrar o encaminhamento adequado.
                 </p>
 
                 <ul>
-                    <li>Responsável ou familiar de confiança.</li>
-                    <li>Professor ou profissional da escola.</li>
-                    <li>Conselheiro tutelar ou outro profissional da rede de proteção.</li>
+                    <li>Um adulto de confiança ou familiar que possa acolher você.</li>
+                    <li>A escola, como um professor ou outro profissional com quem se sinta à vontade.</li>
+                    <li>O Conselho Tutelar ou outro serviço da rede de proteção da sua região.</li>
                 </ul>
 
-                <button class="voltar">Voltar às opções</button>
+                <button class="voltar" data-voltar-orientacao>← Voltar aos temas de orientação</button>
 
             </div>
 
@@ -2104,23 +3133,22 @@
 
             <div class="informacao" id="orientacao-protecao">
 
-                <h3>📍 Onde buscar ajuda e proteção?</h3>
+                <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-network"></use></svg>Rede de proteção</h3>
 
                 <p>
-                    Procure um adulto de confiança e
-                    peça orientação sobre os serviços
-                    da rede de proteção disponíveis
-                    na sua região.
+                    A rede de proteção é formada por serviços e instituições que trabalham para garantir os direitos, acolher e ajudar crianças e adolescentes. Cada serviço pode orientar e encaminhar para o apoio adequado.
                 </p>
 
-                <p>
-                    A Conecta Proteção apresenta
-                    informações educativas e não realiza
-                    atendimento ou recebimento de denúncias
-                    nesta versão do protótipo.
-                </p>
+                <ul>
+                    <li><strong>Conselho Tutelar:</strong> atua na proteção dos direitos de crianças e adolescentes e pode orientar sobre os próximos passos.</li>
+                    <li><strong>Escola:</strong> professores e equipes escolares podem acolher, ouvir e ajudar a acionar a rede.</li>
+                    <li><strong>Assistência social:</strong> serviços como CRAS e CREAS oferecem atendimento e acompanhamento conforme a situação.</li>
+                    <li><strong>Saúde:</strong> unidades de saúde e hospitais podem prestar atendimento e cuidado.</li>
+                    <li><strong>Polícia:</strong> atende emergências, registra ocorrências e investiga situações conforme sua atribuição.</li>
+                    <li><strong>Ministério Público:</strong> recebe relatos e atua na defesa dos direitos e na fiscalização dos serviços.</li>
+                </ul>
 
-                <button class="voltar">Voltar às opções</button>
+                <button class="voltar" data-voltar-orientacao>← Voltar aos temas de orientação</button>
 
             </div>
 
@@ -2128,16 +3156,43 @@
 
             <div class="informacao" id="orientacao-seguranca">
 
-                <h3>🔒 Como preservar minha segurança digital?</h3>
+                <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-lock"></use></svg>Como buscar ajuda com segurança</h3>
 
+                <p>
+                    Procure apoio de um jeito que não aumente o risco para você. Se possível:
+                </p>
                 <ul>
-                    <li>Evite compartilhar informações pessoais.</li>
-                    <li>Procure apoio antes de responder a ameaças.</li>
-                    <li>Converse com um adulto de confiança.</li>
-                    <li>Use as ferramentas de bloqueio e denúncia das plataformas quando for seguro.</li>
+                    <li>Vá para um local seguro e fale com uma pessoa adulta de confiança.</li>
+                    <li>Explique o que aconteceu no seu próprio ritmo; você não precisa lidar com isso sozinha(o).</li>
+                    <li>Guarde mensagens, datas ou outras informações importantes somente se isso puder ser feito com segurança.</li>
+                    <li>Se alguém puder monitorar seu dispositivo ou suas conversas, use um meio seguro para pedir ajuda, se possível.</li>
                 </ul>
 
-                <button class="voltar">Voltar às opções</button>
+                <button class="voltar" data-voltar-orientacao>← Voltar aos temas de orientação</button>
+
+            </div>
+
+            <div class="informacao" id="orientacao-canais">
+
+                <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-phone"></use></svg>Canais de denúncia e proteção</h3>
+
+                <p>
+                    Você pode procurar estes canais para relatar uma violência ou receber orientação:
+                </p>
+
+                <ul>
+                    <li><strong>Disque 100:</strong> serviço gratuito para receber e encaminhar denúncias de violações de direitos humanos, inclusive contra crianças e adolescentes.</li>
+                    <li><strong>Conselho Tutelar:</strong> pode ser procurado para comunicar uma situação e pedir medidas de proteção dos direitos de crianças e adolescentes.</li>
+                    <li><strong>Polícia Militar — 190:</strong> ligue em caso de perigo ou risco imediato, quando for necessária uma resposta de emergência.</li>
+                    <li><strong>Delegacia:</strong> pode registrar a ocorrência e encaminhar a investigação. Onde houver, uma delegacia especializada atende situações específicas, inclusive envolvendo crianças e adolescentes.</li>
+                    <li><strong>Ministério Público:</strong> recebe relatos e pode atuar para defender direitos e acompanhar providências.</li>
+                </ul>
+
+                <p>
+                    Se houver perigo imediato, priorize um local seguro e acione a emergência pelo 190. Os serviços disponíveis podem variar conforme a região.
+                </p>
+
+                <button class="voltar" data-voltar-orientacao>← Voltar aos temas de orientação</button>
 
             </div>
 
@@ -2148,7 +3203,7 @@
 
 <div class="informacao" id="verbal-o-que-e" style="display: none;">
 
-    <h3>📚 O que é violência verbal e psicológica?</h3>
+    <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-chat"></use></svg>O que é violência verbal e psicológica?</h3>
 
     <p>
         A violência verbal e psicológica acontece
@@ -2203,7 +3258,7 @@
 
 <div class="informacao" id="digital-o-que-e" style="display: none;">
 
-    <h3>📱 O que é violência digital?</h3>
+    <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-device"></use></svg>O que é violência digital?</h3>
 
     <p>
         A violência digital acontece quando alguém
@@ -2269,7 +3324,7 @@
 </div>
  <div class="informacao" id="digital-como-se-cuidar" style="display: none;">
 
-    <h3>🛡️ Como posso me cuidar?</h3>
+    <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-shield"></use></svg>Como posso me cuidar?</h3>
 
     <p>
         Algumas atitudes podem ajudar você a aumentar sua segurança
@@ -2412,7 +3467,7 @@
 
         const opcoes =
             modal.querySelectorAll(
-                "[data-info], [data-ajuda], [data-orientacao]"
+                "[data-info], [data-ajuda], [data-orientacao], [data-ajuda-rede]"
             );
 
         opcoes.forEach(function (opcao) {
@@ -2663,8 +3718,100 @@ if (nomeAjuda === "violencia") {
 
             esconderOpcoes(modalAjuda);
 
+            if (nomeAjuda === "orientacao") {
+                informacao.querySelectorAll("[data-orientacao]").forEach(function (opcao) {
+                    opcao.style.display = "flex";
+                });
+            }
+
+            if (nomeAjuda === "ajudar") {
+                informacao.querySelectorAll("[data-ajuda-pessoa]").forEach(function (opcao) {
+                    opcao.style.display = "flex";
+                });
+            }
+
+            if (nomeAjuda === "rede") {
+                informacao.querySelectorAll("[data-ajuda-rede]").forEach(function (opcao) {
+                    opcao.style.display = "flex";
+                });
+            }
+
         });
 
+    });
+
+    document.querySelectorAll("[data-ajuda-rede]").forEach(function (opcao) {
+        opcao.addEventListener("click", function () {
+            const conteudo = document.getElementById(
+                "ajuda-rede-" + opcao.dataset.ajudaRede
+            );
+
+            fecharTudo(modalAjuda);
+
+            if (conteudo) {
+                conteudo.classList.add("ativo");
+            }
+
+            esconderOpcoes(modalAjuda);
+        });
+    });
+
+    document.querySelectorAll("[data-voltar-ajuda-rede]").forEach(function (botao) {
+        botao.addEventListener("click", function () {
+            fecharTudo(modalAjuda);
+
+            const painelRede =
+                document.getElementById("ajuda-rede");
+
+            if (painelRede) {
+                painelRede.classList.add("ativo");
+            }
+
+            modalAjuda.querySelectorAll("[data-ajuda]").forEach(function (opcao) {
+                opcao.style.display = "none";
+            });
+
+            modalAjuda.querySelectorAll("[data-ajuda-rede]").forEach(function (opcao) {
+                opcao.style.display = "flex";
+            });
+        });
+    });
+
+    document.querySelectorAll("[data-ajuda-pessoa]").forEach(function (opcao) {
+        opcao.addEventListener("click", function () {
+            const conteudo = document.getElementById(
+                "ajuda-pessoa-" + opcao.dataset.ajudaPessoa
+            );
+
+            fecharTudo(modalAjuda);
+
+            if (conteudo) {
+                conteudo.classList.add("ativo");
+            }
+
+            esconderOpcoes(modalAjuda);
+        });
+    });
+
+    document.querySelectorAll("[data-voltar-ajuda-pessoa]").forEach(function (botao) {
+        botao.addEventListener("click", function () {
+            fecharTudo(modalAjuda);
+
+            const painelAjudar =
+                document.getElementById("ajuda-ajudar");
+
+            if (painelAjudar) {
+                painelAjudar.classList.add("ativo");
+            }
+
+            modalAjuda.querySelectorAll("[data-ajuda]").forEach(function (opcao) {
+                opcao.style.display = "none";
+            });
+
+            modalAjuda.querySelectorAll("[data-ajuda-pessoa]").forEach(function (opcao) {
+                opcao.style.display = "flex";
+            });
+        });
     });
 
 
@@ -2710,9 +3857,39 @@ botoesVoltar.forEach(function (botao) {
 
     botao.addEventListener("click", function () {
 
-        // Voltar para os tipos de violência
-        if (
-            botao.classList.contains("voltar-tipos-violencia")
+    if (botao.hasAttribute("data-voltar-ajuda-rede")) {
+        return;
+    }
+
+    if (botao.hasAttribute("data-voltar-ajuda-pessoa")) {
+        return;
+    }
+
+    if (botao.hasAttribute("data-voltar-orientacao")) {
+
+        fecharTudo(modalAjuda);
+
+        const painelOrientacao =
+            document.getElementById("ajuda-orientacao");
+
+        if (painelOrientacao) {
+            painelOrientacao.classList.add("ativo");
+        }
+
+        modalAjuda.querySelectorAll("[data-ajuda]").forEach(function (opcao) {
+            opcao.style.display = "none";
+        });
+
+        modalAjuda.querySelectorAll("[data-orientacao]").forEach(function (opcao) {
+            opcao.style.display = "flex";
+        });
+
+        return;
+    }
+
+    // Voltar para os tipos de violência
+    if (
+        botao.classList.contains("voltar-tipos-violencia")
         ) {
 
             // Esconder todos os conteúdos das violências
@@ -2759,6 +3936,15 @@ botoesVoltar.forEach(function (botao) {
 
             if (opcoesTipo) {
                 opcoesTipo.style.display = "none";
+            }
+
+            const botaoVoltarTipos = document.getElementById("voltarTiposViolencia");
+            const botaoVoltarAjuda = document.querySelector(".voltar-menu-ajuda");
+            if (botaoVoltarTipos) {
+                botaoVoltarTipos.style.display = "none";
+            }
+            if (botaoVoltarAjuda) {
+                botaoVoltarAjuda.style.display = "block";
             }
 
             return;
@@ -2867,6 +4053,14 @@ naoSeiOQueE.style.display = "none";
         tiposViolencia.forEach(function (cartao) {
     cartao.style.display = "none";
 });
+        const botaoVoltarAjuda = document.querySelector(".voltar-menu-ajuda");
+        if (botaoVoltarAjuda) {
+            botaoVoltarAjuda.style.display = "none";
+        }
+        const botaoVoltarTipos = document.getElementById("voltarTiposViolencia");
+        if (botaoVoltarTipos) {
+            botaoVoltarTipos.style.display = "block";
+        }
         // Mostrar as três opções
 
         opcoesTipoViolencia.style.display = "block";
@@ -3022,6 +4216,10 @@ subopcoes.forEach(function (opcao) {
         if (opcoesTipoViolencia) {
     opcoesTipoViolencia.style.display = "none";
 }
+const botaoVoltarTipos = document.getElementById("voltarTiposViolencia");
+if (botaoVoltarTipos) {
+    botaoVoltarTipos.style.display = "none";
+}
 
 const conteudos = [
     verbalOQueE,
@@ -3152,6 +4350,285 @@ if (
 
 
   </script>
+
+    <script>
+        (function () {
+            const widget = document.getElementById("assistenteConecta");
+            const openButton = document.getElementById("abrirAssistente");
+            const closeButton = document.getElementById("fecharAssistente");
+            const panel = document.getElementById("painelAssistente");
+            const messages = document.getElementById("mensagensAssistente");
+            const form = document.getElementById("formularioAssistente");
+            const input = document.getElementById("entradaAssistente");
+            const audience = document.getElementById("publicoAssistente");
+            const status = document.getElementById("statusAssistente");
+
+            if (!widget || !openButton || !closeButton || !panel || !messages || !form || !input || !audience || !status) {
+                throw new Error("Não foi possível iniciar o Assistente Conecta: faltam elementos da interface.");
+            }
+
+            let waitingForReply = false;
+            let checkingStatus = false;
+            let conversation = [];
+
+            function scrollToLatest() {
+                messages.scrollTop = messages.scrollHeight;
+            }
+
+            function addMessage(text, from, actions) {
+                const message = document.createElement("div");
+                message.className = "assistente-mensagem" + (from === "user" ? " usuario" : "");
+                message.textContent = text;
+                messages.appendChild(message);
+
+                if (actions && actions.length) {
+                    const actionList = document.createElement("div");
+                    actionList.className = "assistente-acoes";
+
+                    actions.forEach(function (action) {
+                        const button = document.createElement("button");
+                        button.type = "button";
+                        button.className = "assistente-acao";
+                        button.textContent = action.label;
+                        button.addEventListener("click", function () {
+                            openPlatformTopic(action.destination);
+                        });
+                        actionList.appendChild(button);
+                    });
+
+                    message.appendChild(actionList);
+                }
+
+                scrollToLatest();
+                return message;
+            }
+
+            async function sendQuestion(question) {
+                const cleanQuestion = question.trim();
+                if (!cleanQuestion || waitingForReply) {
+                    return;
+                }
+
+                addMessage(cleanQuestion, "user");
+                waitingForReply = true;
+                input.disabled = true;
+                form.querySelector("button[type='submit']").disabled = true;
+                const pendingMessage = addMessage("A IA está lendo sua mensagem e o contexto da conversa…", "assistant");
+                pendingMessage.setAttribute("aria-busy", "true");
+
+                try {
+                    const messagesToSend = conversation.concat([
+                        { role: "user", content: cleanQuestion }
+                    ]).slice(-12);
+                    const response = await fetch("/api/chat", {
+                        method: "POST",
+                        cache: "no-store",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            audience: audience.value,
+                            messages: messagesToSend
+                        })
+                    });
+                    if (!response.ok) {
+                        const isJson = response.headers.get("content-type") || "";
+                        let serverError = "O servidor de IA recusou a solicitação (" + response.status + ").";
+                        if (isJson.includes("application/json")) {
+                            const errorResult = await response.json();
+                            if (typeof errorResult.error === "string") {
+                                serverError = errorResult.error;
+                            }
+                        }
+                        throw new Error(serverError);
+                    }
+
+                    let result;
+                    try {
+                        result = await response.json();
+                    } catch (error) {
+                        throw new Error("O servidor de IA respondeu em um formato inválido.");
+                    }
+                    if (typeof result.reply !== "string" || !result.reply.trim()) {
+                        throw new Error("O assistente retornou uma resposta inválida.");
+                    }
+
+                    pendingMessage.remove();
+                    conversation.push(
+                        { role: "user", content: cleanQuestion },
+                        { role: "assistant", content: result.reply }
+                    );
+                    conversation = conversation.slice(-12);
+                    const validActions = Array.isArray(result.actions)
+                        ? result.actions.filter(function (action) {
+                            return action &&
+                                typeof action.label === "string" &&
+                                typeof action.destination === "string" &&
+                                ["canais", "seguranca", "orientacao", "rede", "ajudar", "violencia"].includes(action.destination);
+                        }).slice(0, 2)
+                        : [];
+                    addMessage(result.reply, "assistant", validActions);
+                } catch (error) {
+                    pendingMessage.remove();
+                    const errorMessage = error instanceof TypeError
+                        ? "Não foi possível conectar ao servidor de IA. Abra a plataforma no endereço informado ao iniciar o servidor."
+                        : error instanceof Error
+                            ? error.message
+                            : "Não foi possível conectar ao assistente de IA.";
+                    addMessage(
+                        errorMessage + " Esta mensagem não recebeu uma resposta de IA. Tente novamente após restabelecer a conexão. Em uma emergência, ligue 190.",
+                        "assistant"
+                    );
+                } finally {
+                    waitingForReply = false;
+                    input.disabled = false;
+                    form.querySelector("button[type='submit']").disabled = false;
+                    input.focus();
+                }
+            }
+
+            async function checkApiStatus() {
+                if (checkingStatus) {
+                    return;
+                }
+
+                checkingStatus = true;
+                status.dataset.state = "checking";
+                status.textContent = "Verificando conexão segura com o serviço de IA…";
+
+                try {
+                    const response = await fetch("/api/status", { cache: "no-store" });
+                    if (!response.ok) {
+                        throw new Error("Servidor de IA indisponível.");
+                    }
+
+                    const result = await response.json();
+                    if (result.ready === true) {
+                        status.dataset.state = "ready";
+                        status.textContent = "Chave configurada. Envie sua mensagem para receber uma resposta da IA.";
+                    } else {
+                        status.dataset.state = "unavailable";
+                        status.textContent = "IA ainda não configurada. Defina OPENAI_API_KEY no .env e tente enviar sua mensagem novamente.";
+                    }
+                } catch (error) {
+                    status.dataset.state = "unavailable";
+                    status.textContent = "Sem conexão com a IA. Abra a plataforma no endereço informado ao iniciar o servidor.";
+                } finally {
+                    checkingStatus = false;
+                }
+            }
+
+            function openPlatformTopic(destination) {
+                const routes = {
+                    canais: { section: "orientacao", topic: "canais" },
+                    seguranca: { section: "orientacao", topic: "seguranca" },
+                    orientacao: { section: "orientacao" },
+                    rede: { section: "rede" },
+                    ajudar: { section: "ajudar" },
+                    violencia: { section: "violencia" }
+                };
+                const route = routes[destination];
+                const sectionButton = route && document.querySelector('[data-ajuda="' + route.section + '"]');
+
+                if (!sectionButton) {
+                    addMessage("Não consegui abrir essa área agora. Você pode usar o botão “Preciso de ajuda” e escolher a opção correspondente.", "assistant");
+                    return;
+                }
+
+                sectionButton.click();
+
+                if (route.topic) {
+                    const topicButton = document.querySelector('[data-orientacao="' + route.topic + '"]');
+                    if (!topicButton) {
+                        addMessage("A área foi aberta, mas não consegui localizar esse tema específico. Escolha uma das opções disponíveis na tela.", "assistant");
+                        closeChat();
+                        return;
+                    }
+                    topicButton.click();
+                }
+
+                closeChat();
+            }
+
+            function openChat() {
+                widget.classList.add("aberto");
+                openButton.setAttribute("aria-expanded", "true");
+                panel.setAttribute("aria-hidden", "false");
+
+                checkApiStatus();
+                input.focus();
+            }
+
+            function closeChat() {
+                widget.classList.remove("aberto");
+                openButton.setAttribute("aria-expanded", "false");
+                panel.setAttribute("aria-hidden", "true");
+            }
+
+            openButton.addEventListener("click", function () {
+                if (widget.classList.contains("aberto")) {
+                    closeChat();
+                } else {
+                    openChat();
+                }
+            });
+
+            closeButton.addEventListener("click", function () {
+                closeChat();
+                openButton.focus();
+            });
+
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+                if (waitingForReply || !input.value.trim()) {
+                    return;
+                }
+                const question = input.value;
+                input.value = "";
+                sendQuestion(question);
+            });
+
+            input.addEventListener("keydown", function (event) {
+                if (event.key === "Enter" && !event.shiftKey && !event.isComposing) {
+                    event.preventDefault();
+                    form.requestSubmit();
+                }
+            });
+
+            audience.addEventListener("change", function () {
+                status.textContent = "O assistente ajustará a linguagem ao público selecionado.";
+                checkApiStatus();
+            });
+
+            document.querySelectorAll("[data-assistente-intencao]").forEach(function (button) {
+                button.addEventListener("click", function () {
+                    const prompts = {
+                        emergencia: "Estou em perigo agora",
+                        canais: "Quais são os canais de ajuda e denúncia?",
+                        rede: "Onde buscar ajuda?"
+                    };
+                    sendQuestion(prompts[button.dataset.assistenteIntencao] || button.textContent);
+                });
+            });
+
+            document.addEventListener("keydown", function (event) {
+                if (event.key === "Escape" && widget.classList.contains("aberto")) {
+                    closeChat();
+                    openButton.focus();
+                }
+            });
+        })();
+    </script>
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        if (window.VLibras && typeof window.VLibras.Widget === "function") {
+            new window.VLibras.Widget({
+                rootPath: "https://vlibras.gov.br/app",
+                position: "R"
+            });
+        } else {
+            console.error("O VLibras Widget oficial não foi carregado. Verifique a conexão com vlibras.gov.br.");
+        }
+    </script>
 
 </body>
 </html>
