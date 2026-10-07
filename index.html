@@ -106,6 +106,236 @@
             color: #0876df;
         }
 
+        .pesquisa-topo {
+            flex: 0 1 360px;
+            min-width: 260px;
+        }
+
+        .pesquisa-formulario {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            gap: 8px;
+            padding: 5px 6px 5px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.34);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.97);
+            box-shadow: 0 8px 20px rgba(13, 20, 65, 0.18);
+        }
+
+        .pesquisa-formulario:focus-within {
+            outline: 3px solid rgba(164, 138, 248, 0.68);
+            outline-offset: 3px;
+        }
+
+        .pesquisa-formulario input {
+            min-width: 0;
+            flex: 1;
+            padding: 10px 2px;
+            border: 0;
+            outline: 0;
+            background: transparent;
+            color: #1e293b;
+            font: inherit;
+            font-size: 0.95rem;
+        }
+
+        .pesquisa-formulario input::placeholder {
+            color: #64748b;
+            opacity: 1;
+        }
+
+        .pesquisa-formulario button {
+            display: grid;
+            width: 42px;
+            height: 42px;
+            flex: 0 0 auto;
+            place-items: center;
+            border: 0;
+            border-radius: 11px;
+            background: #5144b8;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .pesquisa-formulario button:hover,
+        .pesquisa-formulario button:focus-visible {
+            background: #3f359a;
+        }
+
+        .pesquisa-formulario button:focus-visible {
+            outline: 3px solid #a48af8;
+            outline-offset: 2px;
+        }
+
+        .pesquisa-formulario button .icon-svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .pesquisa-conteudo {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 50%;
+            display: none;
+            width: min(960px, calc(100% - 32px));
+            max-height: calc(100vh - 125px);
+            max-height: calc(100dvh - 125px);
+            overflow-y: auto;
+            padding: 22px;
+            transform: translateX(-50%);
+            border: 1px solid rgba(73, 60, 146, 0.16);
+            border-radius: 20px;
+            background: #fff;
+            color: var(--texto);
+            box-shadow: 0 22px 60px rgba(20, 19, 53, 0.3);
+        }
+
+        .pesquisa-conteudo.aberto {
+            display: block;
+        }
+
+        .pesquisa-cabecalho {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 14px;
+        }
+
+        .pesquisa-cabecalho h2 {
+            color: #2d2a63;
+            font-size: clamp(1.15rem, 2vw, 1.45rem);
+        }
+
+        .pesquisa-fechar {
+            display: grid;
+            width: 38px;
+            height: 38px;
+            flex: 0 0 auto;
+            place-items: center;
+            border: 0;
+            border-radius: 50%;
+            background: #eef2f7;
+            color: #334155;
+            font-size: 1.35rem;
+            cursor: pointer;
+        }
+
+        .pesquisa-fechar:hover,
+        .pesquisa-fechar:focus-visible {
+            background: #e0e7f0;
+        }
+
+        .pesquisa-mensagem {
+            margin: 12px 0 0;
+            color: #475569;
+            font-size: 0.95rem;
+        }
+
+        .pesquisa-resultados {
+            display: grid;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .pesquisa-resultado {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            background: #f8faff;
+        }
+
+        .pesquisa-resultado h3 {
+            margin: 0 0 5px;
+            color: #123b70;
+            font-size: 1rem;
+        }
+
+        .pesquisa-resultado p {
+            margin: 0;
+            color: #475569;
+            line-height: 1.5;
+            font-size: 0.92rem;
+        }
+
+        .pesquisa-resultado button,
+        .pesquisa-voltar {
+            flex: 0 0 auto;
+            border: 0;
+            border-radius: 12px;
+            padding: 10px 14px;
+            background: #3446b1;
+            color: #fff;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .pesquisa-resultado button:hover,
+        .pesquisa-voltar:hover {
+            background: #283892;
+        }
+
+        .pesquisa-resultado button:focus-visible,
+        .pesquisa-voltar:focus-visible {
+            outline: 3px solid rgba(8, 118, 223, 0.55);
+            outline-offset: 2px;
+        }
+
+        .pesquisa-visualizacao {
+            padding: 18px;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            background: #f8faff;
+        }
+
+        .pesquisa-visualizacao .biblioteca-detalhe,
+        .pesquisa-visualizacao .informacao {
+            display: block;
+            margin-top: 0;
+        }
+
+        .pesquisa-visualizacao .biblioteca-detalhe.tema-aberto .biblioteca-seguranca-tema.ativo,
+        .pesquisa-visualizacao .biblioteca-detalhe.direito-aberto .biblioteca-direitos-tema.ativo,
+        .pesquisa-visualizacao .biblioteca-detalhe.risco-aberto .biblioteca-risco-tema.ativo,
+        .pesquisa-visualizacao .biblioteca-detalhe.ajuda-aberta .biblioteca-ajuda-tema.ativo {
+            display: block;
+        }
+
+        .pesquisa-visualizacao .biblioteca-seguranca-grid,
+        .pesquisa-visualizacao .biblioteca-direitos-grid,
+        .pesquisa-visualizacao .biblioteca-risco-grid,
+        .pesquisa-visualizacao .biblioteca-ajuda-grid,
+        .pesquisa-visualizacao .biblioteca-detalhe > .biblioteca-voltar,
+        .pesquisa-visualizacao .biblioteca-seguranca-voltar,
+        .pesquisa-visualizacao .biblioteca-direitos-voltar,
+        .pesquisa-visualizacao .biblioteca-risco-voltar,
+        .pesquisa-visualizacao .biblioteca-ajuda-voltar {
+            display: none;
+        }
+
+        .pesquisa-visualizacao .biblioteca-detalhe.pesquisa-categoria-aberta .biblioteca-seguranca-grid,
+        .pesquisa-visualizacao .biblioteca-detalhe.pesquisa-categoria-aberta .biblioteca-direitos-grid,
+        .pesquisa-visualizacao .biblioteca-detalhe.pesquisa-categoria-aberta .biblioteca-risco-grid,
+        .pesquisa-visualizacao .biblioteca-detalhe.pesquisa-categoria-aberta .biblioteca-ajuda-grid {
+            display: grid;
+        }
+
+        .pesquisa-voltar {
+            margin-bottom: 16px;
+            background: #eef3ff;
+            color: #123b70;
+        }
+
+        .pesquisa-voltar:hover {
+            background: #dce8ff;
+        }
+
         .sr-only {
             position: absolute;
             width: 1px;
@@ -765,24 +995,36 @@
             margin-bottom: 18px;
         }
 
-        .biblioteca-seguranca-grid {
+        .biblioteca-seguranca-grid,
+        .biblioteca-direitos-grid,
+        .biblioteca-risco-grid,
+        .biblioteca-ajuda-grid {
             grid-template-columns: repeat(3, minmax(0, 1fr));
             margin: 20px 0 8px;
         }
 
-        .biblioteca-seguranca-grid .biblioteca-card {
+        .biblioteca-seguranca-grid .biblioteca-card,
+        .biblioteca-direitos-grid .biblioteca-card,
+        .biblioteca-risco-grid .biblioteca-card,
+        .biblioteca-ajuda-grid .biblioteca-card {
             min-height: 190px;
             padding: 20px;
             gap: 12px;
         }
 
-        .biblioteca-seguranca-grid .biblioteca-icone {
+        .biblioteca-seguranca-grid .biblioteca-icone,
+        .biblioteca-direitos-grid .biblioteca-icone,
+        .biblioteca-risco-grid .biblioteca-icone,
+        .biblioteca-ajuda-grid .biblioteca-icone {
             width: 56px;
             height: 56px;
             border-radius: 17px;
         }
 
-        .biblioteca-seguranca-tema {
+        .biblioteca-seguranca-tema,
+        .biblioteca-direitos-tema,
+        .biblioteca-risco-tema,
+        .biblioteca-ajuda-tema {
             display: none;
             margin-top: 18px;
             padding: 22px;
@@ -791,30 +1033,48 @@
             background: linear-gradient(145deg, #fff 0%, #f8f7ff 100%);
         }
 
-        .biblioteca-seguranca-tema.ativo {
+        .biblioteca-seguranca-tema.ativo,
+        .biblioteca-direitos-tema.ativo,
+        .biblioteca-risco-tema.ativo,
+        .biblioteca-ajuda-tema.ativo {
             display: block;
         }
 
-        .biblioteca-seguranca-tema h5 {
+        .biblioteca-seguranca-tema h5,
+        .biblioteca-direitos-tema h5,
+        .biblioteca-risco-tema h5,
+        .biblioteca-ajuda-tema h5 {
             margin: 0 0 10px;
             color: #2d2a63;
             font-size: clamp(1.2rem, 2vw, 1.55rem);
             line-height: 1.3;
         }
 
-        .biblioteca-seguranca-tema h5:focus {
+        .biblioteca-seguranca-tema h5:focus,
+        .biblioteca-direitos-tema h5:focus,
+        .biblioteca-risco-tema h5:focus,
+        .biblioteca-ajuda-tema h5:focus {
             outline: none;
         }
 
-        .biblioteca-detalhe.tema-aberto > .biblioteca-voltar {
+        .biblioteca-detalhe.tema-aberto > .biblioteca-voltar,
+        .biblioteca-detalhe.direito-aberto > .biblioteca-voltar,
+        .biblioteca-detalhe.risco-aberto > .biblioteca-voltar,
+        .biblioteca-detalhe.ajuda-aberta > .biblioteca-voltar {
             display: none;
         }
 
-        .biblioteca-seguranca-tema ul {
+        .biblioteca-seguranca-tema ul,
+        .biblioteca-direitos-tema ul,
+        .biblioteca-risco-tema ul,
+        .biblioteca-ajuda-tema ul {
             margin: 12px 0 0 20px;
         }
 
-        .biblioteca-seguranca-voltar {
+        .biblioteca-seguranca-voltar,
+        .biblioteca-direitos-voltar,
+        .biblioteca-risco-voltar,
+        .biblioteca-ajuda-voltar {
             margin-top: 18px;
             border: 1px solid rgba(18, 59, 112, 0.18);
             border-radius: 10px;
@@ -827,13 +1087,74 @@
         }
 
         .biblioteca-seguranca-voltar:hover,
-        .biblioteca-seguranca-voltar:focus-visible {
+        .biblioteca-seguranca-voltar:focus-visible,
+        .biblioteca-direitos-voltar:hover,
+        .biblioteca-direitos-voltar:focus-visible,
+        .biblioteca-risco-voltar:hover,
+        .biblioteca-risco-voltar:focus-visible,
+        .biblioteca-ajuda-voltar:hover,
+        .biblioteca-ajuda-voltar:focus-visible {
             background: #eef3ff;
         }
 
-        .biblioteca-seguranca-voltar:focus-visible {
+        .biblioteca-seguranca-voltar:focus-visible,
+        .biblioteca-direitos-voltar:focus-visible,
+        .biblioteca-risco-voltar:focus-visible,
+        .biblioteca-ajuda-voltar:focus-visible {
             outline: 3px solid rgba(8, 118, 223, 0.55);
             outline-offset: 3px;
+        }
+
+        @media (max-width: 760px) {
+            .biblioteca-direitos-grid,
+            .biblioteca-risco-grid,
+            .biblioteca-ajuda-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 520px) {
+            .biblioteca-direitos-grid,
+            .biblioteca-risco-grid,
+            .biblioteca-ajuda-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .biblioteca-risco-resposta {
+            margin: 16px 0;
+            padding: 14px 16px;
+            border-left: 3px solid #7d6af9;
+            border-radius: 0 12px 12px 0;
+            background: #f8f7ff;
+        }
+
+        .biblioteca-risco-resposta h6 {
+            margin: 0 0 4px;
+            color: #2d2a63;
+            font-size: 1rem;
+        }
+
+        .biblioteca-risco-resposta p {
+            margin: 0;
+        }
+
+        .biblioteca-ajuda-resposta {
+            margin: 16px 0;
+            padding: 14px 16px;
+            border-left: 3px solid #7d6af9;
+            border-radius: 0 12px 12px 0;
+            background: #f8f7ff;
+        }
+
+        .biblioteca-ajuda-resposta h6 {
+            margin: 0 0 4px;
+            color: #2d2a63;
+            font-size: 1rem;
+        }
+
+        .biblioteca-ajuda-resposta p {
+            margin: 0;
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -1563,6 +1884,36 @@
             font-size: 12px;
         }
 
+        @media (max-width: 1120px) {
+            .topo {
+                padding: 10px 5% 0;
+            }
+
+            .topo-conteudo {
+                min-height: 0;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+            }
+
+            .marca {
+                width: 100%;
+                justify-content: center;
+                padding: 4px 0;
+            }
+
+            .pesquisa-topo {
+                width: min(640px, 100%);
+                flex: 0 1 640px;
+            }
+
+            .navegacao {
+                width: 100%;
+                justify-content: center;
+                gap: clamp(4px, 1.5vw, 16px);
+            }
+        }
+
         @media (max-width: 920px) {
             .topo {
                 padding: 10px 5% 0;
@@ -1579,6 +1930,10 @@
                 width: 100%;
                 justify-content: center;
                 padding: 4px 0;
+            }
+
+            .pesquisa-topo {
+                width: min(640px, 100%);
             }
 
             .navegacao {
@@ -1645,6 +2000,10 @@
                 padding: 4px 0;
             }
 
+            .pesquisa-topo {
+                width: 100%;
+            }
+
             .marca-simbolo {
                 width: 42px;
                 height: 46px;
@@ -1664,6 +2023,26 @@
                 justify-content: center;
                 gap: 4px 8px;
                 overflow: visible;
+            }
+
+            .pesquisa-topo {
+                min-width: 0;
+            }
+
+            .pesquisa-conteudo.aberto {
+                width: calc(100vw - 20px);
+                max-height: calc(100dvh - 170px);
+                padding: 16px;
+            }
+
+            .pesquisa-resultado {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .pesquisa-resultado button,
+            .pesquisa-voltar {
+                width: 100%;
             }
 
             .nav-link {
@@ -1941,6 +2320,10 @@
         <symbol id="icon-close" viewBox="0 0 24 24">
             <path d="m6 6 12 12M18 6 6 18" />
         </symbol>
+        <symbol id="icon-search" viewBox="0 0 24 24">
+            <circle cx="10.8" cy="10.8" r="6.8" />
+            <path d="m16 16 5 5" />
+        </symbol>
     </svg>
 
     <header class="topo">
@@ -1952,6 +2335,15 @@
                     <span>Proteção e orientação no ambiente digital</span>
                 </span>
             </a>
+            <div class="pesquisa-topo">
+                <form class="pesquisa-formulario" id="formularioPesquisa">
+                    <label class="sr-only" for="entradaPesquisa">O que você está procurando?</label>
+                    <input id="entradaPesquisa" name="pesquisa" type="search" placeholder="O que você está procurando?" autocomplete="off" aria-describedby="mensagemPesquisa">
+                    <button type="submit" aria-label="Pesquisar">
+                        <svg class="icon-svg" aria-hidden="true"><use href="#icon-search"></use></svg>
+                    </button>
+                </form>
+            </div>
             <nav class="navegacao" aria-label="Navegação principal">
                 <button class="nav-link" type="button" data-atalho="informacao">Informação</button>
                 <button class="nav-link" type="button" data-atalho="seguranca">Segurança</button>
@@ -1959,6 +2351,14 @@
                 <button class="nav-link" type="button" data-atalho="conscientizacao">Conscientização</button>
             </nav>
         </div>
+        <section class="pesquisa-conteudo" id="painelPesquisa" aria-labelledby="pesquisa-titulo" aria-live="polite">
+            <div class="pesquisa-cabecalho">
+                <h2 id="pesquisa-titulo">Encontre informações e caminhos de apoio</h2>
+                <button class="pesquisa-fechar" id="fecharPesquisa" type="button" aria-label="Fechar pesquisa">&times;</button>
+            </div>
+            <p class="pesquisa-mensagem" id="mensagemPesquisa" role="status" hidden></p>
+            <div class="pesquisa-resultados" id="resultadosPesquisa" aria-label="Resultados da pesquisa" hidden></div>
+        </section>
     </header>
 
     <main class="principal" id="inicio">
@@ -2192,26 +2592,327 @@
 
                 <article class="biblioteca-detalhe" id="biblioteca-direitos">
                     <h4><svg class="icon-inline" aria-hidden="true"><use href="#icon-book"></use></svg>Conheça seus direitos</h4>
-                    <p>Crianças e adolescentes têm direito à proteção, ao respeito e à segurança, inclusive no ambiente digital.</p>
-                    <p>Nenhuma pessoa deve ser ameaçada, constrangida ou responsabilizada pela violência que sofreu.</p>
+                    <p class="biblioteca-seguranca-intro">Crianças e adolescentes têm direitos que devem ser respeitados também no ambiente digital. Escolha um tema para conhecer seus direitos e saber como buscar apoio.</p>
+                    <div class="biblioteca-grid biblioteca-direitos-grid" id="biblioteca-direitos-lista" aria-label="Temas sobre direitos">
+                        <button class="biblioteca-card" type="button" data-direitos-topico="protecao">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-shield"></use></svg></span>
+                            <h4>Direito à proteção</h4>
+                            <p>Saiba que você deve ser protegido contra violência, exploração e abuso.</p>
+                        </button>
+                        <button class="biblioteca-card" type="button" data-direitos-topico="privacidade">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-privacy"></use></svg></span>
+                            <h4>Direito à privacidade</h4>
+                            <p>Entenda o cuidado e o respeito que suas informações pessoais merecem.</p>
+                        </button>
+                        <button class="biblioteca-card" type="button" data-direitos-topico="informacao">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-book"></use></svg></span>
+                            <h4>Direito à informação</h4>
+                            <p>Conheça seu direito de receber informações claras e adequadas.</p>
+                        </button>
+                        <button class="biblioteca-card" type="button" data-direitos-topico="ser-ouvido">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-chat"></use></svg></span>
+                            <h4>Direito de ser ouvido</h4>
+                            <p>Sua opinião e seu relato devem ser escutados com respeito.</p>
+                        </button>
+                        <button class="biblioteca-card" type="button" data-direitos-topico="seguranca">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-check"></use></svg></span>
+                            <h4>Direito à segurança</h4>
+                            <p>Você merece viver e participar do ambiente digital com segurança.</p>
+                        </button>
+                        <button class="biblioteca-card" type="button" data-direitos-topico="ajuda">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-network"></use></svg></span>
+                            <h4>Direito de buscar ajuda e proteção</h4>
+                            <p>Você pode pedir ajuda a pessoas e serviços de confiança.</p>
+                        </button>
+                    </div>
+
+                    <section class="biblioteca-direitos-tema" data-direitos-conteudo="protecao" aria-labelledby="direitos-protecao-titulo">
+                        <h5 id="direitos-protecao-titulo" tabindex="-1">Direito à proteção</h5>
+                        <p>Crianças e adolescentes têm direito a ser protegidos contra negligência, discriminação, exploração, violência, crueldade e opressão. Essa proteção também vale nas redes sociais, jogos, aplicativos e outros espaços digitais.</p>
+                        <ul>
+                            <li>Ninguém deve ameaçar, humilhar, assediar ou pressionar você.</li>
+                            <li>Você não tem culpa pela violência que sofreu e merece acolhimento.</li>
+                            <li>Se algo estiver acontecendo, conte a um adulto de confiança e peça ajuda para buscar proteção.</li>
+                        </ul>
+                        <button class="biblioteca-direitos-voltar" type="button">Voltar aos temas sobre direitos</button>
+                    </section>
+
+                    <section class="biblioteca-direitos-tema" data-direitos-conteudo="privacidade" aria-labelledby="direitos-privacidade-titulo">
+                        <h5 id="direitos-privacidade-titulo" tabindex="-1">Direito à privacidade</h5>
+                        <p>Sua intimidade, imagem, identidade e dados pessoais devem ser respeitados. Compartilhar informações ou imagens de alguém sem autorização pode causar danos e deve ser tratado com seriedade.</p>
+                        <ul>
+                            <li>Ninguém deve exigir suas senhas, dados ou imagens íntimas por meio de pressão ou ameaça.</li>
+                            <li>Você pode pedir ajuda para denunciar publicações que exponham você e solicitar providências à plataforma.</li>
+                            <li>Proteja seus dados, mas lembre-se: se alguém invadiu sua privacidade, a responsabilidade é de quem fez isso.</li>
+                        </ul>
+                        <button class="biblioteca-direitos-voltar" type="button">Voltar aos temas sobre direitos</button>
+                    </section>
+
+                    <section class="biblioteca-direitos-tema" data-direitos-conteudo="informacao" aria-labelledby="direitos-informacao-titulo">
+                        <h5 id="direitos-informacao-titulo" tabindex="-1">Direito à informação</h5>
+                        <p>Você tem direito de receber informações confiáveis, compreensíveis e adequadas à sua idade para conhecer seus direitos e tomar decisões com mais segurança.</p>
+                        <ul>
+                            <li>Você pode fazer perguntas e pedir que expliquem algo de outro jeito.</li>
+                            <li>Converse com pessoas de confiança quando uma informação causar dúvida, medo ou desconforto.</li>
+                            <li>Não precisa acreditar nem responder a mensagens que peçam segredo, dados pessoais ou ações urgentes.</li>
+                        </ul>
+                        <button class="biblioteca-direitos-voltar" type="button">Voltar aos temas sobre direitos</button>
+                    </section>
+
+                    <section class="biblioteca-direitos-tema" data-direitos-conteudo="ser-ouvido" aria-labelledby="direitos-ouvido-titulo">
+                        <h5 id="direitos-ouvido-titulo" tabindex="-1">Direito de ser ouvido</h5>
+                        <p>Você tem direito de expressar sua opinião e de ser ouvido em assuntos que afetam sua vida, com respeito e consideração pela sua idade e maturidade.</p>
+                        <ul>
+                            <li>Você pode contar o que aconteceu no seu próprio ritmo; não precisa compartilhar mais do que se sente confortável.</li>
+                            <li>Quem escuta deve levar seu relato a sério e não culpar, ameaçar ou constranger você.</li>
+                            <li>Se a primeira pessoa não ajudar, procure outro adulto ou serviço em quem confie.</li>
+                        </ul>
+                        <button class="biblioteca-direitos-voltar" type="button">Voltar aos temas sobre direitos</button>
+                    </section>
+
+                    <section class="biblioteca-direitos-tema" data-direitos-conteudo="seguranca" aria-labelledby="direitos-seguranca-titulo">
+                        <h5 id="direitos-seguranca-titulo" tabindex="-1">Direito à segurança</h5>
+                        <p>Você tem direito a viver, aprender e se relacionar em ambientes seguros, inclusive na internet. A tecnologia deve ser usada com respeito à sua dignidade e ao seu bem-estar.</p>
+                        <ul>
+                            <li>Você pode encerrar uma conversa, bloquear ou denunciar alguém que esteja incomodando ou ameaçando você.</li>
+                            <li>Peça ajuda se alguém tentar controlar seus contatos, exigir segredo ou pressionar você a fazer algo.</li>
+                            <li>Em perigo imediato, procure um local seguro e peça a um adulto de confiança que acione a emergência pelo 190.</li>
+                        </ul>
+                        <button class="biblioteca-direitos-voltar" type="button">Voltar aos temas sobre direitos</button>
+                    </section>
+
+                    <section class="biblioteca-direitos-tema" data-direitos-conteudo="ajuda" aria-labelledby="direitos-ajuda-titulo">
+                        <h5 id="direitos-ajuda-titulo" tabindex="-1">Direito de buscar ajuda e proteção</h5>
+                        <p>Você pode pedir ajuda sempre que se sentir inseguro, ameaçado ou confuso. Não precisa saber o nome do que aconteceu para procurar acolhimento e orientação.</p>
+                        <ul>
+                            <li>Converse com um adulto de confiança, alguém da escola ou um serviço de proteção.</li>
+                            <li>O Conselho Tutelar e o Disque 100 podem receber relatos e orientar sobre a proteção de crianças e adolescentes.</li>
+                            <li>Se houver risco imediato, procure um lugar seguro e ligue 190.</li>
+                        </ul>
+                        <button class="biblioteca-direitos-voltar" type="button">Voltar aos temas sobre direitos</button>
+                    </section>
+
                     <button class="biblioteca-voltar" type="button">Voltar para a Biblioteca</button>
                 </article>
 
                 <article class="biblioteca-detalhe" id="biblioteca-riscos">
                     <h4><svg class="icon-inline" aria-hidden="true"><use href="#icon-alert"></use></svg>Identifique situações de risco</h4>
-                    <p>Conheça sinais de alerta e saiba como buscar orientação de um adulto de confiança diante de situações preocupantes na internet.</p>
-                    <ul>
-                        <li>Ameaças ou chantagens.</li>
-                        <li>Pedidos de informações pessoais.</li>
-                        <li>Pressão para manter segredos.</li>
-                        <li>Mensagens que provocam medo ou desconforto.</li>
-                    </ul>
+                    <p class="biblioteca-seguranca-intro">Conhecer alguns sinais pode ajudar você a reconhecer situações desconfortáveis e buscar apoio. Escolha um tema para saber mais, sem precisar lidar com isso sozinho(a).</p>
+                    <div class="biblioteca-grid biblioteca-risco-grid" id="biblioteca-riscos-lista" aria-label="Situações de risco digital">
+                        <button class="biblioteca-card" type="button" data-risco-topico="violencia-digital">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-alert"></use></svg></span>
+                            <h4>Violência digital</h4>
+                            <p>Reconheça agressões, perseguições e humilhações no ambiente digital.</p>
+                        </button>
+                        <button class="biblioteca-card" type="button" data-risco-topico="ameacas">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-shield"></use></svg></span>
+                            <h4>Ameaças</h4>
+                            <p>Identifique tentativas de intimidar ou causar medo.</p>
+                        </button>
+                        <button class="biblioteca-card" type="button" data-risco-topico="chantagem">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-lock"></use></svg></span>
+                            <h4>Chantagem</h4>
+                            <p>Perceba quando alguém usa pressão ou informação pessoal para exigir algo.</p>
+                        </button>
+                        <button class="biblioteca-card" type="button" data-risco-topico="manipulacao">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-users"></use></svg></span>
+                            <h4>Manipulação e aliciamento</h4>
+                            <p>Reconheça tentativas de ganhar confiança para envolver alguém em risco.</p>
+                        </button>
+                        <button class="biblioteca-card" type="button" data-risco-topico="privacidade">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-eye"></use></svg></span>
+                            <h4>Violação de privacidade</h4>
+                            <p>Identifique exposição ou uso indevido de fotos, vídeos e dados pessoais.</p>
+                        </button>
+                        <button class="biblioteca-card" type="button" data-risco-topico="cyberbullying">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-chat"></use></svg></span>
+                            <h4>Cyberbullying</h4>
+                            <p>Entenda humilhações, insultos e perseguições repetidas na internet.</p>
+                        </button>
+                        <button class="biblioteca-card" type="button" data-risco-topico="compartilhamento">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-network"></use></svg></span>
+                            <h4>Compartilhamento sem autorização</h4>
+                            <p>Saiba reconhecer quando conteúdo pessoal é repassado sem permissão.</p>
+                        </button>
+                        <button class="biblioteca-card" type="button" data-risco-topico="perfis-suspeitos">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-question"></use></svg></span>
+                            <h4>Perfis ou contatos suspeitos</h4>
+                            <p>Perceba sinais de risco em contatos desconhecidos ou perfis duvidosos.</p>
+                        </button>
+                    </div>
+
+                    <section class="biblioteca-risco-tema" data-risco-conteudo="violencia-digital" aria-labelledby="risco-violencia-digital-titulo">
+                        <h5 id="risco-violencia-digital-titulo" tabindex="-1">Violência digital</h5>
+                        <div class="biblioteca-risco-resposta"><h6>O que é essa situação?</h6><p>É o uso de celulares, jogos, redes ou outros meios digitais para agredir, perseguir, humilhar ou controlar alguém.</p></div>
+                        <div class="biblioteca-risco-resposta"><h6>Quais sinais podem indicar que isso está acontecendo?</h6><p>Mensagens agressivas ou repetidas, ameaças, exposição para constranger ou pressão que faz você sentir medo ou desconforto.</p></div>
+                        <div class="biblioteca-risco-resposta"><h6>O que você pode fazer para se proteger?</h6><p>Interrompa o contato se puder, bloqueie e denuncie o perfil. Guarde mensagens apenas se for seguro e conte a um adulto de confiança; a situação não é sua culpa.</p></div>
+                        <div class="biblioteca-risco-resposta"><h6>Onde buscar ajuda ou proteção?</h6><p>Procure um adulto de confiança, a escola ou o Conselho Tutelar. O Disque 100 pode orientar e receber denúncias; em risco imediato, ligue 190.</p></div>
+                        <button class="biblioteca-risco-voltar" type="button">Voltar às situações de risco</button>
+                    </section>
+
+                    <section class="biblioteca-risco-tema" data-risco-conteudo="ameacas" aria-labelledby="risco-ameacas-titulo">
+                        <h5 id="risco-ameacas-titulo" tabindex="-1">Ameaças</h5>
+                        <div class="biblioteca-risco-resposta"><h6>O que é essa situação?</h6><p>É quando alguém envia mensagens ou age para intimidar, assustar ou anunciar que pretende fazer mal a uma pessoa ou a alguém próximo.</p></div>
+                        <div class="biblioteca-risco-resposta"><h6>Quais sinais podem indicar que isso está acontecendo?</h6><p>A pessoa pode insistir no contato, mencionar informações da sua rotina ou exigir uma resposta sob pressão. Você não precisa decidir sozinho(a) se a ameaça é séria.</p></div>
+                        <div class="biblioteca-risco-resposta"><h6>O que você pode fazer para se proteger?</h6><p>Não enfrente a pessoa sozinho(a). Procure um lugar seguro, avise um adulto de confiança e guarde as mensagens somente se isso não aumentar o risco.</p></div>
+                        <div class="biblioteca-risco-resposta"><h6>Onde buscar ajuda ou proteção?</h6><p>Converse com um adulto de confiança e peça apoio à escola, ao Conselho Tutelar ou a uma delegacia. Se houver perigo imediato, ligue 190.</p></div>
+                        <button class="biblioteca-risco-voltar" type="button">Voltar às situações de risco</button>
+                    </section>
+
+                    <section class="biblioteca-risco-tema" data-risco-conteudo="chantagem" aria-labelledby="risco-chantagem-titulo">
+                        <h5 id="risco-chantagem-titulo" tabindex="-1">Chantagem</h5>
+                        <div class="biblioteca-risco-resposta"><h6>O que é essa situação?</h6><p>É quando alguém usa pressão, ameaça ou uma informação pessoal para tentar obrigar outra pessoa a fazer algo, enviar algo ou manter segredo.</p></div>
+                        <div class="biblioteca-risco-resposta"><h6>Quais sinais podem indicar que isso está acontecendo?</h6><p>Pedidos insistentes acompanhados de ameaças, exigências de segredo ou frases como “se não fizer, vou contar ou divulgar”.</p></div>
+                        <div class="biblioteca-risco-resposta"><h6>O que você pode fazer para se proteger?</h6><p>Não envie mais informações ou conteúdo e não tente resolver sob pressão. Conte a um adulto de confiança; você merece apoio e não tem culpa pelo que a outra pessoa está fazendo.</p></div>
+                        <div class="biblioteca-risco-resposta"><h6>Onde buscar ajuda ou proteção?</h6><p>Procure um adulto de confiança, o Conselho Tutelar ou o Disque 100. Denuncie a conta na plataforma; diante de perigo imediato, ligue 190.</p></div>
+                        <button class="biblioteca-risco-voltar" type="button">Voltar às situações de risco</button>
+                    </section>
+
+                    <section class="biblioteca-risco-tema" data-risco-conteudo="manipulacao" aria-labelledby="risco-manipulacao-titulo">
+                        <h5 id="risco-manipulacao-titulo" tabindex="-1">Manipulação e aliciamento</h5>
+                        <div class="biblioteca-risco-resposta"><h6>O que é essa situação?</h6><p>É quando alguém tenta ganhar a confiança de uma criança ou adolescente para manipular, pedir algo inadequado ou criar uma situação de risco.</p></div>
+                        <div class="biblioteca-risco-resposta"><h6>Quais sinais podem indicar que isso está acontecendo?</h6><p>A pessoa pode pedir segredo, dados ou imagens pessoais, oferecer presentes, tentar levar a conversa para outro lugar ou insistir em um encontro.</p></div>
+                        <div class="biblioteca-risco-resposta"><h6>O que você pode fazer para se proteger?</h6><p>Não compartilhe dados ou imagens e não aceite encontrar alguém sem acompanhamento de um adulto de confiança. Você pode encerrar a conversa, bloquear e contar o que houve.</p></div>
+                        <div class="biblioteca-risco-resposta"><h6>Onde buscar ajuda ou proteção?</h6><p>Converse com um adulto de confiança que não esteja envolvido. O Conselho Tutelar, uma delegacia ou o Disque 100 podem orientar e proteger.</p></div>
+                        <button class="biblioteca-risco-voltar" type="button">Voltar às situações de risco</button>
+                    </section>
+
+                    <section class="biblioteca-risco-tema" data-risco-conteudo="privacidade" aria-labelledby="risco-privacidade-titulo">
+                        <h5 id="risco-privacidade-titulo" tabindex="-1">Violação de privacidade</h5>
+                        <div class="biblioteca-risco-resposta"><h6>O que é essa situação?</h6><p>É a exposição, divulgação ou uso de fotos, vídeos, conversas ou dados pessoais sem autorização.</p></div>
+                        <div class="biblioteca-risco-resposta"><h6>Quais sinais podem indicar que isso está acontecendo?</h6><p>Seu conteúdo aparece em um lugar ou com pessoas que você não autorizou, alguém acessa sua conta ou usa dados pessoais sem sua permissão.</p></div>
+                        <div class="biblioteca-risco-resposta"><h6>O que você pode fazer para se proteger?</h6><p>Peça ajuda para denunciar e solicitar a remoção do conteúdo na plataforma. Troque senhas se uma conta foi acessada e guarde registros somente se for seguro.</p></div>
+                        <div class="biblioteca-risco-resposta"><h6>Onde buscar ajuda ou proteção?</h6><p>Procure um adulto de confiança e, se envolver criança ou adolescente, o Conselho Tutelar ou o Disque 100. A plataforma também pode receber a denúncia.</p></div>
+                        <button class="biblioteca-risco-voltar" type="button">Voltar às situações de risco</button>
+                    </section>
+
+                    <section class="biblioteca-risco-tema" data-risco-conteudo="cyberbullying" aria-labelledby="risco-cyberbullying-titulo">
+                        <h5 id="risco-cyberbullying-titulo" tabindex="-1">Cyberbullying</h5>
+                        <div class="biblioteca-risco-resposta"><h6>O que é essa situação?</h6><p>É a prática repetida de humilhar, insultar, perseguir ou excluir alguém por mensagens, redes, jogos ou outros meios digitais.</p></div>
+                        <div class="biblioteca-risco-resposta"><h6>Quais sinais podem indicar que isso está acontecendo?</h6><p>Piadas ofensivas recorrentes, comentários para constranger, perfis que perseguem ou publicações que incentivam outras pessoas a atacar.</p></div>
+                        <div class="biblioteca-risco-resposta"><h6>O que você pode fazer para se proteger?</h6><p>Não responda se isso puder piorar a situação. Bloqueie e denuncie os envolvidos, guarde registros se for seguro e converse com um adulto ou alguém da escola.</p></div>
+                        <div class="biblioteca-risco-resposta"><h6>Onde buscar ajuda ou proteção?</h6><p>Procure um adulto de confiança e a escola para interromper as agressões. O Conselho Tutelar ou o Disque 100 também podem orientar crianças e adolescentes.</p></div>
+                        <button class="biblioteca-risco-voltar" type="button">Voltar às situações de risco</button>
+                    </section>
+
+                    <section class="biblioteca-risco-tema" data-risco-conteudo="compartilhamento" aria-labelledby="risco-compartilhamento-titulo">
+                        <h5 id="risco-compartilhamento-titulo" tabindex="-1">Compartilhamento de conteúdo sem autorização</h5>
+                        <div class="biblioteca-risco-resposta"><h6>O que é essa situação?</h6><p>É quando alguém compartilha fotos, vídeos, mensagens ou outro conteúdo pessoal de uma pessoa sem a autorização dela.</p></div>
+                        <div class="biblioteca-risco-resposta"><h6>Quais sinais podem indicar que isso está acontecendo?</h6><p>Você ou outras pessoas recebem um conteúdo que deveria ser privado, ou alguém ameaça repassar algo sem seu consentimento.</p></div>
+                        <div class="biblioteca-risco-resposta"><h6>O que você pode fazer para se proteger?</h6><p>Não encaminhe nem publique o conteúdo. Peça ajuda a um adulto de confiança para denunciar e solicitar a remoção; isso não é culpa de quem foi exposto(a).</p></div>
+                        <div class="biblioteca-risco-resposta"><h6>Onde buscar ajuda ou proteção?</h6><p>Procure um adulto de confiança e denuncie o conteúdo na plataforma. O Conselho Tutelar, o Disque 100 ou uma delegacia podem orientar, especialmente se envolver criança ou adolescente.</p></div>
+                        <button class="biblioteca-risco-voltar" type="button">Voltar às situações de risco</button>
+                    </section>
+
+                    <section class="biblioteca-risco-tema" data-risco-conteudo="perfis-suspeitos" aria-labelledby="risco-perfis-suspeitos-titulo">
+                        <h5 id="risco-perfis-suspeitos-titulo" tabindex="-1">Perfis ou contatos suspeitos</h5>
+                        <div class="biblioteca-risco-resposta"><h6>O que é essa situação?</h6><p>É um contato ou perfil desconhecido que apresenta comportamentos que podem colocar sua privacidade ou segurança em risco.</p></div>
+                        <div class="biblioteca-risco-resposta"><h6>Quais sinais podem indicar que isso está acontecendo?</h6><p>A pessoa pede dados, imagens ou localização, envia links inesperados, pressiona para manter segredo ou insiste em conversar ou se encontrar fora da plataforma.</p></div>
+                        <div class="biblioteca-risco-resposta"><h6>O que você pode fazer para se proteger?</h6><p>Não clique em links nem compartilhe informações pessoais. Não marque encontros sem acompanhamento; encerre o contato, bloqueie e denuncie se não se sentir seguro(a).</p></div>
+                        <div class="biblioteca-risco-resposta"><h6>Onde buscar ajuda ou proteção?</h6><p>Converse com um adulto de confiança e use os canais de denúncia da plataforma. Se houver ameaça ou risco para uma criança ou adolescente, procure o Conselho Tutelar ou o Disque 100.</p></div>
+                        <button class="biblioteca-risco-voltar" type="button">Voltar às situações de risco</button>
+                    </section>
+
                     <button class="biblioteca-voltar" type="button">Voltar para a Biblioteca</button>
                 </article>
 
                 <article class="biblioteca-detalhe" id="biblioteca-ajuda">
                     <h4><svg class="icon-inline" aria-hidden="true"><use href="#icon-handshake"></use></svg>Onde buscar ajuda</h4>
-                    <p>Procure um adulto de confiança e conheça os serviços da rede de proteção que podem orientar crianças e adolescentes.</p>
+                    <p class="biblioteca-seguranca-intro">Você não precisa resolver uma situação difícil sozinho(a). Escolha um caminho de apoio para entender quando procurar e o que pode acontecer.</p>
+                    <div class="biblioteca-grid biblioteca-ajuda-grid" id="biblioteca-ajuda-lista" aria-label="Caminhos de ajuda e proteção">
+                        <button class="biblioteca-card" type="button" data-ajuda-topico="conselho-tutelar">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-scale"></use></svg></span>
+                            <h4>Conselho Tutelar</h4>
+                            <p>Conheça o serviço que atua na proteção dos direitos de crianças e adolescentes.</p>
+                        </button>
+                        <button class="biblioteca-card" type="button" data-ajuda-topico="disque-100">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-phone"></use></svg></span>
+                            <h4>Disque 100</h4>
+                            <p>Saiba como comunicar violações de direitos humanos e pedir orientação.</p>
+                        </button>
+                        <button class="biblioteca-card" type="button" data-ajuda-topico="emergencia">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-alert"></use></svg></span>
+                            <h4>Polícia e emergência</h4>
+                            <p>Veja o que fazer quando alguém está em perigo imediato.</p>
+                        </button>
+                        <button class="biblioteca-card" type="button" data-ajuda-topico="delegacia">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-location"></use></svg></span>
+                            <h4>Delegacia</h4>
+                            <p>Entenda quando procurar a polícia para relatar uma situação ou pedir orientação.</p>
+                        </button>
+                        <button class="biblioteca-card" type="button" data-ajuda-topico="escola-profissionais">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-health"></use></svg></span>
+                            <h4>Escola e profissionais de confiança</h4>
+                            <p>Peça acolhimento e apoio a alguém responsável na escola ou em um serviço.</p>
+                        </button>
+                        <button class="biblioteca-card" type="button" data-ajuda-topico="pessoa-confianca">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-users"></use></svg></span>
+                            <h4>Adulto ou pessoa de confiança</h4>
+                            <p>Comece contando a alguém que possa escutar e ajudar você a dar os próximos passos.</p>
+                        </button>
+                        <button class="biblioteca-card" type="button" data-ajuda-topico="outros-canais">
+                            <span class="biblioteca-icone" aria-hidden="true"><svg class="icon-svg"><use href="#icon-network"></use></svg></span>
+                            <h4>Outros canais de proteção</h4>
+                            <p>Conheça opções como denúncia na plataforma e serviços de saúde.</p>
+                        </button>
+                    </div>
+
+                    <section class="biblioteca-ajuda-tema" data-ajuda-conteudo="conselho-tutelar" aria-labelledby="ajuda-conselho-tutelar-titulo">
+                        <h5 id="ajuda-conselho-tutelar-titulo" tabindex="-1">Conselho Tutelar</h5>
+                        <div class="biblioteca-ajuda-resposta"><h6>Quando procurar?</h6><p>Quando os direitos de uma criança ou adolescente estiverem ameaçados ou não estiverem sendo respeitados, inclusive em situações de violência, negligência ou risco.</p></div>
+                        <div class="biblioteca-ajuda-resposta"><h6>Como procurar?</h6><p>Peça a um adulto de confiança para localizar o Conselho Tutelar do município e entrar em contato ou ir até o atendimento. Conte o que sabe; não é necessário investigar nem ter todas as respostas.</p></div>
+                        <div class="biblioteca-ajuda-resposta"><h6>O que esperar?</h6><p>O Conselho pode ouvir, orientar e articular medidas de proteção com os serviços da rede. Se não souber qual unidade procurar, o Disque 100 pode orientar.</p></div>
+                        <button class="biblioteca-ajuda-voltar" type="button">Voltar aos caminhos de ajuda</button>
+                    </section>
+
+                    <section class="biblioteca-ajuda-tema" data-ajuda-conteudo="disque-100" aria-labelledby="ajuda-disque-100-titulo">
+                        <h5 id="ajuda-disque-100-titulo" tabindex="-1">Disque 100</h5>
+                        <div class="biblioteca-ajuda-resposta"><h6>Para que serve?</h6><p>É um canal nacional para comunicar violações de direitos humanos, incluindo situações que envolvam crianças e adolescentes, e buscar orientação sobre como encaminhar um relato.</p></div>
+                        <div class="biblioteca-ajuda-resposta"><h6>Como usar?</h6><p>Ligue 100 e explique, com suas palavras, o que aconteceu e onde. Compartilhe apenas as informações que souber; não precisa investigar por conta própria.</p></div>
+                        <div class="biblioteca-ajuda-resposta"><h6>Importante</h6><p>O Disque 100 não substitui o atendimento de emergência. Se alguém estiver em perigo imediato, procure um local seguro e ligue 190.</p></div>
+                        <button class="biblioteca-ajuda-voltar" type="button">Voltar aos caminhos de ajuda</button>
+                    </section>
+
+                    <section class="biblioteca-ajuda-tema" data-ajuda-conteudo="emergencia" aria-labelledby="ajuda-emergencia-titulo">
+                        <h5 id="ajuda-emergencia-titulo" tabindex="-1">Polícia e emergência</h5>
+                        <div class="biblioteca-ajuda-resposta"><h6>Quando é uma emergência?</h6><p>Quando alguém corre risco imediato, está sendo ameaçado naquele momento ou precisa de ajuda urgente para ficar em segurança.</p></div>
+                        <div class="biblioteca-ajuda-resposta"><h6>O que fazer?</h6><p>Afaste-se do perigo se puder, procure um lugar seguro e peça ajuda a um adulto próximo. No Brasil, ligue 190 para a Polícia Militar em emergências.</p></div>
+                        <div class="biblioteca-ajuda-resposta"><h6>Se não puder ligar?</h6><p>Peça a alguém de confiança para fazer a ligação ou procure um serviço de emergência próximo. Não confronte a pessoa que está oferecendo risco.</p></div>
+                        <button class="biblioteca-ajuda-voltar" type="button">Voltar aos caminhos de ajuda</button>
+                    </section>
+
+                    <section class="biblioteca-ajuda-tema" data-ajuda-conteudo="delegacia" aria-labelledby="ajuda-delegacia-titulo">
+                        <h5 id="ajuda-delegacia-titulo" tabindex="-1">Delegacia</h5>
+                        <div class="biblioteca-ajuda-resposta"><h6>Quando procurar?</h6><p>Quando precisar relatar uma violência, ameaça, perseguição ou outra situação que possa exigir registro e orientação policial. Se houver risco imediato, ligue 190.</p></div>
+                        <div class="biblioteca-ajuda-resposta"><h6>Como se preparar?</h6><p>Se for seguro, anote o que aconteceu e quando. Uma pessoa de confiança pode acompanhar você. Não é necessário reunir provas nem investigar antes de pedir ajuda.</p></div>
+                        <div class="biblioteca-ajuda-resposta"><h6>Se for criança ou adolescente</h6><p>Peça apoio de um adulto de confiança ou do Conselho Tutelar. Você pode contar o que aconteceu no seu ritmo e pedir para ser ouvido com respeito.</p></div>
+                        <button class="biblioteca-ajuda-voltar" type="button">Voltar aos caminhos de ajuda</button>
+                    </section>
+
+                    <section class="biblioteca-ajuda-tema" data-ajuda-conteudo="escola-profissionais" aria-labelledby="ajuda-escola-profissionais-titulo">
+                        <h5 id="ajuda-escola-profissionais-titulo" tabindex="-1">Escola e profissionais de confiança</h5>
+                        <div class="biblioteca-ajuda-resposta"><h6>Quem pode ajudar?</h6><p>Um professor, coordenação, orientação educacional ou outro profissional responsável com quem você se sinta seguro(a) para conversar.</p></div>
+                        <div class="biblioteca-ajuda-resposta"><h6>Como começar?</h6><p>Você pode dizer que precisa de ajuda e contar apenas o que se sente pronto(a) para compartilhar. Peça para conversar em um espaço reservado e pergunte quais serão os próximos passos.</p></div>
+                        <div class="biblioteca-ajuda-resposta"><h6>E se não se sentir ouvido(a)?</h6><p>Procure outro adulto de confiança ou um serviço de proteção, como o Conselho Tutelar ou o Disque 100. Você merece ser escutado(a) sem culpa ou julgamento.</p></div>
+                        <button class="biblioteca-ajuda-voltar" type="button">Voltar aos caminhos de ajuda</button>
+                    </section>
+
+                    <section class="biblioteca-ajuda-tema" data-ajuda-conteudo="pessoa-confianca" aria-labelledby="ajuda-pessoa-confianca-titulo">
+                        <h5 id="ajuda-pessoa-confianca-titulo" tabindex="-1">Adulto ou pessoa de confiança</h5>
+                        <div class="biblioteca-ajuda-resposta"><h6>Quem pode ser?</h6><p>Alguém que escuta você com respeito, leva sua segurança a sério e pode ajudar a encontrar apoio. Pode ser um familiar, responsável, educador ou outra pessoa adulta confiável.</p></div>
+                        <div class="biblioteca-ajuda-resposta"><h6>O que dizer?</h6><p>Você pode começar com “algo está me preocupando e preciso de ajuda”. Conte no seu ritmo; não precisa explicar tudo de uma vez nem saber o nome da situação.</p></div>
+                        <div class="biblioteca-ajuda-resposta"><h6>Se a primeira pessoa não ajudar</h6><p>Continue procurando até encontrar alguém que leve você a sério. Se houver perigo imediato, procure um local seguro e ligue 190.</p></div>
+                        <button class="biblioteca-ajuda-voltar" type="button">Voltar aos caminhos de ajuda</button>
+                    </section>
+
+                    <section class="biblioteca-ajuda-tema" data-ajuda-conteudo="outros-canais" aria-labelledby="ajuda-outros-canais-titulo">
+                        <h5 id="ajuda-outros-canais-titulo" tabindex="-1">Outros canais de proteção</h5>
+                        <div class="biblioteca-ajuda-resposta"><h6>Denúncia na plataforma</h6><p>Redes sociais, jogos e aplicativos costumam oferecer opções para denunciar conteúdo ou perfis e bloquear contatos. Peça apoio a alguém de confiança para usar essas ferramentas.</p></div>
+                        <div class="biblioteca-ajuda-resposta"><h6>SaferNet Brasil</h6><p>Para situações de violência ou conteúdo ilegal na internet, a SaferNet Brasil mantém um canal de denúncia online em <a href="https://denuncie.org.br/" target="_blank" rel="noopener noreferrer">denuncie.org.br</a>. Em risco imediato, use os serviços de emergência.</p></div>
+                        <div class="biblioteca-ajuda-resposta"><h6>Serviços de saúde</h6><p>Se a situação afetou sua saúde ou bem-estar, procure uma unidade de saúde com um adulto de confiança. Em uma urgência médica, ligue 192 (SAMU).</p></div>
+                        <button class="biblioteca-ajuda-voltar" type="button">Voltar aos caminhos de ajuda</button>
+                    </section>
+
                     <button class="biblioteca-voltar" type="button">Voltar para a Biblioteca</button>
                 </article>
             </div>
@@ -2294,15 +2995,15 @@
 
     <!-- JANELA QUERO ME INFORMAR -->
 
-    <div class="modal" id="modalInformar">
+    <div class="modal" id="modalInformar" role="dialog" aria-modal="true" aria-labelledby="tituloModalInformar" aria-hidden="true" tabindex="-1">
 
         <div class="modal-conteudo">
 
             <div class="modal-cabecalho">
 
-                <h2>Quero Me Informar</h2>
+                <h2 id="tituloModalInformar">Quero Me Informar</h2>
 
-                <button class="fechar" id="fecharModalInformar">
+                <button class="fechar" id="fecharModalInformar" type="button" aria-label="Fechar janela Quero Me Informar">
                     &times;
                 </button>
 
@@ -2430,15 +3131,15 @@
 
     <!-- JANELA PRECISO DE AJUDA -->
 
-    <div class="modal" id="modalAjuda">
+    <div class="modal" id="modalAjuda" role="dialog" aria-modal="true" aria-labelledby="tituloModalAjuda" aria-hidden="true" tabindex="-1">
 
         <div class="modal-conteudo">
 
             <div class="modal-cabecalho">
 
-                <h2><svg class="icon-inline" aria-hidden="true"><use href="#icon-heart"></use></svg>Preciso de ajuda</h2>
+                <h2 id="tituloModalAjuda"><svg class="icon-inline" aria-hidden="true"><use href="#icon-heart"></use></svg>Preciso de ajuda</h2>
 
-                <button class="fechar" id="fecharModalAjuda">
+                <button class="fechar" id="fecharModalAjuda" type="button" aria-label="Fechar janela Preciso de ajuda">
                     &times;
                 </button>
 
@@ -2605,6 +3306,21 @@
     </button>
 
 </div>
+
+<div class="informacao" id="violencia-canais" style="display: none;">
+    <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-phone"></use></svg><span id="violencia-canais-titulo">Canais de denúncia e proteção</span></h3>
+    <p id="violencia-canais-orientacao"></p>
+    <ul>
+        <li><strong>Disque 100:</strong> serviço gratuito para receber e encaminhar denúncias de violações de direitos humanos, inclusive contra crianças e adolescentes.</li>
+        <li><strong>Conselho Tutelar:</strong> pode receber a comunicação e orientar sobre medidas de proteção dos direitos de crianças e adolescentes.</li>
+        <li><strong>Delegacia:</strong> pode registrar a ocorrência e encaminhar a investigação. Onde houver, uma delegacia especializada pode atender situações específicas.</li>
+        <li><strong>Ministério Público:</strong> recebe relatos e pode atuar na defesa de direitos e no acompanhamento das providências.</li>
+        <li><strong>Polícia Militar — 190:</strong> ligue em caso de perigo ou risco imediato.</li>
+    </ul>
+    <p>Os serviços disponíveis podem variar conforme a região. Se houver perigo imediato, priorize um local seguro e ligue 190.</p>
+    <button class="voltar voltar-tipos-violencia">← Voltar aos tipos de violência</button>
+</div>
+
     <button class="voltar voltar-tipos-violencia" id="voltarTiposViolencia" style="display: none;">
     ← Voltar aos tipos de violência
 </button>
@@ -3310,6 +4026,18 @@
     </button>
 
 </div>
+<div class="informacao" id="nao-sei-como-se-cuidar" style="display: none;">
+    <h3><svg class="icon-inline" aria-hidden="true"><use href="#icon-shield"></use></svg>Como posso me cuidar?</h3>
+    <p>Mesmo sem saber exatamente como chamar o que aconteceu, você pode tomar medidas para se sentir mais seguro(a):</p>
+    <ul>
+        <li>Afaste-se da conversa ou situação se isso for seguro e não se sinta obrigado(a) a responder ou aceitar pedidos.</li>
+        <li>Não compartilhe senhas, códigos, localização, imagens ou outros dados pessoais sob pressão.</li>
+        <li>Conte a um adulto de confiança. Se a primeira pessoa não ajudar, procure outro adulto ou um serviço de proteção.</li>
+        <li>Bloqueie ou denuncie o contato se isso ajudar a proteger você. Guarde mensagens apenas se for seguro.</li>
+    </ul>
+    <div class="acolhimento">Você não precisa ter certeza do que aconteceu para pedir ajuda. Se houver perigo imediato, procure um local seguro e ligue 190.</div>
+    <button class="voltar voltar-tipos-violencia" type="button">← Voltar aos tipos de violência</button>
+</div>
           <!-- ORIENTAÇÃO: O QUE FAZER AGORA -->
 
             <div class="informacao" id="orientacao-emergencia">
@@ -3654,6 +4382,71 @@
     const modalAjuda =
         document.getElementById("modalAjuda");
 
+    const modalOpeners = new Map();
+
+    function getModalFocusableElements(modal) {
+        return Array.from(modal.querySelectorAll(
+            "a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex='-1'])"
+        )).filter(function (element) {
+            return element.getClientRects().length > 0;
+        });
+    }
+
+    function abrirModal(modal) {
+        if (!modal.classList.contains("ativo")) {
+            modalOpeners.set(modal, document.activeElement instanceof HTMLElement ? document.activeElement : null);
+        }
+        modal.classList.add("ativo");
+        modal.setAttribute("aria-hidden", "false");
+        const focusableElements = getModalFocusableElements(modal);
+        (focusableElements[0] || modal).focus();
+    }
+
+    function fecharModal(modal) {
+        if (!modal.classList.contains("ativo")) {
+            return;
+        }
+        modal.classList.remove("ativo");
+        modal.setAttribute("aria-hidden", "true");
+        const opener = modalOpeners.get(modal);
+        modalOpeners.delete(modal);
+        if (opener && opener.isConnected) {
+            opener.focus();
+        }
+    }
+
+    [modalInformar, modalAjuda].forEach(function (modal) {
+        modal.addEventListener("keydown", function (event) {
+            if (event.key !== "Tab" || !modal.classList.contains("ativo")) {
+                return;
+            }
+            const focusableElements = getModalFocusableElements(modal);
+            if (!focusableElements.length) {
+                event.preventDefault();
+                modal.focus();
+                return;
+            }
+
+            const first = focusableElements[0];
+            const last = focusableElements[focusableElements.length - 1];
+            if (event.shiftKey && (document.activeElement === first || !modal.contains(document.activeElement))) {
+                event.preventDefault();
+                last.focus();
+            } else if (!event.shiftKey && (document.activeElement === last || !modal.contains(document.activeElement))) {
+                event.preventDefault();
+                first.focus();
+            }
+        });
+
+        modal.addEventListener("focusin", function (event) {
+            if (!modal.classList.contains("ativo") || modal.contains(event.target)) {
+                return;
+            }
+            const focusableElements = getModalFocusableElements(modal);
+            (focusableElements[0] || modal).focus();
+        });
+    });
+
 
     // FECHAR INFORMAÇÕES E MOSTRAR OPÇÕES
 
@@ -3704,7 +4497,7 @@
 
     abrirModalInformar.addEventListener("click", function () {
 
-        modalInformar.classList.add("ativo");
+        abrirModal(modalInformar);
 
     });
 
@@ -3713,7 +4506,7 @@
 
     abrirModalAjuda.addEventListener("click", function () {
 
-        modalAjuda.classList.add("ativo");
+        abrirModal(modalAjuda);
 
     });
 
@@ -3722,13 +4515,13 @@
             const destino = atalho.dataset.atalho;
 
             if (destino === "informacao") {
-                modalInformar.classList.add("ativo");
+                abrirModal(modalInformar);
                 fecharTudo(modalInformar);
                 return;
             }
 
             if (destino === "apoio") {
-                modalAjuda.classList.add("ativo");
+                abrirModal(modalAjuda);
                 fecharTudo(modalAjuda);
                 return;
             }
@@ -3740,7 +4533,7 @@
             const painel = document.getElementById(painelPorAtalho[destino]);
 
             if (painel) {
-                modalInformar.classList.add("ativo");
+                abrirModal(modalInformar);
                 fecharTudo(modalInformar);
                 painel.classList.add("ativo");
                 esconderOpcoes(modalInformar);
@@ -3753,7 +4546,7 @@
 
     fecharModalInformar.addEventListener("click", function () {
 
-        modalInformar.classList.remove("ativo");
+        fecharModal(modalInformar);
 
         fecharTudo(modalInformar);
 
@@ -3764,7 +4557,7 @@
 
     fecharModalAjuda.addEventListener("click", function () {
 
-        modalAjuda.classList.remove("ativo");
+        fecharModal(modalAjuda);
 
         fecharTudo(modalAjuda);
 
@@ -3777,7 +4570,7 @@
 
         if (evento.target === modalInformar) {
 
-            modalInformar.classList.remove("ativo");
+            fecharModal(modalInformar);
 
             fecharTudo(modalInformar);
 
@@ -3790,7 +4583,7 @@
 
         if (evento.target === modalAjuda) {
 
-            modalAjuda.classList.remove("ativo");
+            fecharModal(modalAjuda);
 
             fecharTudo(modalAjuda);
 
@@ -3848,6 +4641,48 @@
         botao.addEventListener("click", function () {
 
             const tema = botao.dataset.biblioteca;
+
+            if (tema === "direitos") {
+                const direitosList = document.getElementById("biblioteca-direitos-lista");
+                if (direitosList) {
+                    direitosList.style.display = "grid";
+                }
+                const direitosPanel = document.getElementById("biblioteca-direitos");
+                if (direitosPanel) {
+                    direitosPanel.classList.remove("direito-aberto");
+                    direitosPanel.querySelectorAll("[data-direitos-conteudo]").forEach(function (conteudo) {
+                        conteudo.classList.remove("ativo");
+                    });
+                }
+            }
+
+            if (tema === "riscos") {
+                const riscosList = document.getElementById("biblioteca-riscos-lista");
+                if (riscosList) {
+                    riscosList.style.display = "grid";
+                }
+                const riscosPanel = document.getElementById("biblioteca-riscos");
+                if (riscosPanel) {
+                    riscosPanel.classList.remove("risco-aberto");
+                    riscosPanel.querySelectorAll("[data-risco-conteudo]").forEach(function (conteudo) {
+                        conteudo.classList.remove("ativo");
+                    });
+                }
+            }
+
+            if (tema === "ajuda") {
+                const ajudaList = document.getElementById("biblioteca-ajuda-lista");
+                if (ajudaList) {
+                    ajudaList.style.display = "grid";
+                }
+                const ajudaPanel = document.getElementById("biblioteca-ajuda");
+                if (ajudaPanel) {
+                    ajudaPanel.classList.remove("ajuda-aberta");
+                    ajudaPanel.querySelectorAll("[data-ajuda-conteudo]").forEach(function (conteudo) {
+                        conteudo.classList.remove("ativo");
+                    });
+                }
+            }
 
             if (listaBiblioteca) {
                 listaBiblioteca.style.display = "none";
@@ -3942,6 +4777,168 @@
         });
     });
 
+    const detalheDireitosBiblioteca =
+        document.getElementById("biblioteca-direitos");
+
+    const listaTemasDireitos =
+        document.getElementById("biblioteca-direitos-lista");
+
+    const temasDireitos =
+        document.querySelectorAll("[data-direitos-conteudo]");
+
+    let ultimoTemaDireitos = null;
+
+    document.querySelectorAll("[data-direitos-topico]").forEach(function (botaoTema) {
+        botaoTema.addEventListener("click", function () {
+            const temaSelecionado = botaoTema.dataset.direitosTopico;
+            const conteudoTema = document.querySelector(
+                '[data-direitos-conteudo="' + temaSelecionado + '"]'
+            );
+
+            if (!conteudoTema || !listaTemasDireitos || !detalheDireitosBiblioteca) {
+                return;
+            }
+
+            ultimoTemaDireitos = botaoTema;
+            listaTemasDireitos.style.display = "none";
+            detalheDireitosBiblioteca.classList.add("direito-aberto");
+            temasDireitos.forEach(function (tema) {
+                tema.classList.toggle("ativo", tema === conteudoTema);
+            });
+
+            const tituloTema = conteudoTema.querySelector("h5");
+            if (tituloTema) {
+                tituloTema.focus();
+                tituloTema.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }
+        });
+    });
+
+    document.querySelectorAll(".biblioteca-direitos-voltar").forEach(function (botaoVoltarTema) {
+        botaoVoltarTema.addEventListener("click", function () {
+            if (!listaTemasDireitos || !detalheDireitosBiblioteca) {
+                return;
+            }
+
+            temasDireitos.forEach(function (tema) {
+                tema.classList.remove("ativo");
+            });
+            detalheDireitosBiblioteca.classList.remove("direito-aberto");
+            listaTemasDireitos.style.display = "grid";
+            if (ultimoTemaDireitos) {
+                ultimoTemaDireitos.focus();
+            }
+        });
+    });
+
+    const detalheRiscosBiblioteca =
+        document.getElementById("biblioteca-riscos");
+
+    const listaTemasRiscos =
+        document.getElementById("biblioteca-riscos-lista");
+
+    const temasRiscos =
+        document.querySelectorAll("[data-risco-conteudo]");
+
+    let ultimoTemaRisco = null;
+
+    document.querySelectorAll("[data-risco-topico]").forEach(function (botaoTema) {
+        botaoTema.addEventListener("click", function () {
+            const temaSelecionado = botaoTema.dataset.riscoTopico;
+            const conteudoTema = document.querySelector(
+                '[data-risco-conteudo="' + temaSelecionado + '"]'
+            );
+
+            if (!conteudoTema || !listaTemasRiscos || !detalheRiscosBiblioteca) {
+                return;
+            }
+
+            ultimoTemaRisco = botaoTema;
+            listaTemasRiscos.style.display = "none";
+            detalheRiscosBiblioteca.classList.add("risco-aberto");
+            temasRiscos.forEach(function (tema) {
+                tema.classList.toggle("ativo", tema === conteudoTema);
+            });
+
+            const tituloTema = conteudoTema.querySelector("h5");
+            if (tituloTema) {
+                tituloTema.focus();
+                tituloTema.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }
+        });
+    });
+
+    document.querySelectorAll(".biblioteca-risco-voltar").forEach(function (botaoVoltarTema) {
+        botaoVoltarTema.addEventListener("click", function () {
+            if (!listaTemasRiscos || !detalheRiscosBiblioteca) {
+                return;
+            }
+
+            temasRiscos.forEach(function (tema) {
+                tema.classList.remove("ativo");
+            });
+            detalheRiscosBiblioteca.classList.remove("risco-aberto");
+            listaTemasRiscos.style.display = "grid";
+            if (ultimoTemaRisco) {
+                ultimoTemaRisco.focus();
+            }
+        });
+    });
+
+    const detalheAjudaBiblioteca =
+        document.getElementById("biblioteca-ajuda");
+
+    const listaTemasAjuda =
+        document.getElementById("biblioteca-ajuda-lista");
+
+    const temasAjuda =
+        document.querySelectorAll("[data-ajuda-conteudo]");
+
+    let ultimoTemaAjuda = null;
+
+    document.querySelectorAll("[data-ajuda-topico]").forEach(function (botaoTema) {
+        botaoTema.addEventListener("click", function () {
+            const temaSelecionado = botaoTema.dataset.ajudaTopico;
+            const conteudoTema = document.querySelector(
+                '[data-ajuda-conteudo="' + temaSelecionado + '"]'
+            );
+
+            if (!conteudoTema || !listaTemasAjuda || !detalheAjudaBiblioteca) {
+                return;
+            }
+
+            ultimoTemaAjuda = botaoTema;
+            listaTemasAjuda.style.display = "none";
+            detalheAjudaBiblioteca.classList.add("ajuda-aberta");
+            temasAjuda.forEach(function (tema) {
+                tema.classList.toggle("ativo", tema === conteudoTema);
+            });
+
+            const tituloTema = conteudoTema.querySelector("h5");
+            if (tituloTema) {
+                tituloTema.focus();
+                tituloTema.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }
+        });
+    });
+
+    document.querySelectorAll(".biblioteca-ajuda-voltar").forEach(function (botaoVoltarTema) {
+        botaoVoltarTema.addEventListener("click", function () {
+            if (!listaTemasAjuda || !detalheAjudaBiblioteca) {
+                return;
+            }
+
+            temasAjuda.forEach(function (tema) {
+                tema.classList.remove("ativo");
+            });
+            detalheAjudaBiblioteca.classList.remove("ajuda-aberta");
+            listaTemasAjuda.style.display = "grid";
+            if (ultimoTemaAjuda) {
+                ultimoTemaAjuda.focus();
+            }
+        });
+    });
+
     // OPÇÕES DO MENU AJUDA
 
     const opcoesAjuda =
@@ -3954,6 +4951,7 @@
             const nomeAjuda =
                 opcao.dataset.ajuda;
 if (nomeAjuda === "violencia") {
+    esconderConteudosViolencia();
 
     const tipos =
         document.querySelectorAll("[data-tipo-violencia]");
@@ -4168,29 +5166,7 @@ botoesVoltar.forEach(function (botao) {
         ) {
 
             // Esconder todos os conteúdos das violências
-            const conteudosViolencia = [
-    document.getElementById("verbal-o-que-e"),
-    document.getElementById("verbal-como-se-cuidar"),
-    document.getElementById("digital-como-se-cuidar"),
-    document.getElementById("digital-o-que-e"),
-    document.getElementById("privacidade-o-que-e"),
-    document.getElementById("privacidade-como-se-cuidar"),
-    document.getElementById("aliciamento-o-que-e"),
-    document.getElementById("aliciamento-como-se-cuidar"),
-    document.getElementById("sexual-o-que-e"),
-    document.getElementById("sexual-como-se-cuidar"),
-    document.getElementById("chantagem-o-que-e"),          
-    document.getElementById("chantagem-como-se-cuidar"),
-    document.getElementById("nao-sei-o-que-e")
- ];
-            conteudosViolencia.forEach(function (conteudo) {
-
-                if (conteudo) {
-                    conteudo.style.display = "none";
-                    conteudo.classList.remove("ativo");
-                }
-
-            });
+            esconderConteudosViolencia();
 
             // Mostrar novamente os tipos de violência
             const tiposViolencia =
@@ -4252,6 +5228,8 @@ if (botaoMenuAjuda) {
         const conteudoDigital =
             document.getElementById("conteudo-violencia-digital");
 
+        esconderConteudosViolencia();
+
         // Esconder os conteúdos específicos
         if (conteudoDigital) {
 
@@ -4309,19 +5287,9 @@ const opcoesTipoViolencia =
 let tipoSelecionado = "";
 tiposViolencia.forEach(function (tipo) {
 
-    tipo.addEventListener("click", function () {
-tipoSelecionado = tipo.dataset.tipoViolencia;
- verbalOQueE.style.display = "none";
-verbalComoSeCuidar.style.display = "none";
-
-digitalOQueE.style.display = "none";
-digitalComoSeCuidar.style.display = "none";
-
-privacidadeOQueE.style.display = "none";
-aliciamentoOQueE.style.display = "none";
-sexualOQueE.style.display = "none";
-chantagemOQueE.style.display = "none";
-naoSeiOQueE.style.display = "none";              
+     tipo.addEventListener("click", function () {
+ tipoSelecionado = tipo.dataset.tipoViolencia;
+ esconderConteudosViolencia();
         
       // Esconder os cartões de tipos de violência
 
@@ -4349,9 +5317,9 @@ naoSeiOQueE.style.display = "none";
 
         if (evento.key === "Escape") {
 
-            modalInformar.classList.remove("ativo");
+            fecharModal(modalInformar);
 
-            modalAjuda.classList.remove("ativo");
+            fecharModal(modalAjuda);
 
             fecharTudo(modalInformar);
 
@@ -4366,6 +5334,16 @@ naoSeiOQueE.style.display = "none";
 
 // Selecionar as opções de orientação
 const subopcoes = document.querySelectorAll("[data-subopcao]");
+
+const orientacoesCanaisViolencia = {
+    verbal: "Você pode conversar com um adulto de confiança e pedir apoio à escola ou ao Conselho Tutelar. Se houver ameaça ou risco imediato, procure um local seguro e ligue 190.",
+    digital: "Além dos canais de proteção, denuncie o conteúdo ou perfil na própria plataforma. Guarde mensagens e registros somente se isso puder ser feito com segurança.",
+    privacidade: "Se fotos, vídeos ou dados pessoais foram expostos, denuncie o conteúdo à plataforma e peça ajuda a um adulto de confiança para buscar sua remoção. Guarde registros apenas se for seguro.",
+    aliciamento: "Conte o que aconteceu a um adulto de confiança que não esteja envolvido. O Conselho Tutelar, o Disque 100 e uma delegacia podem orientar e receber a comunicação.",
+    sexual: "Procure um adulto de confiança que não esteja envolvido e um serviço de saúde para receber acolhimento e cuidado. O Disque 100, o Conselho Tutelar e uma delegacia também podem orientar.",
+    chantagem: "Não envie novos conteúdos nem enfrente a pessoa sozinha. Procure um adulto de confiança e guarde mensagens ou registros apenas se isso não aumentar o risco.",
+    "nao-sei": "Mesmo sem saber como nomear o que aconteceu, você pode contar a um adulto de confiança e pedir orientação ao Disque 100, ao Conselho Tutelar ou a uma delegacia."
+};
 
 // Conteúdos das violências
 
@@ -4407,9 +5385,42 @@ const chantagemComoSeCuidar =
 
 const naoSeiOQueE =
     document.getElementById("nao-sei-o-que-e");
+
+const naoSeiComoSeCuidar =
+    document.getElementById("nao-sei-como-se-cuidar");
   
 const ajudaViolencia =
     document.getElementById("ajuda-violencia");
+
+const canaisViolencia =
+    document.getElementById("violencia-canais");
+
+const conteudosViolencia = [
+    verbalOQueE,
+    verbalComoSeCuidar,
+    digitalOQueE,
+    digitalComoSeCuidar,
+    privacidadeOQueE,
+    privacidadeComoSeCuidar,
+    aliciamentoOQueE,
+    aliciamentoComoSeCuidar,
+    sexualOQueE,
+    sexualComoSeCuidar,
+    chantagemOQueE,
+    chantagemComoSeCuidar,
+    naoSeiOQueE,
+    naoSeiComoSeCuidar,
+    canaisViolencia
+];
+
+function esconderConteudosViolencia() {
+    conteudosViolencia.forEach(function (conteudo) {
+        if (conteudo) {
+            conteudo.style.display = "none";
+            conteudo.classList.remove("ativo");
+        }
+    });
+}
 
 // Colocar os conteúdos dentro da área de violência
 
@@ -4472,6 +5483,10 @@ if (naoSeiOQueE) {
     ajudaViolencia.appendChild(naoSeiOQueE);
     naoSeiOQueE.style.display = "none";
 }
+if (naoSeiComoSeCuidar) {
+    ajudaViolencia.appendChild(naoSeiComoSeCuidar);
+    naoSeiComoSeCuidar.style.display = "none";
+}
 }
 
  
@@ -4509,7 +5524,8 @@ const conteudos = [
     sexualComoSeCuidar,
     chantagemOQueE,
     chantagemComoSeCuidar,
-    naoSeiOQueE
+    naoSeiOQueE,
+    canaisViolencia
 ];
 
 conteudos.forEach(function (conteudo) {
@@ -4617,6 +5633,28 @@ if (
     chantagemComoSeCuidar
 ) {
     chantagemComoSeCuidar.style.display = "block";
+}
+if (
+    tipoSelecionado === "nao-sei" &&
+    escolha === "cuidados" &&
+    naoSeiComoSeCuidar
+) {
+    naoSeiComoSeCuidar.style.display = "block";
+}
+if (escolha === "canais" && canaisViolencia) {
+    const orientacao = orientacoesCanaisViolencia[tipoSelecionado];
+    const tipoViolencia = document.querySelector(
+        '[data-tipo-violencia="' + tipoSelecionado + '"]'
+    );
+    const nomeTipoViolencia = tipoViolencia &&
+        tipoViolencia.querySelector("span:not(.icone):not(.seta)");
+    if (orientacao && nomeTipoViolencia) {
+        document.getElementById("violencia-canais-titulo").textContent =
+            "Canais de denúncia e proteção — " + nomeTipoViolencia.textContent.trim();
+        document.getElementById("violencia-canais-orientacao").textContent =
+            orientacao;
+        canaisViolencia.style.display = "block";
+    }
 }
     });
 
@@ -4888,6 +5926,568 @@ if (
                 if (event.key === "Escape" && widget.classList.contains("aberto")) {
                     closeChat();
                     openButton.focus();
+                }
+            });
+        })();
+    </script>
+
+    <script>
+        (function () {
+            const form = document.getElementById("formularioPesquisa");
+            const input = document.getElementById("entradaPesquisa");
+            const message = document.getElementById("mensagemPesquisa");
+            const results = document.getElementById("resultadosPesquisa");
+            const panel = document.getElementById("painelPesquisa");
+            const panelTitle = document.getElementById("pesquisa-titulo");
+            const closeSearch = document.getElementById("fecharPesquisa");
+            const catalog = [];
+            let activeResults = [];
+            let suppressFocusOpen = false;
+
+            function textOf(element, selector) {
+                const target = selector ? element.querySelector(selector) : element;
+                return target ? target.textContent.trim().replace(/\s+/g, " ") : "";
+            }
+
+            function addEntry(title, summary, content, route, terms) {
+                if (content) {
+                    catalog.push({
+                        title: title,
+                        summary: summary.length > 160
+                            ? summary.slice(0, 157).trimEnd() + "…"
+                            : summary,
+                        content: content,
+                        route: route,
+                        terms: terms || ""
+                    });
+                }
+            }
+
+            document.querySelectorAll(".biblioteca-card[data-biblioteca]").forEach(function (card) {
+                const key = card.dataset.biblioteca;
+                addEntry(
+                    textOf(card, "h4"),
+                    textOf(card, "p"),
+                    document.getElementById("biblioteca-" + key),
+                    { kind: "library", key: key },
+                    "Biblioteca Conecta informações orientação"
+                );
+            });
+
+            document.querySelectorAll("[data-seguranca-topico]").forEach(function (card) {
+                const key = card.dataset.segurancaTopico;
+                const topic = document.querySelector('[data-seguranca-conteudo="' + key + '"]');
+                addEntry(
+                    textOf(card, "h4"),
+                    textOf(card, "p") || textOf(topic, "p"),
+                    topic,
+                    { kind: "library-topic", key: key },
+                    "segurança digital privacidade proteção online"
+                );
+            });
+
+            document.querySelectorAll("[data-risco-topico]").forEach(function (card) {
+                const key = card.dataset.riscoTopico;
+                const topic = document.querySelector('[data-risco-conteudo="' + key + '"]');
+                const terms = {
+                    "violencia-digital": "violência agressão perseguição humilhação assédio online internet",
+                    ameacas: "ameaça intimidar medo mensagem comportamento perigo",
+                    chantagem: "chantagem pressão ameaça informação pessoal obrigar extorsão",
+                    manipulacao: "manipulação aliciamento ganhar confiança criança adolescente segredo grooming",
+                    privacidade: "violação privacidade exposição divulgação fotos vídeos dados pessoais imagem",
+                    cyberbullying: "cyberbullying humilhação perseguição insultos agressão repetida bullying",
+                    compartilhamento: "compartilhar conteúdo autorização consentimento fotos vídeos mensagens íntimas divulgação",
+                    "perfis-suspeitos": "perfil suspeito contato desconhecido segurança golpe link risco"
+                };
+                addEntry(
+                    textOf(card, "h4"),
+                    textOf(card, "p") || textOf(topic, "p"),
+                    topic,
+                    { kind: "risk-topic", key: key },
+                    terms[key] + " identificar sinais proteção buscar ajuda denúncia canais"
+                );
+            });
+
+            document.querySelectorAll("[data-ajuda-topico]").forEach(function (card) {
+                const key = card.dataset.ajudaTopico;
+                const topic = document.querySelector('[data-ajuda-conteudo="' + key + '"]');
+                const terms = {
+                    "conselho-tutelar": "conselho tutelar proteção criança adolescente direitos denúncia serviço municipal",
+                    "disque-100": "disque 100 telefone denunciar denúncia direitos humanos violência criança adolescente canal",
+                    emergencia: "polícia emergência perigo imediato risco agora 190 samu 192",
+                    delegacia: "delegacia polícia registrar ocorrência relatar violência ameaça",
+                    "escola-profissionais": "escola professor professora profissional orientação educacional psicólogo apoio confiança",
+                    "pessoa-confianca": "adulto pessoa confiança responsável familiar conversar contar ajuda apoio",
+                    "outros-canais": "safernet saúde unidade plataforma denunciar denúncia canal proteção"
+                };
+                addEntry(
+                    textOf(card, "h4"),
+                    textOf(card, "p"),
+                    topic,
+                    { kind: "help-topic", key: key },
+                    terms[key]
+                );
+            });
+
+            document.querySelectorAll("[data-direitos-topico]").forEach(function (card) {
+                const key = card.dataset.direitosTopico;
+                const topic = document.querySelector('[data-direitos-conteudo="' + key + '"]');
+                const terms = {
+                    protecao: "direito direitos proteção violência abuso exploração",
+                    privacidade: "direito direitos privacidade intimidade imagem dados pessoais",
+                    informacao: "direito direitos informação confiável conhecer",
+                    "ser-ouvido": "direito direitos ouvido escutado opinião relato acolhimento",
+                    seguranca: "direito direitos segurança internet proteção ameaças",
+                    ajuda: "direito direitos ajuda buscar proteção denúncia canais apoio"
+                };
+                addEntry(
+                    textOf(card, "h4"),
+                    textOf(card, "p"),
+                    topic,
+                    { kind: "rights-topic", key: key },
+                    terms[key]
+                );
+            });
+
+            const violenceTypes = {
+                verbal: "Violência verbal e psicológica",
+                digital: "Violência digital",
+                privacidade: "Violação de privacidade",
+                aliciamento: "Manipulação e aliciamento",
+                sexual: "Violência sexual",
+                chantagem: "Ameaças e chantagem",
+                "nao-sei": "Não sei identificar o que aconteceu"
+            };
+
+            const violenceChoices = [
+                { key: "o-que-e", label: "O que é essa violência?", suffix: "o-que-e" },
+                { key: "cuidados", label: "Como posso me cuidar?", suffix: "como-se-cuidar" },
+                { key: "canais", label: "Canais de denúncia e proteção", suffix: "canais" }
+            ];
+            const violenceTerms = {
+                verbal: "verbal psicológica humilhação insultos cyberbullying",
+                digital: "digital internet online redes sociais cyberbullying exposição",
+                privacidade: "privacidade dados fotos vídeos exposição indevida",
+                aliciamento: "manipulação aliciamento grooming pressão confiança",
+                sexual: "sexual abuso assédio consentimento proteção",
+                chantagem: "ameaças ameaça chantagem pressão extorsão",
+                "nao-sei": "dúvida identificar situação risco pressão medo"
+            };
+
+            Object.keys(violenceTypes).forEach(function (type) {
+                violenceChoices.forEach(function (choice) {
+                    const content = choice.key === "canais"
+                        ? document.getElementById("violencia-canais")
+                        : document.getElementById(type + "-" + choice.suffix);
+                    if (!content) {
+                        return;
+                    }
+                    const summary = choice.key === "canais"
+                        ? "Encontre canais de denúncia e proteção e orientações relacionadas a esta situação."
+                        : textOf(content, "p");
+                    addEntry(
+                        violenceTypes[type] + " — " + choice.label,
+                        summary,
+                        content,
+                        { kind: "violence", type: type, choice: choice.key },
+                        violenceTerms[type] + " " + (
+                            choice.key === "canais"
+                                ? "denúncia denunciar canais proteção conselho tutelar delegacia disque 100 emergência"
+                                : choice.key === "cuidados"
+                                    ? "cuidado segurança ajuda proteger"
+                                    : "definição reconhecer entender identificar"
+                        )
+                    );
+                });
+            });
+
+            const helpGroups = [
+                { selector: "#ajuda-orientacao [data-orientacao]", attribute: "orientacao", prefix: "orientacao-" },
+                { selector: "#ajuda-ajudar [data-ajuda-pessoa]", attribute: "ajudaPessoa", prefix: "ajuda-pessoa-" },
+                { selector: "#ajuda-rede [data-ajuda-rede]", attribute: "ajudaRede", prefix: "ajuda-rede-" }
+            ];
+
+            helpGroups.forEach(function (group) {
+                document.querySelectorAll(group.selector).forEach(function (button) {
+                    const key = button.dataset[group.attribute];
+                    const content = document.getElementById(group.prefix + key);
+                    const section = group.attribute === "orientacao"
+                        ? "orientacao"
+                        : group.attribute === "ajudaPessoa"
+                            ? "ajudar"
+                            : "rede";
+                    addEntry(
+                        textOf(button, "span:not(.icone):not(.seta)"),
+                        textOf(content, "p"),
+                        content,
+                        { kind: "help", section: section, button: button },
+                        section === "orientacao"
+                            ? "orientação apoio ajuda como buscar ajuda"
+                            : section === "ajudar"
+                                ? "ajudar apoio conversar acolher proteção"
+                                : "rede proteção denúncia denunciar canais ajuda"
+                    );
+                });
+            });
+
+            document.querySelectorAll(".informacao").forEach(function (content) {
+                if (catalog.some(function (entry) { return entry.content === content; })) {
+                    return;
+                }
+                const title = textOf(content, "h3") || textOf(content, "h4") || "Informação e apoio";
+                addEntry(
+                    title,
+                    textOf(content, "p"),
+                    content,
+                    { kind: "content" },
+                    "informação conteúdo apoio orientação proteção"
+                );
+            });
+
+            const synonymGroups = [
+                ["denunciar", "denuncia", "denuncias", "denuncie", "denunciado", "reportar", "relatar"],
+                ["ajuda", "ajudar", "apoio", "socorro", "buscar", "recorrer", "orientacao"],
+                ["ameaca", "ameacas", "chantagem", "pressionar", "pressao", "extorsao"],
+                ["privacidade", "privado", "privada", "dados", "exposicao", "exposto"],
+                ["digital", "internet", "online", "rede", "redes", "plataforma"],
+                ["direito", "direitos", "lei", "protecao"],
+                ["aliciamento", "manipulacao", "manipular", "manipulado"],
+                ["seguranca", "seguro", "proteger", "protecao"]
+            ];
+
+            function normalize(value) {
+                return value.toLowerCase()
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .replace(/[^a-z0-9\s]/g, " ")
+                    .replace(/\s+/g, " ")
+                    .trim();
+            }
+
+            function termsFor(token) {
+                const group = synonymGroups.find(function (synonyms) {
+                    return synonyms.includes(token);
+                });
+                return group || [token];
+            }
+
+            function matchesWord(words, variants) {
+                return variants.some(function (variant) {
+                    return words.some(function (word) {
+                        return word.startsWith(variant);
+                    });
+                });
+            }
+
+            function search(query) {
+                const normalizedQuery = normalize(query);
+                const tokens = normalizedQuery.split(" ").filter(function (token) {
+                    return token && !["como", "que", "uma", "um", "de", "do", "da", "dos", "das", "no", "na", "nos", "nas", "em", "com", "e", "o", "a", "os", "as", "para", "por", "me", "se"].includes(token);
+                });
+                return catalog.map(function (entry) {
+                    const title = normalize(entry.title);
+                    const summary = normalize(entry.summary);
+                    const terms = normalize(entry.terms);
+                    const body = normalize(textOf(entry.content));
+                    const titleWords = title.split(" ");
+                    const summaryWords = summary.split(" ");
+                    const termWords = terms.split(" ");
+                    const bodyWords = body.split(" ");
+                    const allText = " " + [title, summary, terms, body].join(" ") + " ";
+                    let score = normalizedQuery && allText.includes(" " + normalizedQuery + " ") ? 5 : 0;
+
+                    tokens.forEach(function (token) {
+                        const variants = termsFor(token);
+                        if (matchesWord(titleWords, variants)) {
+                            score += 5;
+                        } else if (matchesWord(termWords, variants)) {
+                            score += 3;
+                        } else if (matchesWord(summaryWords, variants)) {
+                            score += 2;
+                        } else if (matchesWord(bodyWords, variants)) {
+                            score += 1;
+                        }
+                    });
+
+                    return { entry: entry, score: score };
+                }).filter(function (result) {
+                    return result.score > 0;
+                }).sort(function (left, right) {
+                    return right.score - left.score;
+                }).map(function (result) {
+                    return result.entry;
+                });
+            }
+
+            function renderResults(entries) {
+                results.replaceChildren();
+                entries.forEach(function (entry, index) {
+                    const card = document.createElement("article");
+                    const details = document.createElement("div");
+                    const title = document.createElement("h3");
+                    const summary = document.createElement("p");
+                    const button = document.createElement("button");
+
+                    card.className = "pesquisa-resultado";
+                    title.textContent = entry.title;
+                    summary.textContent = entry.summary || "Abra este conteúdo para consultar as orientações disponíveis.";
+                    button.type = "button";
+                    button.textContent = "Ver conteúdo";
+                    button.dataset.resultadoPesquisa = String(index);
+                    details.append(title, summary);
+                    card.append(details, button);
+                    results.appendChild(card);
+                });
+            }
+
+            function updateSearchResults(showEmptyPrompt) {
+                panelTitle.textContent = "Encontre informações e caminhos de apoio";
+                if (!input.value.trim()) {
+                    activeResults = [];
+                    results.replaceChildren();
+                    results.hidden = true;
+                    message.textContent = showEmptyPrompt
+                        ? "Digite o que você está procurando."
+                        : "";
+                    message.hidden = !showEmptyPrompt;
+                    return;
+                }
+
+                activeResults = search(input.value);
+                renderResults(activeResults);
+                results.hidden = activeResults.length === 0;
+                message.hidden = false;
+                message.textContent = activeResults.length
+                    ? "Encontramos " + activeResults.length + (activeResults.length === 1 ? " conteúdo relacionado." : " conteúdos relacionados.")
+                    : "Não encontramos um conteúdo relacionado à sua pesquisa. Tente pesquisar por outro termo.";
+            }
+
+            function showEntry(entry) {
+                const isSecurityTopic = entry.route.kind === "library-topic";
+                const isRightsTopic = entry.route.kind === "rights-topic";
+                const isRiskTopic = entry.route.kind === "risk-topic";
+                const isHelpTopic = entry.route.kind === "help-topic";
+                const article = isSecurityTopic
+                    ? document.getElementById("biblioteca-seguranca")
+                    : isRightsTopic
+                        ? document.getElementById("biblioteca-direitos")
+                        : isRiskTopic
+                            ? document.getElementById("biblioteca-riscos")
+                            : isHelpTopic
+                                ? document.getElementById("biblioteca-ajuda")
+                            : entry.content;
+                const clone = article.cloneNode(true);
+                if (entry.route.kind === "library") {
+                    clone.classList.add("pesquisa-categoria-aberta");
+                    const topicGroups = {
+                        seguranca: {
+                            selector: "[data-seguranca-topico]",
+                            dataset: "segurancaTopico",
+                            kind: "library-topic"
+                        },
+                        direitos: {
+                            selector: "[data-direitos-topico]",
+                            dataset: "direitosTopico",
+                            kind: "rights-topic"
+                        },
+                        riscos: {
+                            selector: "[data-risco-topico]",
+                            dataset: "riscoTopico",
+                            kind: "risk-topic"
+                        },
+                        ajuda: {
+                            selector: "[data-ajuda-topico]",
+                            dataset: "ajudaTopico",
+                            kind: "help-topic"
+                        }
+                    };
+                    const topicGroup = topicGroups[entry.route.key];
+                    if (topicGroup) {
+                        clone.querySelectorAll(topicGroup.selector).forEach(function (card) {
+                            card.addEventListener("click", function () {
+                                const topicEntry = catalog.find(function (item) {
+                                    return item.route.kind === topicGroup.kind &&
+                                        item.route.key === card.dataset[topicGroup.dataset];
+                                });
+                                if (topicEntry) {
+                                    showEntry(topicEntry);
+                                }
+                            });
+                        });
+                    }
+                }
+                if (isRightsTopic) {
+                    const rightsList = clone.querySelector(".biblioteca-direitos-grid");
+                    if (rightsList) {
+                        rightsList.style.display = "none";
+                    }
+                    clone.classList.add("direito-aberto");
+                    clone.querySelectorAll("[data-direitos-conteudo]").forEach(function (topic) {
+                        topic.classList.toggle("ativo", topic.dataset.direitosConteudo === entry.route.key);
+                    });
+                }
+                if (isRiskTopic) {
+                    const risksList = clone.querySelector(".biblioteca-risco-grid");
+                    if (risksList) {
+                        risksList.style.display = "none";
+                    }
+                    clone.classList.add("risco-aberto");
+                    clone.querySelectorAll("[data-risco-conteudo]").forEach(function (topic) {
+                        topic.classList.toggle("ativo", topic.dataset.riscoConteudo === entry.route.key);
+                    });
+                }
+                if (isHelpTopic) {
+                    const helpList = clone.querySelector(".biblioteca-ajuda-grid");
+                    if (helpList) {
+                        helpList.style.display = "none";
+                    }
+                    clone.classList.add("ajuda-aberta");
+                    clone.querySelectorAll("[data-ajuda-conteudo]").forEach(function (topic) {
+                        topic.classList.toggle("ativo", topic.dataset.ajudaConteudo === entry.route.key);
+                    });
+                }
+                const clonedElements = [clone].concat(Array.from(clone.querySelectorAll("*")));
+                const idMap = new Map();
+                clone.classList.add("ativo");
+
+                clonedElements.forEach(function (element) {
+                    if (element.id) {
+                        idMap.set(element.id, "pesquisa-" + element.id);
+                        element.id = "pesquisa-" + element.id;
+                    }
+                });
+                clonedElements.forEach(function (element) {
+                    ["aria-labelledby", "aria-describedby", "for"].forEach(function (attribute) {
+                        const value = element.getAttribute(attribute);
+                        if (value) {
+                            element.setAttribute(attribute, value.split(/\s+/).map(function (id) {
+                                return idMap.get(id) || id;
+                            }).join(" "));
+                        }
+                    });
+                });
+
+                if (isSecurityTopic) {
+                    clone.classList.add("tema-aberto");
+                    const list = clone.querySelector(".biblioteca-seguranca-grid");
+                    if (list) {
+                        list.style.display = "none";
+                    }
+                    clone.querySelectorAll("[data-seguranca-conteudo]").forEach(function (topic) {
+                        topic.classList.toggle(
+                            "ativo",
+                            topic.dataset.segurancaConteudo === entry.route.key
+                        );
+                    });
+                }
+
+                if (entry.route.kind === "violence" && entry.route.choice === "canais") {
+                    const typeNames = {
+                        verbal: "Violência verbal e psicológica",
+                        digital: "Violência digital",
+                        privacidade: "Violação de privacidade",
+                        aliciamento: "Manipulação e aliciamento",
+                        sexual: "Violência sexual",
+                        chantagem: "Ameaças e chantagem",
+                        "nao-sei": "Não sei identificar o que aconteceu"
+                    };
+                    const guidance = {
+                        verbal: "Você pode conversar com um adulto de confiança e pedir apoio à escola ou ao Conselho Tutelar. Se houver ameaça ou risco imediato, procure um local seguro e ligue 190.",
+                        digital: "Além dos canais de proteção, denuncie o conteúdo ou perfil na própria plataforma. Guarde mensagens e registros somente se isso puder ser feito com segurança.",
+                        privacidade: "Se fotos, vídeos ou dados pessoais foram expostos, denuncie o conteúdo à plataforma e peça ajuda a um adulto de confiança para buscar sua remoção. Guarde registros apenas se for seguro.",
+                        aliciamento: "Conte o que aconteceu a um adulto de confiança que não esteja envolvido. O Conselho Tutelar, o Disque 100 e uma delegacia podem orientar e receber a comunicação.",
+                        sexual: "Procure um adulto de confiança que não esteja envolvido e um serviço de saúde para receber acolhimento e cuidado. O Disque 100, o Conselho Tutelar e uma delegacia também podem orientar.",
+                        chantagem: "Não envie novos conteúdos nem enfrente a pessoa sozinha. Procure um adulto de confiança e guarde mensagens ou registros apenas se isso não aumentar o risco.",
+                        "nao-sei": "Mesmo sem saber como nomear o que aconteceu, você pode contar a um adulto de confiança e pedir orientação ao Disque 100, ao Conselho Tutelar ou a uma delegacia."
+                    };
+                    const channelTitle = clone.querySelector("#pesquisa-violencia-canais-titulo");
+                    const channelGuidance = clone.querySelector("#pesquisa-violencia-canais-orientacao");
+                    if (channelTitle) {
+                        channelTitle.textContent = "Canais de denúncia e proteção — " + typeNames[entry.route.type];
+                    }
+                    if (channelGuidance) {
+                        channelGuidance.textContent = guidance[entry.route.type];
+                    }
+                }
+
+                clone.classList.add("ativo");
+                clone.style.display = "block";
+                clone.querySelectorAll(".voltar, .biblioteca-voltar, .biblioteca-seguranca-voltar, .biblioteca-direitos-voltar, .biblioteca-risco-voltar, .biblioteca-ajuda-voltar").forEach(function (button) {
+                    button.remove();
+                });
+                const view = document.createElement("article");
+                const back = document.createElement("button");
+                view.className = "pesquisa-visualizacao";
+                back.type = "button";
+                back.className = "pesquisa-voltar";
+                back.textContent = "← Voltar aos resultados";
+                back.addEventListener("click", showResults);
+                view.append(back, clone);
+
+                results.replaceChildren(view);
+                panelTitle.textContent = entry.title;
+                message.hidden = true;
+                view.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }
+
+            function showResults() {
+                panelTitle.textContent = "Encontre informações e caminhos de apoio";
+                message.hidden = false;
+                renderResults(activeResults);
+                results.hidden = activeResults.length === 0;
+                results.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }
+
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+                panel.classList.add("aberto");
+                updateSearchResults(true);
+            });
+
+            results.addEventListener("click", function (event) {
+                const button = event.target.closest("[data-resultado-pesquisa]");
+                if (!button) {
+                    return;
+                }
+                const entry = activeResults[Number(button.dataset.resultadoPesquisa)];
+                if (!entry) {
+                    return;
+                }
+                showEntry(entry);
+            });
+
+            input.addEventListener("focus", function () {
+                if (!suppressFocusOpen) {
+                    panel.classList.add("aberto");
+                }
+            });
+
+            input.addEventListener("input", function () {
+                panel.classList.add("aberto");
+                updateSearchResults(false);
+            });
+
+            function closeSearchPanel() {
+                panel.classList.remove("aberto");
+                suppressFocusOpen = true;
+                input.focus();
+                suppressFocusOpen = false;
+            }
+
+            closeSearch.addEventListener("click", closeSearchPanel);
+            document.addEventListener("pointerdown", function (event) {
+                if (!panel.contains(event.target) && !event.target.closest(".pesquisa-topo")) {
+                    panel.classList.remove("aberto");
+                }
+            });
+
+            document.addEventListener("keydown", function (event) {
+                if (event.key === "Escape" && panel.classList.contains("aberto")) {
+                    if (results.firstElementChild && results.firstElementChild.classList.contains("pesquisa-visualizacao")) {
+                        showResults();
+                    } else {
+                        closeSearchPanel();
+                    }
                 }
             });
         })();
